@@ -1,0 +1,38 @@
+{
+    "sourceFile": "database/seeds/supplierproductseeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1630595967222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630595982252,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $mysupplier = $supplier;\n+        $mysupplier = $supplier_product;\n         DB::table('supplier')->delete();\n         foreach($mysupplier as $ms){\n             Supplier::create($ms);\n         }\n"
+                },
+                {
+                    "date": 1630595990422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,11 +11,11 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $mysupplier = $supplier_product;\n+        $mysupplierproduct = $supplier_product;\n         DB::table('supplier')->delete();\n-        foreach($mysupplier as $ms){\n-            Supplier::create($ms);\n+        foreach($mysupplierproduct as $msp){\n+            Supplier::create($msp);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1630595998383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n+use App\\Models\\Supplier;\n \n class supplierproductseeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1630596003512,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n-use App\\Models\\Supplier;\n+use App\\Models\\SupplierProduct;\n \n class supplierproductseeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1630596011513,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,10 @@\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $mysupplierproduct = $supplier_product;\n-        DB::table('supplier')->delete();\n+        DB::table('supplier_product')->delete();\n         foreach($mysupplierproduct as $msp){\n-            Supplier::create($msp);\n+            SupplierProduct::create($msp);\n         }\n     }\n }\n"
+                }
+            ],
+            "date": 1630595967222,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass supplierproductseeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        include base_path().'/database/seeds/sumberbaru.php';\n        $mysupplier = $supplier;\n        DB::table('supplier')->delete();\n        foreach($mysupplier as $ms){\n            Supplier::create($ms);\n        }\n    }\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,66 @@
+{
+    "sourceFile": "database/migrations/2021_09_04_000501_supplierproductlog.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 12,
+            "patches": [
+                {
+                    "date": 1630713915552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630714065059,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n             $table->integer('idsupplier')->unsigned();\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n+            $table->integer(\"price\")->->default('1');\n             $table->string('status')->nullable();\n             $table->timestamps();\n             $table->unique([\n                 'idsupplier',\n"
+                },
+                {
+                    "date": 1630714074158,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n             $table->integer('idsupplier')->unsigned();\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n-            $table->integer(\"price\")->->default('1');\n+            $table->integer(\"price\")->default('0');\n             $table->string('status')->nullable();\n             $table->timestamps();\n             $table->unique([\n                 'idsupplier',\n"
+                },
+                {
+                    "date": 1630714184106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,10 @@\n      */\n     public function up()\n     {\n         $table->increments(\"id\");\n-            $table->integer('idsupplier')->unsigned();\n-            $table->foreign('idsupplier')->references('id')->on('supplier');\n+            $table->integer('idsupplierproduct')->unsigned();\n+            $table->foreign('idsupplierproduct')->references('id')->on('supplier');\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer(\"price\")->default('0');\n             $table->string('status')->nullable();\n"
+                },
+                {
+                    "date": 1630714191322,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n-            $table->foreign('idsupplierproduct')->references('id')->on('supplier');\n+            $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer(\"price\")->default('0');\n             $table->string('status')->nullable();\n"
+                },
+                {
+                    "date": 1630714196479,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,8 @@\n     {\n         $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n-            $table->integer('idproduct')->unsigned();\n-            $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer(\"price\")->default('0');\n             $table->string('status')->nullable();\n             $table->timestamps();\n             $table->unique([\n"
+                },
+                {
+                    "date": 1630714201536,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,8 @@\n     {\n         $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n-            $table->integer(\"price\")->default('0');\n-            $table->string('status')->nullable();\n             $table->timestamps();\n             $table->unique([\n                 'idsupplier',\n                 'idproduct'\n"
+                },
+                {
+                    "date": 1630714209741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,12 +16,9 @@\n         $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n             $table->timestamps();\n-            $table->unique([\n-                'idsupplier',\n-                'idproduct'\n-            ]);\n+       \n     }\n \n     /**\n      * Reverse the migrations.\n"
+                },
+                {
+                    "date": 1630714276708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,9 @@\n     {\n         $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n+            $table->integer('idsupplierproduct')->unsigned();\n             $table->timestamps();\n        \n     }\n \n"
+                },
+                {
+                    "date": 1630714296395,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n-            $table->integer('idsupplierproduct')->unsigned();\n+            $table->integer('price')->default(\"0\");\n             $table->timestamps();\n        \n     }\n \n"
+                },
+                {
+                    "date": 1630714351816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return void\n      */\n     public function up()\n     {\n-        $table->increments(\"id\");\n+         $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n             $table->integer('price')->default(\"0\");\n             $table->timestamps();\n"
+                },
+                {
+                    "date": 1630714363958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,13 +12,17 @@\n      * @return void\n      */\n     public function up()\n     {\n-         $table->increments(\"id\");\n+\n+        Schema::create('supplier_product', function (Blueprint $table) {\n+            $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n             $table->integer('price')->default(\"0\");\n             $table->timestamps();\n+        });\n+  \n        \n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630714369095,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      */\n     public function up()\n     {\n \n-        Schema::create('supplier_product', function (Blueprint $table) {\n+        Schema::create('supplier_product_log', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n             $table->integer('price')->default(\"0\");\n"
+                }
+            ],
+            "date": 1630713915552,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass Supplierproductlog extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        $table->increments(\"id\");\n            $table->integer('idsupplier')->unsigned();\n            $table->foreign('idsupplier')->references('id')->on('supplier');\n            $table->integer('idproduct')->unsigned();\n            $table->foreign('idproduct')->references('id')->on('product');\n            $table->string('status')->nullable();\n            $table->timestamps();\n            $table->unique([\n                'idsupplier',\n                'idproduct'\n            ]);\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,86 @@
+{
+    "sourceFile": "database/migrations/2021_08_29_023751_product_migration.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 17,
+            "patches": [
+                {
+                    "date": 1630204738339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630204850178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,13 @@\n      * @return void\n      */\n     public function up()\n     {\n-        //\n+        Schema::create('appraisal', function (Blueprint $table) {\n+            $table->id(\"id\");\n+            $table->string('name');\n+            $table->timestamps();\n+        });\n     }\n \n     /**\n      * Reverse the migrations.\n"
+                },
+                {
+                    "date": 1630204895375,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,7 +26,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        //\n+        Schema::drop('flights');\n     }\n }\n"
+                },
+                {
+                    "date": 1630205003896,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::create('appraisal', function (Blueprint $table) {\n+        Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630205017063,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,7 +26,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        Schema::drop('flights');\n+        Schema::drop('product');\n     }\n }\n"
+                },
+                {
+                    "date": 1630205346131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,11 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n+            $table->string('name');\n+            $table->string('name');\n+            \n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630205355297,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,11 +15,11 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n-            $table->string('name');\n-            $table->string('name');\n-            \n+            $table->string('harga1');\n+            $table->string('harga2');\n+            $table->string('harga3');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630205995041,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n-            $table->string('harga1');\n+            $table->Int('harga1');\n             $table->string('harga2');\n             $table->string('harga3');\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630206000493,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,10 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n-            $table->Int('harga1');\n-            $table->string('harga2');\n+            $table->int('harga1');\n+            $table->int('harga2');\n             $table->string('harga3');\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1630206007213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n             $table->id(\"id\");\n             $table->string('name');\n             $table->int('harga1');\n             $table->int('harga2');\n-            $table->string('harga3');\n+            $table->int('harga3')->nullable();\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630206012751,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,10 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n-            $table->int('harga1');\n-            $table->int('harga2');\n+            $table->int('harga1')->nullable();\n+            $table->int('harga2')->nullable();\n             $table->int('harga3')->nullable();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1630206051487,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n-            $table->int('harga1')->nullable();\n+            $table->Int('harga1')->nullable();\n             $table->int('harga2')->nullable();\n             $table->int('harga3')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630206063511,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,10 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n-            $table->Int('harga1')->nullable();\n-            $table->int('harga2')->nullable();\n+            $table->Integer('harga1')->nullable();\n+            $table->Integer('harga2')->nullable();\n             $table->int('harga3')->nullable();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1630206586617,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,11 +15,12 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n+            $table->string('name');\n             $table->Integer('harga1')->nullable();\n             $table->Integer('harga2')->nullable();\n-            $table->int('harga3')->nullable();\n+            $table->Integer('harga3')->nullable();\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630206591718,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n-            $table->string('name');\n+            $table->string('kode');\n             $table->Integer('harga1')->nullable();\n             $table->Integer('harga2')->nullable();\n             $table->Integer('harga3')->nullable();\n             $table->timestamps();\n"
+                },
+                {
+                    "date": 1630206604056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n-            $table->string('kode');\n+            $table->string('kode')->nullable();\n             $table->Integer('harga1')->nullable();\n             $table->Integer('harga2')->nullable();\n             $table->Integer('harga3')->nullable();\n             $table->timestamps();\n"
+                },
+                {
+                    "date": 1630424953217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      */\n     public function up()\n     {\n         Schema::create('product', function (Blueprint $table) {\n-            $table->id(\"id\");\n+            $table->increments(\"id\");\n             $table->string('name');\n             $table->string('kode')->nullable();\n             $table->Integer('harga1')->nullable();\n             $table->Integer('harga2')->nullable();\n"
+                },
+                {
+                    "date": 1630818387527,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,9 @@\n     {\n         Schema::create('product', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->string('name');\n+            $table->Integer('stok')->nullable();\n             $table->string('kode')->nullable();\n             $table->Integer('harga1')->nullable();\n             $table->Integer('harga2')->nullable();\n             $table->Integer('harga3')->nullable();\n"
+                }
+            ],
+            "date": 1630204738339,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass ProductMigration extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        //\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

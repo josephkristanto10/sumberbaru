@@ -1,0 +1,138 @@
+{
+    "sourceFile": "database/migrations/2021_08_31_154231_supplierproduct.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 30,
+            "patches": [
+                {
+                    "date": 1630424562619,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630424587887,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::create('supplier', function (Blueprint $table) {\n+        Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n             $table->string('phone');\n             $table->string('address');\n"
+                },
+                {
+                    "date": 1630424593605,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n-            $table->string('name');\n+            $table->string('idsupplier');\n             $table->string('phone');\n             $table->string('address');\n             $table->string('status')->nullable();\n             $table->timestamps();\n"
+                },
+                {
+                    "date": 1630424667010,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n+            $table->foreign('user_id')->references('id')->on('users')\n             $table->string('idsupplier');\n             $table->string('phone');\n             $table->string('address');\n             $table->string('status')->nullable();\n"
+                },
+                {
+                    "date": 1630424682154,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n-            $table->foreign('user_id')->references('id')->on('users')\n+            $table->foreign('user_id')->references('id')->on('supplier')\n             $table->string('idsupplier');\n             $table->string('phone');\n             $table->string('address');\n             $table->string('status')->nullable();\n"
+                },
+                {
+                    "date": 1630424697260,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n-            $table->foreign('user_id')->references('id')->on('supplier')\n-            $table->string('idsupplier');\n+            $table->foreign('user_id')->references('id')->on('supplier');\n             $table->string('phone');\n             $table->string('address');\n             $table->string('status')->nullable();\n             $table->timestamps();\n"
+                },
+                {
+                    "date": 1630424708108,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n+            $table->string('phone');\n             $table->foreign('user_id')->references('id')->on('supplier');\n             $table->string('phone');\n             $table->string('address');\n             $table->string('status')->nullable();\n"
+                },
+                {
+                    "date": 1630424714552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n-            $table->string('phone');\n+            $table->int('phone');\n             $table->foreign('user_id')->references('id')->on('supplier');\n             $table->string('phone');\n             $table->string('address');\n             $table->string('status')->nullable();\n"
+                },
+                {
+                    "date": 1630424720243,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->int('phone');\n-            $table->foreign('user_id')->references('id')->on('supplier');\n+            $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('phone');\n             $table->string('address');\n             $table->string('status')->nullable();\n             $table->timestamps();\n"
+                },
+                {
+                    "date": 1630424727320,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,12 +14,10 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n-            $table->int('phone');\n+            $table->int('idsupplier');\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n-            $table->string('phone');\n-            $table->string('address');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1630424739564,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n-            $table->int('idsupplier');\n+            $table->integer('idsupplier');\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630424763149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n-            $table->integer('idsupplier');\n+            $table->Biginteger('idsupplier');\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630424808471,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n-            $table->Biginteger('idsupplier');\n+            $table->bigInteger('idsupplier');\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630424858243,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,8 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n-            $table->bigInteger('idsupplier');\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630424941618,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->id(\"id\");\n+            $table->integer('product_id');\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630424950676,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,10 @@\n      */\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n-            $table->id(\"id\");\n-            $table->integer('product_id');\n+            $table->increments(\"id\");\n+            $table->integer('idsupplier');\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630424980300,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('idsupplier');\n-            $table->foreign('idsupplier')->references('id')->on('supplier');\n+            // $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1630425011186,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,7 +28,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        //\n+        Schema::drop('supplier');\n     }\n }\n"
+                },
+                {
+                    "date": 1630425027922,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('idsupplier');\n-            // $table->foreign('idsupplier')->references('id')->on('supplier');\n+            $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n     }\n@@ -28,7 +28,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        Schema::drop('supplier');\n+        Schema::drop('supplier_product');\n     }\n }\n"
+                },
+                {
+                    "date": 1630425091902,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('idsupplier');\n+            $table->integer('idsupplier',11);\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630425105117,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('idsupplier',11);\n+            $table->integer('idsupplier',10);\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630425119342,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('idsupplier',10);\n+            $table->integer('idsupplier');\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630425153221,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('idsupplier');\n+            $table->integer('idsupplier')->unsigned();\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630593239644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,10 @@\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('idsupplier')->unsigned();\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n+            $table->integer('idsupplier')->unsigned();\n+            $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1630593252039,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,10 +16,10 @@\n         Schema::create('supplier_product', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('idsupplier')->unsigned();\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n-            $table->integer('idsupplier')->unsigned();\n-            $table->foreign('idsupplier')->references('id')->on('supplier');\n+            $table->integer('idproduct')->unsigned();\n+            $table->foreign('idproduct')->references('id')->on('supplier');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1630593264337,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n             $table->increments(\"id\");\n             $table->integer('idsupplier')->unsigned();\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->integer('idproduct')->unsigned();\n-            $table->foreign('idproduct')->references('id')->on('supplier');\n+            $table->foreign('idproduct')->references('id')->on('product');\n             $table->string('status')->nullable();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1630594396820,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,15 @@\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->string('status')->nullable();\n             $table->timestamps();\n+            $table->unique([\n+                'system',\n+                'code',\n+                'city',\n+                'seat',\n+                'type'\n+            ], 'PrimaryPayment');\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630594403455,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,10 +21,10 @@\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->string('status')->nullable();\n             $table->timestamps();\n             $table->unique([\n-                'system',\n-                'code',\n+                'idsupplier',\n+                'idproduct',\n                 'city',\n                 'seat',\n                 'type'\n             ], 'PrimaryPayment');\n"
+                },
+                {
+                    "date": 1630594422339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,12 +22,9 @@\n             $table->string('status')->nullable();\n             $table->timestamps();\n             $table->unique([\n                 'idsupplier',\n-                'idproduct',\n-                'city',\n-                'seat',\n-                'type'\n+                'idproduct'\n             ], 'PrimaryPayment');\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630594427458,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n             $table->timestamps();\n             $table->unique([\n                 'idsupplier',\n                 'idproduct'\n-            ], 'PrimaryPayment');\n+            ]);\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630714315512,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n             $table->integer('idsupplier')->unsigned();\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n+            $table->integer('price')->default(\"0\");\n             $table->string('status')->nullable();\n             $table->timestamps();\n             $table->unique([\n                 'idsupplier',\n"
+                }
+            ],
+            "date": 1630424562619,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass Supplierproduct extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('supplier', function (Blueprint $table) {\n            $table->id(\"id\");\n            $table->string('name');\n            $table->string('phone');\n            $table->string('address');\n            $table->string('status')->nullable();\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

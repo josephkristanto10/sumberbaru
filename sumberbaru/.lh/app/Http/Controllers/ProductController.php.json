@@ -1,0 +1,838 @@
+{
+    "sourceFile": "app/Http/Controllers/ProductController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 205,
+            "patches": [
+                {
+                    "date": 1630203560740,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630203566358,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        //\n+        return view('');\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630203579201,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        return view('');\n+        return view('daftar_barag');\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630206282445,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        return view('daftar_barag');\n+        return view('daftar_barang');\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630206288806,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n+        \n         return view('daftar_barang');\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630206294051,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        \n+        $myproduct = \n         return view('daftar_barang');\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630206305755,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n \n namespace App\\Http\\Controllers;\n \n use Illuminate\\Http\\Request;\n+use App\\Models\\Product;\n \n class ProductController extends Controller\n {\n     /**\n"
+                },
+                {
+                    "date": 1630206311171,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        $myproduct = \n+        $myproduct = Product::;\n         return view('daftar_barang');\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630206322075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        $myproduct = Product::;\n-        return view('daftar_barang');\n+        $myproduct = Product::all();\n+        return view('daftar_barang', compact());\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630206327208,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $myproduct = Product::all();\n-        return view('daftar_barang', compact());\n+        return view('daftar_barang', compact('myproduct'));\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630207531830,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,29 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        $myproduct = Product::all();\n+        $data = User::select('*');\n+\n+        return Datatables::of($data)\n+\n+                ->addIndexColumn()\n+\n+                ->addColumn('action', function($row){\n+\n+ \n+\n+                       $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n+\n+   \n+\n+                        return $btn;\n+\n+                })\n+\n+                ->rawColumns(['action'])\n+\n+                ->make(true);\n         return view('daftar_barang', compact('myproduct'));\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630207550871,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,29 +13,33 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        $data = User::select('*');\n+        if ($request->ajax()) {\n \n-        return Datatables::of($data)\n+            $data = User::select('*');\n \n-                ->addIndexColumn()\n+            return Datatables::of($data)\n \n-                ->addColumn('action', function($row){\n+                    ->addIndexColumn()\n \n- \n+                    ->addColumn('action', function($row){\n \n-                       $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n+     \n \n-   \n+                           $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n \n-                        return $btn;\n+       \n \n-                })\n+                            return $btn;\n \n-                ->rawColumns(['action'])\n+                    })\n \n-                ->make(true);\n+                    ->rawColumns(['action'])\n+\n+                    ->make(true);\n+\n+        }\n         return view('daftar_barang', compact('myproduct'));\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630207560011,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     public function index()\n     {\n         if ($request->ajax()) {\n \n-            $data = User::select('*');\n+            $data = Product::select('*');\n \n             return Datatables::of($data)\n \n                     ->addIndexColumn()\n"
+                },
+                {
+                    "date": 1630207702159,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      * Display a listing of the resource.\n      *\n      * @return \\Illuminate\\Http\\Response\n      */\n-    public function index()\n+    public function index(Request $request)\n     {\n         if ($request->ajax()) {\n \n             $data = Product::select('*');\n"
+                },
+                {
+                    "date": 1630207862087,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,13 +20,56 @@\n \n             return Datatables::of($data)\n \n                     ->addIndexColumn()\n+                    ->addColumn('action', function($row){\n \n+     \n+\n+                        $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n+\n+    \n+\n+                         return $btn;\n+\n+                 })\n+                 ->addColumn('action', function($row){\n+\n+     \n+\n+                    $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n+\n+\n+\n+                     return $btn;\n+\n+             })\n+             ->addColumn('action', function($row){\n+\n+     \n+\n+                $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n+\n+\n+\n+                 return $btn;\n+\n+         })\n                     ->addColumn('action', function($row){\n \n      \n \n+                        $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n+\n+    \n+\n+                         return $btn;\n+\n+                 })\n+                    ->addColumn('action', function($row){\n+\n+     \n+\n                            $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n \n        \n \n"
+                },
+                {
+                    "date": 1630207877583,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n \n             return Datatables::of($data)\n \n                     ->addIndexColumn()\n-                    ->addColumn('action', function($row){\n+                    ->addColumn('id', function($row){\n \n      \n \n                         $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n"
+                },
+                {
+                    "date": 1630207883747,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,9 @@\n \n                          return $btn;\n \n                  })\n-                 ->addColumn('action', function($row){\n+                 ->addColumn('name', function($row){\n \n      \n \n                     $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n"
+                },
+                {
+                    "date": 1630207889003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n \n                      return $btn;\n \n              })\n-             ->addColumn('action', function($row){\n+             ->addColumn('harga1', function($row){\n \n      \n \n                 $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n"
+                },
+                {
+                    "date": 1630207895161,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,9 +53,9 @@\n \n                  return $btn;\n \n          })\n-                    ->addColumn('action', function($row){\n+                    ->addColumn('harga2', function($row){\n \n      \n \n                         $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n"
+                },
+                {
+                    "date": 1630207900606,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n \n                          return $btn;\n \n                  })\n-                    ->addColumn('action', function($row){\n+                    ->addColumn('harga3', function($row){\n \n      \n \n                            $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n"
+                },
+                {
+                    "date": 1630207911768,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,56 +20,13 @@\n \n             return Datatables::of($data)\n \n                     ->addIndexColumn()\n-                    ->addColumn('id', function($row){\n \n-     \n+                    ->addColumn('action', function($row){\n \n-                        $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n-\n-    \n-\n-                         return $btn;\n-\n-                 })\n-                 ->addColumn('name', function($row){\n-\n      \n \n-                    $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n-\n-\n-\n-                     return $btn;\n-\n-             })\n-             ->addColumn('harga1', function($row){\n-\n-     \n-\n-                $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n-\n-\n-\n-                 return $btn;\n-\n-         })\n-                    ->addColumn('harga2', function($row){\n-\n-     \n-\n-                        $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n-\n-    \n-\n-                         return $btn;\n-\n-                 })\n-                    ->addColumn('harga3', function($row){\n-\n-     \n-\n                            $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n \n        \n \n"
+                },
+                {
+                    "date": 1630209501551,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n \n                     ->make(true);\n \n         }\n-        return view('daftar_barang', compact('myproduct'));\n+        return view('daftar_barang');\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630209508186,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,25 +18,8 @@\n \n             $data = Product::select('*');\n \n             return Datatables::of($data)\n-\n-                    ->addIndexColumn()\n-\n-                    ->addColumn('action', function($row){\n-\n-     \n-\n-                           $btn = '<a href=\"javascript:void(0)\" class=\"edit btn btn-primary btn-sm\">View</a>';\n-\n-       \n-\n-                            return $btn;\n-\n-                    })\n-\n-                    ->rawColumns(['action'])\n-\n                     ->make(true);\n \n         }\n         return view('daftar_barang');\n"
+                },
+                {
+                    "date": 1630209517303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,13 +15,10 @@\n     public function index(Request $request)\n     {\n         if ($request->ajax()) {\n \n-            $data = Product::select('*');\n+            return Datatables::of(User::all())->make(true);\n \n-            return Datatables::of($data)\n-                    ->make(true);\n-\n         }\n         return view('daftar_barang');\n     }\n \n"
+                },
+                {
+                    "date": 1630209556142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     public function index(Request $request)\n     {\n         if ($request->ajax()) {\n \n-            return Datatables::of(User::all())->make(true);\n+            return Datatables::of(Product::all())->make(true);\n \n         }\n         return view('daftar_barang');\n     }\n"
+                },
+                {
+                    "date": 1630209762476,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index(Request $request)\n     {\n         if ($request->ajax()) {\n-\n+            alert(\"test\");\n             return Datatables::of(Product::all())->make(true);\n \n         }\n         return view('daftar_barang');\n"
+                },
+                {
+                    "date": 1630209768219,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index(Request $request)\n     {\n         if ($request->ajax()) {\n-            alert(\"test\");\n+           \n             return Datatables::of(Product::all())->make(true);\n \n         }\n         return view('daftar_barang');\n"
+                },
+                {
+                    "date": 1630209784692,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     {\n         if ($request->ajax()) {\n            \n             return Datatables::of(Product::all())->make(true);\n-\n+            return view('daftar_barang');\n         }\n         return view('daftar_barang');\n     }\n \n"
+                },
+                {
+                    "date": 1630209813203,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,13 +16,13 @@\n     {\n         if ($request->ajax()) {\n            \n             return Datatables::of(Product::all())->make(true);\n-            return view('daftar_barang');\n+           \n         }\n         return view('daftar_barang');\n     }\n-\n+    public function getjson()\n     /**\n      * Show the form for creating a new resource.\n      *\n      * @return \\Illuminate\\Http\\Response\n"
+                },
+                {
+                    "date": 1630209819830,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,12 @@\n            \n         }\n         return view('daftar_barang');\n     }\n-    public function getjson()\n+    public function getjson(Request $request)\n+    {\n+        \n+    }\n     /**\n      * Show the form for creating a new resource.\n      *\n      * @return \\Illuminate\\Http\\Response\n"
+                },
+                {
+                    "date": 1630209828492,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,18 +13,14 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index(Request $request)\n     {\n-        if ($request->ajax()) {\n-           \n-            return Datatables::of(Product::all())->make(true);\n-           \n-        }\n+       \n         return view('daftar_barang');\n     }\n     public function getjson(Request $request)\n     {\n-        \n+        return Datatables::of(Product::all())->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n      *\n"
+                },
+                {
+                    "date": 1630210037804,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n+use Datatables;\n use Illuminate\\Http\\Request;\n use App\\Models\\Product;\n \n class ProductController extends Controller\n"
+                },
+                {
+                    "date": 1630210065879,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n-use Datatables;\n+use DataTables;\n use Illuminate\\Http\\Request;\n use App\\Models\\Product;\n \n class ProductController extends Controller\n"
+                },
+                {
+                    "date": 1630210825909,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,11 +17,11 @@\n     {\n        \n         return view('daftar_barang');\n     }\n-    public function getjson(Request $request)\n+    public function getjsons(Request $request)\n     {\n-        return Datatables::of(Product::all())->make(true);\n+        return DataTables::of(Product::all())->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n      *\n"
+                },
+                {
+                    "date": 1630211383524,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         return view('daftar_barang');\n     }\n     public function getjsons(Request $request)\n     {\n-        return DataTables::of(Product::all())->make(true);\n+        return DataTables::of(Product::query())->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n      *\n"
+                },
+                {
+                    "date": 1630213223296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create()\n     {\n-        //\n+        \n     }\n \n     /**\n      * Store a newly created resource in storage.\n@@ -39,9 +39,13 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function store(Request $request)\n     {\n-        //\n+        $flight = new Flight;\n+\n+        $flight->name = $request->name;\n+\n+        $flight->save();\n     }\n \n     /**\n      * Display the specified resource.\n"
+                },
+                {
+                    "date": 1630213235159,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function store(Request $request)\n     {\n-        $flight = new Flight;\n+        $products = new Flight;\n \n         $flight->name = $request->name;\n \n         $flight->save();\n"
+                },
+                {
+                    "date": 1630213347230,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,11 +39,11 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function store(Request $request)\n     {\n-        $products = new Flight;\n+        $products = new Product;\n \n-        $flight->name = $request->name;\n+        $products->name = $myprice2->name;\n \n         $flight->save();\n     }\n \n"
+                },
+                {
+                    "date": 1630213352377,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n     public function store(Request $request)\n     {\n         $products = new Product;\n \n-        $products->name = $myprice2->name;\n+        $products->name = $myprice2->myname;\n \n         $flight->save();\n     }\n \n"
+                },
+                {
+                    "date": 1630213361638,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n     public function store(Request $request)\n     {\n         $products = new Product;\n \n-        $products->name = $myprice2->myname;\n+        $products->name = $request->myname;\n \n         $flight->save();\n     }\n \n"
+                },
+                {
+                    "date": 1630213367110,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,8 +42,9 @@\n     {\n         $products = new Product;\n \n         $products->name = $request->myname;\n+        $products->kode = $request->myname;\n \n         $flight->save();\n     }\n \n"
+                },
+                {
+                    "date": 1630213374185,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n     {\n         $products = new Product;\n \n         $products->name = $request->myname;\n-        $products->kode = $request->myname;\n+        $products->kode = $request->mycode;\n \n         $flight->save();\n     }\n \n"
+                },
+                {
+                    "date": 1630213382859,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,8 +43,11 @@\n         $products = new Product;\n \n         $products->name = $request->myname;\n         $products->kode = $request->mycode;\n+        $products->kode = $request->mycode;\n+        $products->kode = $request->mycode;\n+        $products->kode = $request->mycode;\n \n         $flight->save();\n     }\n \n"
+                },
+                {
+                    "date": 1630213389290,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,11 +43,11 @@\n         $products = new Product;\n \n         $products->name = $request->myname;\n         $products->kode = $request->mycode;\n-        $products->kode = $request->mycode;\n-        $products->kode = $request->mycode;\n-        $products->kode = $request->mycode;\n+        $products->price1 = $request->mycode;\n+        $products->price2 = $request->mycode;\n+        $products->price3 = $request->mycode;\n \n         $flight->save();\n     }\n \n"
+                },
+                {
+                    "date": 1630213395095,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,11 +43,11 @@\n         $products = new Product;\n \n         $products->name = $request->myname;\n         $products->kode = $request->mycode;\n-        $products->price1 = $request->mycode;\n-        $products->price2 = $request->mycode;\n-        $products->price3 = $request->mycode;\n+        $products->harga1 = $request->mycode;\n+        $products->harga1 = $request->mycode;\n+        $products->harga1 = $request->mycode;\n \n         $flight->save();\n     }\n \n"
+                },
+                {
+                    "date": 1630213404011,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,11 +43,11 @@\n         $products = new Product;\n \n         $products->name = $request->myname;\n         $products->kode = $request->mycode;\n-        $products->harga1 = $request->mycode;\n-        $products->harga1 = $request->mycode;\n-        $products->harga1 = $request->mycode;\n+        $products->harga1 = $request->myprice1;\n+        $products->harga2 = $request->myprice2;\n+        $products->harga3 = $request->myprice3;\n \n         $flight->save();\n     }\n \n"
+                },
+                {
+                    "date": 1630213808382,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,10 +46,9 @@\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n-\n-        $flight->save();\n+        $products->save();\n     }\n \n     /**\n      * Display the specified resource.\n"
+                },
+                {
+                    "date": 1630213851984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n     public function store(Request $request)\n     {\n         $products = new Product;\n \n-        $products->name = $request->myname;\n+        $products->name = \"s\";\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n"
+                },
+                {
+                    "date": 1630213901826,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n     public function store(Request $request)\n     {\n         $products = new Product;\n \n-        $products->name = \"s\";\n+        $products->name = \"$request->myname\";\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n"
+                },
+                {
+                    "date": 1630213986339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,14 +41,16 @@\n     public function store(Request $request)\n     {\n         $products = new Product;\n \n-        $products->name = \"$request->myname\";\n+        $products->name = $request->myname;\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $products->save();\n+\n+        \n     }\n \n     /**\n      * Display the specified resource.\n"
+                },
+                {
+                    "date": 1630214012192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,11 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $products->save();\n \n-        \n+        if(!$myModel->save()){\n+            App::abort(500, 'Error');\n+        }\n     }\n \n     /**\n      * Display the specified resource.\n"
+                },
+                {
+                    "date": 1630214020572,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,11 +46,11 @@\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n-        $products->save();\n+        \n \n-        if(!$myModel->save()){\n+        if(!$products->save();){\n             App::abort(500, 'Error');\n         }\n     }\n \n"
+                },
+                {
+                    "date": 1630214025687,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         \n \n-        if(!$products->save();){\n+        if(!$products->save()){\n             App::abort(500, 'Error');\n         }\n     }\n \n"
+                },
+                {
+                    "date": 1630214083543,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,10 +48,10 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         \n \n-        if(!$products->save()){\n-            App::abort(500, 'Error');\n+        if($products->save()){\n+            return \"sukses\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630214088722,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,8 +51,11 @@\n \n         if($products->save()){\n             return \"sukses\";\n         }\n+        else{\n+            return \"sukses\";\n+        }\n     }\n \n     /**\n      * Display the specified resource.\n"
+                },
+                {
+                    "date": 1630214180018,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,12 +49,12 @@\n         $products->harga3 = $request->myprice3;\n         \n \n         if($products->save()){\n-            return \"sukses\";\n+            echo \"sukses\";\n         }\n         else{\n-            return \"sukses\";\n+            return \"tidak\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630214186892,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n         if($products->save()){\n             echo \"sukses\";\n         }\n         else{\n-            return \"tidak\";\n+            echo \"tidak\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630214201536,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,9 +46,9 @@\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n-        \n+        $products->save()\n \n         if($products->save()){\n             echo \"sukses\";\n         }\n"
+                },
+                {
+                    "date": 1630214269145,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,9 +46,9 @@\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n-        $products->save()\n+        $mysave = $products->save();\n \n         if($products->save()){\n             echo \"sukses\";\n         }\n"
+                },
+                {
+                    "date": 1630214276714,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n \n-        if($products->save()){\n+        if($mysave->save()){\n             echo \"sukses\";\n         }\n         else{\n             echo \"tidak\";\n"
+                },
+                {
+                    "date": 1630214282134,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n \n-        if($mysave->save()){\n+        if($mysave){\n             echo \"sukses\";\n         }\n         else{\n             echo \"tidak\";\n"
+                },
+                {
+                    "date": 1630214296342,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,8 +52,9 @@\n         if($mysave){\n             echo \"sukses\";\n         }\n         else{\n+            App::abort(500, 'Error');\n             echo \"tidak\";\n         }\n     }\n \n"
+                },
+                {
+                    "date": 1630214302491,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n         if($mysave){\n             echo \"sukses\";\n         }\n         else{\n-            App::abort(500, 'Error');\n+            App::abort(500, 'tidak');\n             echo \"tidak\";\n         }\n     }\n \n"
+                },
+                {
+                    "date": 1630214346418,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,15 +48,15 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n \n-        if($mysave){\n-            echo \"sukses\";\n-        }\n-        else{\n-            App::abort(500, 'tidak');\n-            echo \"tidak\";\n-        }\n+        // if($mysave){\n+        //     echo \"sukses\";\n+        // }\n+        // else{\n+        //     App::abort(500, 'Error');\n+        //     echo \"tidak\";\n+        // }\n     }\n \n     /**\n      * Display the specified resource.\n"
+                },
+                {
+                    "date": 1630214351727,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n-\n+        echo $mysave;\n         // if($mysave){\n         //     echo \"sukses\";\n         // }\n         // else{\n"
+                },
+                {
+                    "date": 1630214399918,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,15 +48,15 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n         echo $mysave;\n-        // if($mysave){\n-        //     echo \"sukses\";\n-        // }\n-        // else{\n-        //     App::abort(500, 'Error');\n-        //     echo \"tidak\";\n-        // }\n+        if($mysave){\n+            echo \"sukses\";\n+        }\n+        else{\n+            App::abort(500, 'Error');\n+            echo \"tidak\";\n+        }\n     }\n \n     /**\n      * Display the specified resource.\n"
+                },
+                {
+                    "date": 1630214405052,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n         echo $mysave;\n-        if($mysave){\n+        if($mysave == \"1\"){\n             echo \"sukses\";\n         }\n         else{\n             App::abort(500, 'Error');\n"
+                },
+                {
+                    "date": 1630214437099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n-        echo $mysave;\n+        // echo $mysave;\n         if($mysave == \"1\"){\n             echo \"sukses\";\n         }\n         else{\n"
+                },
+                {
+                    "date": 1630214447781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,12 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n         // echo $mysave;\n-        if($mysave == \"1\"){\n-            echo \"sukses\";\n-        }\n-        else{\n+        if(!$newUser->id)\n             App::abort(500, 'Error');\n             echo \"tidak\";\n         }\n     }\n"
+                },
+                {
+                    "date": 1630214464599,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,8 +49,9 @@\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n         // echo $mysave;\n         if(!$newUser->id)\n+        {\n             App::abort(500, 'Error');\n             echo \"tidak\";\n         }\n     }\n"
+                },
+                {
+                    "date": 1630214475461,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,9 +51,9 @@\n         // echo $mysave;\n         if(!$newUser->id)\n         {\n             App::abort(500, 'Error');\n-            echo \"tidak\";\n+            return \"tidak\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630214492303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n         // echo $mysave;\n-        if(!$newUser->id)\n+        if(!$mysave->id)\n         {\n             App::abort(500, 'Error');\n             return \"tidak\";\n         }\n"
+                },
+                {
+                    "date": 1630214598362,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n         // echo $mysave;\n-        if(!$mysave->id)\n+        if(!$newUser)\n         {\n             App::abort(500, 'Error');\n             return \"tidak\";\n         }\n"
+                },
+                {
+                    "date": 1630214684576,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,13 +48,13 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n         // echo $mysave;\n-        if(!$newUser)\n-        {\n-            App::abort(500, 'Error');\n-            return \"tidak\";\n-        }\n+        // if(!$newUser)\n+        // {\n+        //     App::abort(500, 'Error');\n+        //     return \"tidak\";\n+        // }\n     }\n \n     /**\n      * Display the specified resource.\n"
+                },
+                {
+                    "date": 1630214691244,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,8 +47,9 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n+        echo $mysave;\n         // echo $mysave;\n         // if(!$newUser)\n         // {\n         //     App::abort(500, 'Error');\n"
+                },
+                {
+                    "date": 1630214825046,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n-        echo $mysave;\n+        echo $mysave->id;\n         // echo $mysave;\n         // if(!$newUser)\n         // {\n         //     App::abort(500, 'Error');\n"
+                },
+                {
+                    "date": 1630214842660,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n-        echo $mysave->id;\n+        // echo $mysave->id;\n         // echo $mysave;\n         // if(!$newUser)\n         // {\n         //     App::abort(500, 'Error');\n"
+                },
+                {
+                    "date": 1630322527498,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,8 +47,9 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n+        $user->wasChanged();\n         // echo $mysave->id;\n         // echo $mysave;\n         // if(!$newUser)\n         // {\n"
+                },
+                {
+                    "date": 1630322536921,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n-        $user->wasChanged();\n+        $mysave->wasChanged();\n         // echo $mysave->id;\n         // echo $mysave;\n         // if(!$newUser)\n         // {\n"
+                },
+                {
+                    "date": 1630322542018,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,8 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n         $mysave->wasChanged();\n+        if($msave)\n         // echo $mysave->id;\n         // echo $mysave;\n         // if(!$newUser)\n         // {\n"
+                },
+                {
+                    "date": 1630322555401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,10 +47,10 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n-        $mysave->wasChanged();\n-        if($msave)\n+        $result = $mysave->wasChanged();\n+        if($my)\n         // echo $mysave->id;\n         // echo $mysave;\n         // if(!$newUser)\n         // {\n"
+                },
+                {
+                    "date": 1630322562929,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         $mysave = $products->save();\n         $result = $mysave->wasChanged();\n-        if($my)\n+        alert($result);\n         // echo $mysave->id;\n         // echo $mysave;\n         // if(!$newUser)\n         // {\n"
+                },
+                {
+                    "date": 1630322631272,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,10 +46,18 @@\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n+        try {\n+            DB::table('users')->insert($userData);  \n+        } catch(\\Illuminate\\Database\\QueryException $e){\n+            $errorCode = $e->errorInfo[1];\n+            if($errorCode == '1062'){\n+                dd('Duplicate Entry');\n+            }\n+        }\n         $mysave = $products->save();\n-        $result = $mysave->wasChanged();\n+        // $result = $mysave->wasChanged();\n         alert($result);\n         // echo $mysave->id;\n         // echo $mysave;\n         // if(!$newUser)\n"
+                },
+                {
+                    "date": 1630322641579,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,16 +47,16 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         try {\n-            DB::table('users')->insert($userData);  \n+            $mysave = $products->save();\n         } catch(\\Illuminate\\Database\\QueryException $e){\n             $errorCode = $e->errorInfo[1];\n             if($errorCode == '1062'){\n-                dd('Duplicate Entry');\n+               \n             }\n         }\n-        $mysave = $products->save();\n+        \n         // $result = $mysave->wasChanged();\n         alert($result);\n         // echo $mysave->id;\n         // echo $mysave;\n"
+                },
+                {
+                    "date": 1630322652345,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,8 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         try {\n             $mysave = $products->save();\n+            \n         } catch(\\Illuminate\\Database\\QueryException $e){\n             $errorCode = $e->errorInfo[1];\n             if($errorCode == '1062'){\n                \n"
+                },
+                {
+                    "date": 1630322669019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,9 +57,9 @@\n             }\n         }\n         \n         // $result = $mysave->wasChanged();\n-        alert($result);\n+        // alert($result);\n         // echo $mysave->id;\n         // echo $mysave;\n         // if(!$newUser)\n         // {\n"
+                },
+                {
+                    "date": 1630322718084,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,8 +48,9 @@\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n         try {\n             $mysave = $products->save();\n+            echo \"sukses\";\n             \n         } catch(\\Illuminate\\Database\\QueryException $e){\n             $errorCode = $e->errorInfo[1];\n             if($errorCode == '1062'){\n"
+                },
+                {
+                    "date": 1630322732706,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,8 +46,9 @@\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n+        $stats = \n         try {\n             $mysave = $products->save();\n             echo \"sukses\";\n             \n"
+                },
+                {
+                    "date": 1630322742129,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,12 +46,12 @@\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n-        $stats = \n+        $stats = \"\";\n         try {\n             $mysave = $products->save();\n-            echo \"sukses\";\n+            $stat = \"ok\";\n             \n         } catch(\\Illuminate\\Database\\QueryException $e){\n             $errorCode = $e->errorInfo[1];\n             if($errorCode == '1062'){\n"
+                },
+                {
+                    "date": 1630322747821,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n             \n         } catch(\\Illuminate\\Database\\QueryException $e){\n             $errorCode = $e->errorInfo[1];\n             if($errorCode == '1062'){\n-               \n+                $stat = \"error\";\n             }\n         }\n         \n         // $result = $mysave->wasChanged();\n"
+                },
+                {
+                    "date": 1630322753581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,8 +57,9 @@\n             if($errorCode == '1062'){\n                 $stat = \"error\";\n             }\n         }\n+        echo $stats;\n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n         // echo $mysave->id;\n"
+                },
+                {
+                    "date": 1630322878754,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,17 +49,13 @@\n         $products->harga3 = $request->myprice3;\n         $stats = \"\";\n         try {\n             $mysave = $products->save();\n-            $stat = \"ok\";\n-            \n-        } catch(\\Illuminate\\Database\\QueryException $e){\n-            $errorCode = $e->errorInfo[1];\n-            if($errorCode == '1062'){\n-                $stat = \"error\";\n+            $saved = $myModel->save();\n+\n+            if(!$saved){\n+                App::abort(500, 'Error');\n             }\n-        }\n-        echo $stats;\n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n         // echo $mysave->id;\n"
+                },
+                {
+                    "date": 1630322888344,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,12 +46,11 @@\n         $products->kode = $request->mycode;\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n-        $stats = \"\";\n-        try {\n+     \n             $mysave = $products->save();\n-            $saved = $myModel->save();\n+            // $saved = $myModel->save();\n \n             if(!$saved){\n                 App::abort(500, 'Error');\n             }\n"
+                },
+                {
+                    "date": 1630323010350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,10 +50,12 @@\n      \n             $mysave = $products->save();\n             // $saved = $myModel->save();\n \n-            if(!$saved){\n-                App::abort(500, 'Error');\n+            catch (QueryException $e) {\n+\n+                dd($e->getMessage());\n+        \n             }\n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n"
+                },
+                {
+                    "date": 1630323018610,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,9 @@\n         $products->harga3 = $request->myprice3;\n      \n             $mysave = $products->save();\n             // $saved = $myModel->save();\n-\n+            try {\n             catch (QueryException $e) {\n \n                 dd($e->getMessage());\n         \n"
+                },
+                {
+                    "date": 1630323024651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,11 +47,13 @@\n         $products->harga1 = $request->myprice1;\n         $products->harga2 = $request->myprice2;\n         $products->harga3 = $request->myprice3;\n      \n-            $mysave = $products->save();\n+            \n             // $saved = $myModel->save();\n             try {\n+                $mysave = $products->save();\n+            }\n             catch (QueryException $e) {\n \n                 dd($e->getMessage());\n         \n"
+                },
+                {
+                    "date": 1630323033136,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n                 $mysave = $products->save();\n             }\n             catch (QueryException $e) {\n \n-                dd($e->getMessage());\n+                return \"test\";\n         \n             }\n         \n         // $result = $mysave->wasChanged();\n"
+                },
+                {
+                    "date": 1630323060536,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n                 $mysave = $products->save();\n             }\n             catch (QueryException $e) {\n \n-                return \"test\";\n+                return e->get(message());\n         \n             }\n         \n         // $result = $mysave->wasChanged();\n"
+                },
+                {
+                    "date": 1630323069984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n                 $mysave = $products->save();\n             }\n             catch (QueryException $e) {\n \n-                return e->get(message());\n+                return e->getMessage();\n         \n             }\n         \n         // $result = $mysave->wasChanged();\n"
+                },
+                {
+                    "date": 1630323076081,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n                 $mysave = $products->save();\n             }\n             catch (QueryException $e) {\n \n-                return e->getMessage();\n+                return $e->getMessage();\n         \n             }\n         \n         // $result = $mysave->wasChanged();\n"
+                },
+                {
+                    "date": 1630323090136,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,19 +39,20 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function store(Request $request)\n     {\n-        $products = new Product;\n-\n-        $products->name = $request->myname;\n-        $products->kode = $request->mycode;\n-        $products->harga1 = $request->myprice1;\n-        $products->harga2 = $request->myprice2;\n-        $products->harga3 = $request->myprice3;\n+      \n      \n             \n             // $saved = $myModel->save();\n             try {\n+                $products = new Product;\n+\n+                $products->name = $request->myname;\n+                $products->kode = $request->mycode;\n+                $products->harga1 = $request->myprice1;\n+                $products->harga2 = $request->myprice2;\n+                $products->harga3 = $request->myprice3;\n                 $mysave = $products->save();\n             }\n             catch (QueryException $e) {\n \n"
+                },
+                {
+                    "date": 1630323224025,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,24 +43,20 @@\n       \n      \n             \n             // $saved = $myModel->save();\n-            try {\n+     \n                 $products = new Product;\n \n                 $products->name = $request->myname;\n                 $products->kode = $request->mycode;\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 $mysave = $products->save();\n-            }\n-            catch (QueryException $e) {\n-\n-                return $e->getMessage();\n+            echo $mysave;\n+     \n         \n-            }\n-        \n         // $result = $mysave->wasChanged();\n         // alert($result);\n         // echo $mysave->id;\n         // echo $mysave;\n"
+                },
+                {
+                    "date": 1630323239044,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 $mysave = $products->save();\n-            echo $mysave;\n+            echo \"testse\";\n      \n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n"
+                },
+                {
+                    "date": 1630323250261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,18 +44,19 @@\n      \n             \n             // $saved = $myModel->save();\n      \n+            echo \"testse\";\n+     \n                 $products = new Product;\n \n                 $products->name = $request->myname;\n                 $products->kode = $request->mycode;\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 $mysave = $products->save();\n-            echo \"testse\";\n-     \n+           \n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n         // echo $mysave->id;\n"
+                },
+                {
+                    "date": 1630323261380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create()\n     {\n-        \n+        echo \"testse\";\n     }\n \n     /**\n      * Store a newly created resource in storage.\n@@ -44,9 +44,9 @@\n      \n             \n             // $saved = $myModel->save();\n      \n-            echo \"testse\";\n+           \n      \n                 $products = new Product;\n \n                 $products->name = $request->myname;\n"
+                },
+                {
+                    "date": 1630323271013,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function create()\n     {\n-        echo \"testse\";\n+     \n     }\n \n     /**\n      * Store a newly created resource in storage.\n@@ -45,9 +45,9 @@\n             \n             // $saved = $myModel->save();\n      \n            \n-     \n+            echo \"testse\";\n                 $products = new Product;\n \n                 $products->name = $request->myname;\n                 $products->kode = $request->mycode;\n"
+                },
+                {
+                    "date": 1630323283444,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,18 +45,18 @@\n             \n             // $saved = $myModel->save();\n      \n            \n-            echo \"testse\";\n+           \n                 $products = new Product;\n \n                 $products->name = $request->myname;\n                 $products->kode = $request->mycode;\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 $mysave = $products->save();\n-           \n+                return \"testse\";\n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n         // echo $mysave->id;\n"
+                },
+                {
+                    "date": 1630323289429,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 $mysave = $products->save();\n-                return \"testse\";\n+                return $mysave;\n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n         // echo $mysave->id;\n"
+                },
+                {
+                    "date": 1630323306333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 $mysave = $products->save();\n-                return $mysave;\n+                return $mysave->getMessage();\n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n         // echo $mysave->id;\n"
+                },
+                {
+                    "date": 1630323353778,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,10 +53,14 @@\n                 $products->kode = $request->mycode;\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n-                $mysave = $products->save();\n-                return $mysave->getMessage();\n+                // $mysave = ;\n+                if($products->save())\n+                {\n+                    return \"sukses\";\n+                }\n+              \n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n         // echo $mysave->id;\n"
+                },
+                {
+                    "date": 1630323358940,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -58,8 +58,11 @@\n                 if($products->save())\n                 {\n                     return \"sukses\";\n                 }\n+                else{\n+                    return \"no\";\n+                }\n               \n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n"
+                },
+                {
+                    "date": 1630323516949,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,8 +48,12 @@\n            \n            \n                 $products = new Product;\n \n+                DB::table('users')->insert([\n+                    'email' => 'kayla@example.com',\n+                    'votes' => 0\n+                ]);\n                 $products->name = $request->myname;\n                 $products->kode = $request->mycode;\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n"
+                },
+                {
+                    "date": 1630323612843,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -58,15 +58,9 @@\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 // $mysave = ;\n-                if($products->save())\n-                {\n-                    return \"sukses\";\n-                }\n-                else{\n-                    return \"no\";\n-                }\n+                return ($products->save())\n               \n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n"
+                },
+                {
+                    "date": 1630323634110,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,19 +48,19 @@\n            \n            \n                 $products = new Product;\n \n-                DB::table('users')->insert([\n-                    'email' => 'kayla@example.com',\n-                    'votes' => 0\n-                ]);\n+                // DB::table('users')->insert([\n+                //     'email' => 'kayla@example.com',\n+                //     'votes' => 0\n+                // ]);\n                 $products->name = $request->myname;\n                 $products->kode = $request->mycode;\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 // $mysave = ;\n-                return ($products->save())\n+                return ($products->save());\n               \n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n"
+                },
+                {
+                    "date": 1630323738580,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,8 +59,18 @@\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 // $mysave = ;\n                 return ($products->save());\n+\n+                try{\n+                    $user = new User;\n+                    $user->fields = 'example';\n+                    $user->save(); // returns false\n+                 }\n+                 catch(\\Exception $e){\n+                    // do task when error\n+                    echo $e->getMessage();   // insert query\n+                 }\n               \n         \n         // $result = $mysave->wasChanged();\n         // alert($result);\n"
+                },
+                {
+                    "date": 1630323743746,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -58,18 +58,18 @@\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n                 $products->harga3 = $request->myprice3;\n                 // $mysave = ;\n-                return ($products->save());\n+              \n \n                 try{\n                     $user = new User;\n                     $user->fields = 'example';\n                     $user->save(); // returns false\n                  }\n                  catch(\\Exception $e){\n                     // do task when error\n-                    echo $e->getMessage();   // insert query\n+                    return $e->getMessage();   // insert query\n                  }\n               \n         \n         // $result = $mysave->wasChanged();\n"
+                },
+                {
+                    "date": 1630323752660,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,13 +47,8 @@\n      \n            \n            \n                 $products = new Product;\n-\n-                // DB::table('users')->insert([\n-                //     'email' => 'kayla@example.com',\n-                //     'votes' => 0\n-                // ]);\n                 $products->name = $request->myname;\n                 $products->kode = $request->mycode;\n                 $products->harga1 = $request->myprice1;\n                 $products->harga2 = $request->myprice2;\n@@ -61,10 +56,14 @@\n                 // $mysave = ;\n               \n \n                 try{\n-                    $user = new User;\n-                    $user->fields = 'example';\n+                    $products = new Product;\n+                    $products->name = $request->myname;\n+                    $products->kode = $request->mycode;\n+                    $products->harga1 = $request->myprice1;\n+                    $products->harga2 = $request->myprice2;\n+                    $products->harga3 = $request->myprice3;\n                     $user->save(); // returns false\n                  }\n                  catch(\\Exception $e){\n                     // do task when error\n"
+                },
+                {
+                    "date": 1630323787321,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,14 +46,14 @@\n             // $saved = $myModel->save();\n      \n            \n            \n-                $products = new Product;\n-                $products->name = $request->myname;\n-                $products->kode = $request->mycode;\n-                $products->harga1 = $request->myprice1;\n-                $products->harga2 = $request->myprice2;\n-                $products->harga3 = $request->myprice3;\n+                // $products = new Product;\n+                // $products->name = $request->myname;\n+                // $products->kode = $request->mycode;\n+                // $products->harga1 = $request->myprice1;\n+                // $products->harga2 = $request->myprice2;\n+                // $products->harga3 = $request->myprice3;\n                 // $mysave = ;\n               \n \n                 try{\n@@ -62,9 +62,9 @@\n                     $products->kode = $request->mycode;\n                     $products->harga1 = $request->myprice1;\n                     $products->harga2 = $request->myprice2;\n                     $products->harga3 = $request->myprice3;\n-                    $user->save(); // returns false\n+                    $products->save(); // returns false\n                  }\n                  catch(\\Exception $e){\n                     // do task when error\n                     return $e->getMessage();   // insert query\n"
+                },
+                {
+                    "date": 1630324059143,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,25 +39,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function store(Request $request)\n     {\n-      \n-     \n-            \n-            // $saved = $myModel->save();\n-     \n-           \n-           \n-                // $products = new Product;\n-                // $products->name = $request->myname;\n-                // $products->kode = $request->mycode;\n-                // $products->harga1 = $request->myprice1;\n-                // $products->harga2 = $request->myprice2;\n-                // $products->harga3 = $request->myprice3;\n-                // $mysave = ;\n-              \n-\n-                try{\n+                 try{\n                     $products = new Product;\n                     $products->name = $request->myname;\n                     $products->kode = $request->mycode;\n                     $products->harga1 = $request->myprice1;\n"
+                },
+                {
+                    "date": 1630324067853,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,22 +49,10 @@\n                     $products->harga3 = $request->myprice3;\n                     $products->save(); // returns false\n                  }\n                  catch(\\Exception $e){\n-                    // do task when error\n-                    return $e->getMessage();   // insert query\n+                    return $e->getMessage();\n                  }\n-              \n-        \n-        // $result = $mysave->wasChanged();\n-        // alert($result);\n-        // echo $mysave->id;\n-        // echo $mysave;\n-        // if(!$newUser)\n-        // {\n-        //     App::abort(500, 'Error');\n-        //     return \"tidak\";\n-        // }\n     }\n \n     /**\n      * Display the specified resource.\n"
+                },
+                {
+                    "date": 1630324376715,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         return view('daftar_barang');\n     }\n     public function getjsons(Request $request)\n     {\n-        return DataTables::of(Product::query())->make(true);\n+        return DataTables::of(Product::query())->addColumn('intro', 'Hi {{$name}}!')->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n      *\n"
+                },
+                {
+                    "date": 1630324388162,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,11 @@\n         return view('daftar_barang');\n     }\n     public function getjsons(Request $request)\n     {\n-        return DataTables::of(Product::query())->addColumn('intro', 'Hi {{$name}}!')->make(true);\n+        return DataTables::of(Product::query())\n+               ->addColumn('intro', 'Hi {{$name}}!')\n+               ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n      *\n"
+                },
+                {
+                    "date": 1630324462767,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,14 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n-               ->addColumn('intro', 'Hi {{$name}}!')\n+               ->addColumn('intro', '\n+               <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                                        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n+               \n+               \n+               ')\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324554574,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,11 +22,9 @@\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', '\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n-                                        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n-               \n-               \n+               <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n                ')\n                ->make(true);\n     }\n     /**\n"
+                },
+                {
+                    "date": 1630324567597,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', '\n+               \n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n                ')\n                ->make(true);\n"
+                },
+                {
+                    "date": 1630324587061,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', '\n-               \n+               '<a href=\"#\">Html Column</a>'\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n                ')\n                ->make(true);\n"
+                },
+                {
+                    "date": 1630324601225,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,13 +20,11 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n-               ->addColumn('intro', '\n+               ->addColumn('intro', \"\n                '<a href=\"#\">Html Column</a>'\n-               <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n-               <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n-               ')\n+               \"\")\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324617139,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,10 +21,10 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \"\n-               '<a href=\"#\">Html Column</a>'\n-               \"\")\n+               <a href=\"#\">Html Column</a>\n+               \")\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324642480,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,10 +21,11 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \"\n-               <a href=\"#\">Html Column</a>\n+               <a href='#'>Html Column</a>\n                \")\n+               ->rawColumns(['link', 'action'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324657328,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \"\n                <a href='#'>Html Column</a>\n                \")\n-               ->rawColumns(['link', 'action'])\n+               ->rawColumns(['intro', 'action'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324677595,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,11 +21,16 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \"\n-               <a href='#'>Html Column</a>\n+               \n+               <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+               <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n+\n+\n+\n                \")\n-               ->rawColumns(['intro', 'action'])\n+               ->rawColumns(['link', 'action'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324684531,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,16 +20,16 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n-               ->addColumn('intro', \"\n+               ->addColumn('intro', '\n                \n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n \n \n \n-               \")\n+               ')\n                ->rawColumns(['link', 'action'])\n                ->make(true);\n     }\n     /**\n"
+                },
+                {
+                    "date": 1630324693164,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n \n \n \n                ')\n-               ->rawColumns(['link', 'action'])\n+               ->rawColumns(['button', 'action'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324730705,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n \n \n \n                ')\n-               ->rawColumns(['button', 'action'])\n+               ->rawColumns(['buttons', 'action'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324740694,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n \n \n \n                ')\n-               ->rawColumns(['buttons', 'action'])\n+               ->rawColumns(['buttons', 'buttons'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324787967,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n \n \n \n                ')\n-               ->rawColumns(['buttons', 'buttons'])\n+            //    ->rawColumns(['buttons', 'buttons'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324795481,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,10 +20,15 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n-               ->addColumn('intro', '\n+               ->addColumn('intro', \n                \n+               function (){\n+                   \n+               }\n+               '\n+               \n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n \n \n"
+                },
+                {
+                    "date": 1630324804292,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,18 +23,18 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function (){\n-                   \n-               }\n+\n+              \n                '\n                \n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n \n \n \n-               ')\n+               ') }\n             //    ->rawColumns(['buttons', 'buttons'])\n                ->make(true);\n     }\n     /**\n"
+                },
+                {
+                    "date": 1630324811314,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n \n \n \n-               ') }\n+               ' })\n             //    ->rawColumns(['buttons', 'buttons'])\n                ->make(true);\n     }\n     /**\n"
+                },
+                {
+                    "date": 1630324840862,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,18 +23,13 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function (){\n-\n-              \n-               '\n-               \n+               return '\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n \n-\n-\n-               ' })\n+               '; })\n             //    ->rawColumns(['buttons', 'buttons'])\n                ->make(true);\n     }\n     /**\n"
+                },
+                {
+                    "date": 1630324862518,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n-               ->addColumn('intro', \n+               ->addColumn('action', \n                \n                function (){\n                return '\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630324901758,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n-               ->addColumn('action', \n+               ->addColumn('intro', \n                \n                function (){\n                return '\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630324926952,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,8 +22,15 @@\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n+               function () {\n+                return '<form id=\"delete\" action=\"{{ route(' . 'admin.posts.destroy' . ', $model) }}\" method=\"POST\">\n+                @csrf\n+                @method(\"DELETE\")\n+                <a href=\"{{route(' . 'admin.posts.edit' . ', $model) }}\" class=\"btn btn-info\">Edit</a>\n+                <input type=\"submit\" class=\"btn btn-danger\" value=\"Delete\">\n+            </form>';\n                function (){\n                return '\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n"
+                },
+                {
+                    "date": 1630324934602,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,15 +28,15 @@\n                 @csrf\n                 @method(\"DELETE\")\n                 <a href=\"{{route(' . 'admin.posts.edit' . ', $model) }}\" class=\"btn btn-info\">Edit</a>\n                 <input type=\"submit\" class=\"btn btn-danger\" value=\"Delete\">\n-            </form>';\n+            </form>';})\n                function (){\n                return '\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n \n-               '; })\n+               '; \n             //    ->rawColumns(['buttons', 'buttons'])\n                ->make(true);\n     }\n     /**\n"
+                },
+                {
+                    "date": 1630324944709,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,20 +23,12 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function () {\n-                return '<form id=\"delete\" action=\"{{ route(' . 'admin.posts.destroy' . ', $model) }}\" method=\"POST\">\n-                @csrf\n-                @method(\"DELETE\")\n-                <a href=\"{{route(' . 'admin.posts.edit' . ', $model) }}\" class=\"btn btn-info\">Edit</a>\n-                <input type=\"submit\" class=\"btn btn-danger\" value=\"Delete\">\n-            </form>';})\n-               function (){\n-               return '\n-               <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n-               <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n-\n-               '; \n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n+ ;})\n+              \n             //    ->rawColumns(['buttons', 'buttons'])\n                ->make(true);\n     }\n     /**\n"
+                },
+                {
+                    "date": 1630324949780,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,11 +23,11 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function () {\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n- ;})\n+ ';})\n               \n             //    ->rawColumns(['buttons', 'buttons'])\n                ->make(true);\n     }\n"
+                },
+                {
+                    "date": 1630324964794,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n                 return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n-            //    ->rawColumns(['buttons', 'buttons'])\n+               ->rawColumns(['buttons', 'buttons'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324971068,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n                 return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n-               ->rawColumns(['buttons', 'buttons'])\n+               ->rawColumns(['intro', 'buttons'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630324978300,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n                 return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n-               ->rawColumns(['intro', 'buttons'])\n+               ->rawColumns(['intro'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630325090870,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function () {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325096445,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function () {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modaledit\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325284161,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function () {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modaledit\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325391576,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function () {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>{{Product.id}}</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325410677,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function () {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>{{Product.id}}</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>'.Product.id.'</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325483283,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n-               function () {\n+               function ($query) {\n                 return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>'.Product.id.'</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n"
+                },
+                {
+                    "date": 1630325492883,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function ($query) {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>'.Product.id.'</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>'.$query->id.'</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325507651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function ($query) {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>'.$query->id.'</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>'..'</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325519396,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function ($query) {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\"><i class=\"fas fa-edit pr-2\"></i>'..'</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = '\"$query->id\"'><i class=\"fas fa-edit pr-2\"></i>'..'</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325524491,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function ($query) {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = '\"$query->id\"'><i class=\"fas fa-edit pr-2\"></i>'..'</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = '\".$query->id.\"'><i class=\"fas fa-edit pr-2\"></i>'..'</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325529640,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function ($query) {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = '\".$query->id.\"'><i class=\"fas fa-edit pr-2\"></i>'..'</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = '\".$query->id.\"'><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325540887,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function ($query) {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = '\".$query->id.\"'><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325559106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                \n                function ($query) {\n-                return '   <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325568693,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,8 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n-               \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n"
+                },
+                {
+                    "date": 1630325598835,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                function ($query) {\n-                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"'.$query->id.'\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325607890,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                function ($query) {\n-                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"'.$query->id.'\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325615294,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                function ($query) {\n-                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"openodal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325620345,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                function ($query) {\n-                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"openodal\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"openmodal()\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325627364,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                function ($query) {\n-                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"openmodal()\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange()\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325633055,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     {\n         return DataTables::of(Product::query())\n                ->addColumn('intro', \n                function ($query) {\n-                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange()\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(\"\")\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325912313,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,11 +20,14 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n+        ->editColumn('is_admin', function(User $user) {\n+            return '<i class=\"fa fa-'. ($user->is_admin ? 'check' : 'times') .'\" aria-hidden=\"true\"></i>';\n+        })\n                ->addColumn('intro', \n                function ($query) {\n-                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(\"\")\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n+                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n                ->rawColumns(['intro'])\n"
+                },
+                {
+                    "date": 1630325920444,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n-        ->editColumn('is_admin', function(User $user) {\n+        ->editColumn('kode', function(User $user) {\n             return '<i class=\"fa fa-'. ($user->is_admin ? 'check' : 'times') .'\" aria-hidden=\"true\"></i>';\n         })\n                ->addColumn('intro', \n                function ($query) {\n"
+                },
+                {
+                    "date": 1630325928552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function(User $user) {\n-            return '<i class=\"fa fa-'. ($user->is_admin ? 'check' : 'times') .'\" aria-hidden=\"true\"></i>';\n+            return '';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630325945608,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function(User $user) {\n-            return '';\n+            return ''.$query->id.'';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630325950720,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function(User $user) {\n-            return ''.$query->id.'';\n+            return '.$query->id.';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630325971301,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,10 +20,10 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n-        ->editColumn('kode', function(User $user) {\n-            return '.$query->id.';\n+        ->editColumn('kode', function(query) {\n+            return ''.$query->id.'';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630326002803,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,10 +20,10 @@\n     }\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n-        ->editColumn('kode', function(query) {\n-            return ''.$query->id.'';\n+        ->editColumn('kode', function($query) {\n+            return '<label id = \"'.$query->id.'\"> </label>';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630326008283,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function($query) {\n-            return '<label id = \"'.$query->id.'\"> </label>';\n+            return '<label id = \"'.$query->id.'\"> $query</label>';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630326013465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function($query) {\n-            return '<label id = \"'.$query->id.'\"> $query</label>';\n+            return '<label id = \"'.$query->id.'\"> '..'</label>';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630326018641,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '..'</label>';\n+            return '<label id = \"'.$query->id.'\"> '.$query->id.'</label>';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630326024423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->id.'</label>';\n+            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630326036516,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n-               ->rawColumns(['intro'])\n+               ->rawColumns(['intro', 'kode'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630326050575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,8 +23,23 @@\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n+        ->editColumn('kode', function($query) {\n+            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+        })\n+        ->editColumn('kode', function($query) {\n+            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+        })\n+        ->editColumn('kode', function($query) {\n+            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+        })\n+        ->editColumn('kode', function($query) {\n+            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+        })\n+        ->editColumn('kode', function($query) {\n+            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+        })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n"
+                },
+                {
+                    "date": 1630326059262,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n-        ->editColumn('kode', function($query) {\n+        ->editColumn('name', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n         ->editColumn('kode', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n"
+                },
+                {
+                    "date": 1630326067413,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,20 +26,17 @@\n         })\n         ->editColumn('name', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n-        ->editColumn('kode', function($query) {\n+        ->editColumn('harga1', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n-        ->editColumn('kode', function($query) {\n+        ->editColumn('harga1', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n-        ->editColumn('kode', function($query) {\n+        ->editColumn('harga1', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n-        ->editColumn('kode', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n-        })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n"
+                },
+                {
+                    "date": 1630326072849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,12 +29,12 @@\n         })\n         ->editColumn('harga1', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n-        ->editColumn('harga1', function($query) {\n+        ->editColumn('harga2', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n-        ->editColumn('harga1', function($query) {\n+        ->editColumn('harga3', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n                ->addColumn('intro', \n                function ($query) {\n"
+                },
+                {
+                    "date": 1630326086733,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,15 +24,15 @@\n         ->editColumn('kode', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n         ->editColumn('name', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+            return '<label id = \"'.$query->id.'\"> '.$query->name.'</label>';\n         })\n         ->editColumn('harga1', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+            return '<label id = \"'.$query->id.'\"> '.$query->harga1.'</label>';\n         })\n         ->editColumn('harga2', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+            return '<label id = \"'.$query->id.'\"> '.$query->harga2.'</label>';\n         })\n         ->editColumn('harga3', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n"
+                },
+                {
+                    "date": 1630326123060,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     public function getjsons(Request $request)\n     {\n         return DataTables::of(Product::query())\n         ->editColumn('kode', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+            return '<label id = \"kode'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n         ->editColumn('name', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->name.'</label>';\n         })\n@@ -33,9 +33,9 @@\n         ->editColumn('harga2', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->harga2.'</label>';\n         })\n         ->editColumn('harga3', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->kode.'</label>';\n+            return '<label id = \"'.$query->id.'\"> '.$query->harga3.'</label>';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n"
+                },
+                {
+                    "date": 1630326134587,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,12 +24,12 @@\n         ->editColumn('kode', function($query) {\n             return '<label id = \"kode'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n         ->editColumn('name', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->name.'</label>';\n+            return '<label id = \"name'.$query->id.'\"> '.$query->name.'</label>';\n         })\n         ->editColumn('harga1', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->harga1.'</label>';\n+            return '<label id = \"hargapertama'.$query->id.'\"> '.$query->harga1.'</label>';\n         })\n         ->editColumn('harga2', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->harga2.'</label>';\n         })\n"
+                },
+                {
+                    "date": 1630326140040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         ->editColumn('harga1', function($query) {\n             return '<label id = \"hargapertama'.$query->id.'\"> '.$query->harga1.'</label>';\n         })\n         ->editColumn('harga2', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->harga2.'</label>';\n+            return '<label id = \"hargakedua'.$query->id.'\"> '.$query->harga2.'</label>';\n         })\n         ->editColumn('harga3', function($query) {\n             return '<label id = \"'.$query->id.'\"> '.$query->harga3.'</label>';\n         })\n"
+                },
+                {
+                    "date": 1630326337778,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,17 +33,17 @@\n         ->editColumn('harga2', function($query) {\n             return '<label id = \"hargakedua'.$query->id.'\"> '.$query->harga2.'</label>';\n         })\n         ->editColumn('harga3', function($query) {\n-            return '<label id = \"'.$query->id.'\"> '.$query->harga3.'</label>';\n+            return '<label id = \"hargaketiga'.$query->id.'\"> '.$query->harga3.'</label>';\n         })\n                ->addColumn('intro', \n                function ($query) {\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n-               ->rawColumns(['intro', 'kode'])\n+               ->rawColumns(['intro', 'kode', 'harga3', 'harga3'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630326345485,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n-               ->rawColumns(['intro', 'kode', 'harga3', 'harga3'])\n+               ->rawColumns(['intro', 'kode', 'harga3', 'harga1', 'harga2', 'harga3'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630326744370,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\n  ';})\n               \n-               ->rawColumns(['intro', 'kode', 'harga3', 'harga1', 'harga2', 'harga3'])\n+               ->rawColumns(['intro', 'kode', 'name', 'harga1', 'harga2', 'harga3'])\n                ->make(true);\n     }\n     /**\n      * Show the form for creating a new resource.\n@@ -95,9 +95,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function edit($id)\n     {\n-        //\n+        echo $id;\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1630336129179,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,8 +96,9 @@\n      */\n     public function edit($id)\n     {\n         echo $id;\n+        $subject = Subjects::find($id);\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1630336136376,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,9 +96,9 @@\n      */\n     public function edit($id)\n     {\n         echo $id;\n-        $subject = Subjects::find($id);\n+        $product = Product::find($id);\n     }\n \n     /**\n      * Update the specified resource in storage.\n"
+                },
+                {
+                    "date": 1630336224659,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,10 +95,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function edit($id)\n     {\n-        echo $id;\n-        $product = Product::find($id);\n+        // echo $id;\n+      \n     }\n \n     /**\n      * Update the specified resource in storage.\n@@ -108,9 +108,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function update(Request $request, $id)\n     {\n-        //\n+        echo $id;\n     }\n \n     /**\n      * Remove the specified resource from storage.\n"
+                },
+                {
+                    "date": 1630336572839,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,8 +108,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function update(Request $request, $id)\n     {\n+        $product = Product::find($id);\n+        $rod\n         echo $id;\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630336581427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,10 +109,10 @@\n      */\n     public function update(Request $request, $id)\n     {\n         $product = Product::find($id);\n-        $rod\n-        echo $id;\n+        $product->code = ;\n+     \n     }\n \n     /**\n      * Remove the specified resource from storage.\n"
+                },
+                {
+                    "date": 1630336607799,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,14 @@\n      */\n     public function update(Request $request, $id)\n     {\n         $product = Product::find($id);\n-        $product->code = ;\n+        $product->kode = ;\n+        $product->name = ;\n+        $product->harga1 = ;\n+        $product->harga1 = ;\n+        $product->harga1 = ;\n+        \n      \n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630336618593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,11 +112,17 @@\n         $product = Product::find($id);\n         $product->kode = ;\n         $product->name = ;\n         $product->harga1 = ;\n-        $product->harga1 = ;\n-        $product->harga1 = ;\n-        \n+        $product->harga2 = ;\n+        $product->harga3 = ;\n+\n+        myname : name,\n+        mycode : code,\n+        myprice1 : price1,\n+        myprice2 : price2,\n+        myprice3: price3\n+\n      \n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630336626228,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n      */\n     public function update(Request $request, $id)\n     {\n         $product = Product::find($id);\n-        $product->kode = ;\n+        $product->kode = $request->mycode;\n         $product->name = ;\n         $product->harga1 = ;\n         $product->harga2 = ;\n         $product->harga3 = ;\n"
+                },
+                {
+                    "date": 1630336632301,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,10 +110,10 @@\n     public function update(Request $request, $id)\n     {\n         $product = Product::find($id);\n         $product->kode = $request->mycode;\n-        $product->name = ;\n-        $product->harga1 = ;\n+        $product->name = $request->myname;\n+        $product->harga1 = $request->myname;\n         $product->harga2 = ;\n         $product->harga3 = ;\n \n         myname : name,\n"
+                },
+                {
+                    "date": 1630336642209,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -111,11 +111,11 @@\n     {\n         $product = Product::find($id);\n         $product->kode = $request->mycode;\n         $product->name = $request->myname;\n-        $product->harga1 = $request->myname;\n-        $product->harga2 = ;\n-        $product->harga3 = ;\n+        $product->harga1 = $request->myprice1;\n+        $product->harga2 = $request->myprice1;\n+        $product->harga3 = $request->myprice1;\n \n         myname : name,\n         mycode : code,\n         myprice1 : price1,\n"
+                },
+                {
+                    "date": 1630336660308,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,16 +112,25 @@\n         $product = Product::find($id);\n         $product->kode = $request->mycode;\n         $product->name = $request->myname;\n         $product->harga1 = $request->myprice1;\n-        $product->harga2 = $request->myprice1;\n-        $product->harga3 = $request->myprice1;\n+        $product->harga2 = $request->myprice2;\n+        $product->harga3 = $request->myprice3;\n+        $p\n \n-        myname : name,\n-        mycode : code,\n-        myprice1 : price1,\n-        myprice2 : price2,\n-        myprice3: price3\n+        try{\n+            $products = new Product;\n+            $products->name = $request->myname;\n+            $products->kode = $request->mycode;\n+            $products->harga1 = $request->myprice1;\n+            $products->harga2 = $request->myprice2;\n+            $products->harga3 = $request->myprice3;\n+            $products->save(); // returns false\n+         }\n+         catch(\\Exception $e){\n+            return $e->getMessage();\n+         }\n+        \n \n      \n     }\n \n"
+                },
+                {
+                    "date": 1630336668998,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,23 +108,18 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function update(Request $request, $id)\n     {\n-        $product = Product::find($id);\n+      \n+    \n+\n+        try{\n+            $product = Product::find($id);\n         $product->kode = $request->mycode;\n         $product->name = $request->myname;\n         $product->harga1 = $request->myprice1;\n         $product->harga2 = $request->myprice2;\n         $product->harga3 = $request->myprice3;\n-        $p\n-\n-        try{\n-            $products = new Product;\n-            $products->name = $request->myname;\n-            $products->kode = $request->mycode;\n-            $products->harga1 = $request->myprice1;\n-            $products->harga2 = $request->myprice2;\n-            $products->harga3 = $request->myprice3;\n             $products->save(); // returns false\n          }\n          catch(\\Exception $e){\n             return $e->getMessage();\n"
+                },
+                {
+                    "date": 1630337624171,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -113,13 +113,13 @@\n     \n \n         try{\n             $product = Product::find($id);\n-        $product->kode = $request->mycode;\n-        $product->name = $request->myname;\n-        $product->harga1 = $request->myprice1;\n-        $product->harga2 = $request->myprice2;\n-        $product->harga3 = $request->myprice3;\n+            $product->kode = $request->mycode;\n+            $product->name = $request->myname;\n+            $product->harga1 = $request->myprice1;\n+            $product->harga2 = $request->myprice2;\n+            $product->harga3 = $request->myprice3;\n             $products->save(); // returns false\n          }\n          catch(\\Exception $e){\n             return $e->getMessage();\n"
+                },
+                {
+                    "date": 1630337647307,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -118,9 +118,9 @@\n             $product->name = $request->myname;\n             $product->harga1 = $request->myprice1;\n             $product->harga2 = $request->myprice2;\n             $product->harga3 = $request->myprice3;\n-            $products->save(); // returns false\n+            $product->save(); // returns false\n          }\n          catch(\\Exception $e){\n             return $e->getMessage();\n          }\n"
+                }
+            ],
+            "date": 1630203560740,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\\Request;\n\nclass ProductController extends Controller\n{\n    /**\n     * Display a listing of the resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function index()\n    {\n        //\n    }\n\n    /**\n     * Show the form for creating a new resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function create()\n    {\n        //\n    }\n\n    /**\n     * Store a newly created resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function store(Request $request)\n    {\n        //\n    }\n\n    /**\n     * Display the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function show($id)\n    {\n        //\n    }\n\n    /**\n     * Show the form for editing the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function edit($id)\n    {\n        //\n    }\n\n    /**\n     * Update the specified resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function update(Request $request, $id)\n    {\n        //\n    }\n\n    /**\n     * Remove the specified resource from storage.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function destroy($id)\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,742 @@
+{
+    "sourceFile": "app/Http/Controllers/StokController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 181,
+            "patches": [
+                {
+                    "date": 1630204262557,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630204273483,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        return view('kasir');\n+        return view('stij');\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630819972354,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,13 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        return view('stij');\n+        return view('stok');\n     }\n+    public function getdatatableproductlog(){\n+        $stocklog = \"select * from product p left join stok_log sl on sl.idproduct = p.id\";\n+    }\n \n     /**\n      * Show the form for creating a new resource.\n      *\n"
+                },
+                {
+                    "date": 1630819980765,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n-        $stocklog = \"select * from product p left join stok_log sl on sl.idproduct = p.id\";\n+        $stocklog = DB::select(\"select * from product p left join stok_log sl on sl.idproduct = p.id\")_;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630822231826,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,16 @@\n     {\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n-        $stocklog = DB::select(\"select * from product p left join stok_log sl on sl.idproduct = p.id\")_;\n+        $stocklog = DB::select(\"select * from product p left join stok_log sl on sl.idproduct = p.id\");\n+\n+\n+        //  Supplier        \n+        // SELECT s.id, s.name from supplier_product sp \n+        // inner join product p on p.id = sp.idproduct\n+        // inner join supplier s on s.id = sp.idsupplier\n+        // where sp.idproduct = 1\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630827826287,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n-        $stocklog = DB::select(\"select * from product p left join stok_log sl on sl.idproduct = p.id\");\n+        $stock = DB::select(\"select * from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n         //  Supplier        \n         // SELECT s.id, s.name from supplier_product sp \n"
+                },
+                {
+                    "date": 1630827842509,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,41 @@\n     public function getdatatableproductlog(){\n         $stock = DB::select(\"select * from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n+        $supplierproduct = DB::select(\"select extable.idsupplierproduct, extable.tanggalterbaru, extable.price as hargasupplier, product.name, product.kode, product.id as idproduct\n+        from\n+        (select idsupplierproduct, max(price) as price, id ,max(created_at) as tanggalterbaru from supplier_product_log group by idsupplierproduct) extable,  supplier_product_log inner join supplier_product on supplier_product.id = supplier_product_log.idsupplierproduct inner join product on product.id = supplier_product.idproduct\n+        where extable.id = supplier_product_log.id and supplier_product.idsupplier = '$id' group by supplier_product_log.idsupplierproduct\");\n+\n+        return DataTables::of($supplierproduct)\n+        ->editColumn('code', function($query) {\n+        return '<label id = \"code'.$query->idproduct.'\"> '.$query->kode.'</label>';\n+        })\n+        ->editColumn('name', function($query) {\n+        return '<label id = \"name'.$query->idproduct.'\"> '.$query->name.'</label>';\n+        })\n+        ->editColumn('price', function($query) {\n+            return '<label id = \"price'.$query->idproduct.'\"> '.$query->hargasupplier.'</label>';\n+            })\n+        ->editColumn('updatedat', function($query) {\n+            // $format = 'jS F Y  H:i:s\"';\n+            // $mytanggalku = \"2020-09-21 08:00:00\";\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n+            $mydate = $date->format('jS F Y  H:i:s');\n+            return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n+        })\n+        ->addColumn('action', \n+        function ($query) {\n+        return '\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\" id = \"'.$query->idproduct.'|'.$query->name.'\" onclick=\"perbaharui(this)\"><i class=\"fas fa-edit pr-2\"></i>Perbaharui</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = \"gethistoryproduct('.$query->idproduct.')\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n+        ';})\n+\n+        ->rawColumns(['action', 'name', 'code','updatedat','price'])\n+        ->make(true);\n+\n+\n         //  Supplier        \n         // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n"
+                },
+                {
+                    "date": 1630827848313,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,13 +18,8 @@\n     public function getdatatableproductlog(){\n         $stock = DB::select(\"select * from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n-        $supplierproduct = DB::select(\"select extable.idsupplierproduct, extable.tanggalterbaru, extable.price as hargasupplier, product.name, product.kode, product.id as idproduct\n-        from\n-        (select idsupplierproduct, max(price) as price, id ,max(created_at) as tanggalterbaru from supplier_product_log group by idsupplierproduct) extable,  supplier_product_log inner join supplier_product on supplier_product.id = supplier_product_log.idsupplierproduct inner join product on product.id = supplier_product.idproduct\n-        where extable.id = supplier_product_log.id and supplier_product.idsupplier = '$id' group by supplier_product_log.idsupplierproduct\");\n-\n         return DataTables::of($supplierproduct)\n         ->editColumn('code', function($query) {\n         return '<label id = \"code'.$query->idproduct.'\"> '.$query->kode.'</label>';\n         })\n"
+                },
+                {
+                    "date": 1630827868109,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,14 +15,14 @@\n     {\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n-        $stock = DB::select(\"select * from product p left join stok_log sl on sl.idproduct = p.id\");\n+        $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n-        return DataTables::of($supplierproduct)\n+        return DataTables::of($stock)\n         ->editColumn('code', function($query) {\n-        return '<label id = \"code'.$query->idproduct.'\"> '.$query->kode.'</label>';\n+        return '<label id = \"code'.$query->id.'\"> '.$query->kode.'</label>';\n         })\n         ->editColumn('name', function($query) {\n         return '<label id = \"name'.$query->idproduct.'\"> '.$query->name.'</label>';\n         })\n"
+                },
+                {
+                    "date": 1630827886801,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,15 +20,15 @@\n \n \n         return DataTables::of($stock)\n         ->editColumn('code', function($query) {\n-        return '<label id = \"code'.$query->id.'\"> '.$query->kode.'</label>';\n+        return '<label id = \"code'.$query->idproduct.'\"> '.$query->kode.'</label>';\n         })\n         ->editColumn('name', function($query) {\n         return '<label id = \"name'.$query->idproduct.'\"> '.$query->name.'</label>';\n         })\n         ->editColumn('price', function($query) {\n-            return '<label id = \"price'.$query->idproduct.'\"> '.$query->hargasupplier.'</label>';\n+            return '<label id = \"price'.$query->idproduct.'\"> '.$query->stok.'</label>';\n             })\n         ->editColumn('updatedat', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n"
+                },
+                {
+                    "date": 1630827899441,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n         return DataTables::of($stock)\n-        ->editColumn('code', function($query) {\n+        ->editColumn('kode', function($query) {\n         return '<label id = \"code'.$query->idproduct.'\"> '.$query->kode.'</label>';\n         })\n         ->editColumn('name', function($query) {\n         return '<label id = \"name'.$query->idproduct.'\"> '.$query->name.'</label>';\n"
+                },
+                {
+                    "date": 1630827908082,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n         })\n         ->editColumn('name', function($query) {\n         return '<label id = \"name'.$query->idproduct.'\"> '.$query->name.'</label>';\n         })\n-        ->editColumn('price', function($query) {\n+        ->editColumn('stok', function($query) {\n             return '<label id = \"price'.$query->idproduct.'\"> '.$query->stok.'</label>';\n             })\n         ->editColumn('updatedat', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n"
+                },
+                {
+                    "date": 1630827930515,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n         })\n         ->editColumn('stok', function($query) {\n             return '<label id = \"price'.$query->idproduct.'\"> '.$query->stok.'</label>';\n             })\n-        ->editColumn('updatedat', function($query) {\n+        ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n             $mydate = $date->format('jS F Y  H:i:s');\n"
+                },
+                {
+                    "date": 1630827991779,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,10 +38,10 @@\n         })\n         ->addColumn('action', \n         function ($query) {\n         return '\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modal\" id = \"'.$query->idproduct.'|'.$query->name.'\" onclick=\"perbaharui(this)\"><i class=\"fas fa-edit pr-2\"></i>Perbaharui</button>\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = \"gethistoryproduct('.$query->idproduct.')\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'code','updatedat','price'])\n         ->make(true);\n"
+                },
+                {
+                    "date": 1630828114111,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,9 @@\n     {\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n+        $mylog = DB::select(\"select * from \");\n         $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n         return DataTables::of($stock)\n"
+                },
+                {
+                    "date": 1630828136840,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n-        $mylog = DB::select(\"select * from \");\n+        $mylog = DB::select(\"select * from stok_log\");\n         $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n         return DataTables::of($stock)\n"
+                },
+                {
+                    "date": 1630828218894,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,8 +32,9 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n+            \n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n             $mydate = $date->format('jS F Y  H:i:s');\n             return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n         })\n"
+                },
+                {
+                    "date": 1630828250363,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,12 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n-            \n+            for($i = 0; $i < count($mylog); $i++)\n+            {\n+                \n+            }\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n             $mydate = $date->format('jS F Y  H:i:s');\n             return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n         })\n"
+                },
+                {
+                    "date": 1630828330857,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,12 @@\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             for($i = 0; $i < count($mylog); $i++)\n             {\n-                \n+                if($mylog[$i]['idproduct'] == $query->idproduct)\n+                {\n+                    \n+                }\n             }\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n             $mydate = $date->format('jS F Y  H:i:s');\n             return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n"
+                },
+                {
+                    "date": 1630828351321,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,13 +32,14 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n+            var cocok = \"ya\";\n             for($i = 0; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]['idproduct'] == $query->idproduct)\n                 {\n-                    \n+\n                 }\n             }\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n             $mydate = $date->format('jS F Y  H:i:s');\n"
+                },
+                {
+                    "date": 1630828374089,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,14 +32,14 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n-            var cocok = \"ya\";\n+            var cocok = \"tidak\";\n             for($i = 0; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]['idproduct'] == $query->idproduct)\n                 {\n-\n+                    cocok = \"ya\";\n                 }\n             }\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n             $mydate = $date->format('jS F Y  H:i:s');\n"
+                },
+                {
+                    "date": 1630828390963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,16 +32,20 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n-            var cocok = \"tidak\";\n+            $cocok = \"tidak\";\n             for($i = 0; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]['idproduct'] == $query->idproduct)\n                 {\n-                    cocok = \"ya\";\n+                    $cocok = \"ya\";\n                 }\n             }\n+            if($cocok = \"tidak\")\n+            {\n+                \n+            }\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n             $mydate = $date->format('jS F Y  H:i:s');\n             return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n         })\n"
+                },
+                {
+                    "date": 1630828493189,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n-        $mylog = DB::select(\"select * from stok_log\");\n+        $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n         $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n         return DataTables::of($stock)\n@@ -42,10 +42,13 @@\n                 }\n             }\n             if($cocok = \"tidak\")\n             {\n-                \n+\n             }\n+            else{\n+\n+            }\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n             $mydate = $date->format('jS F Y  H:i:s');\n             return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n         })\n"
+                },
+                {
+                    "date": 1630828498785,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,13 +45,13 @@\n             {\n \n             }\n             else{\n-\n+                $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n+                $mydate = $date->format('jS F Y  H:i:s');\n+                return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n             }\n-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n-            $mydate = $date->format('jS F Y  H:i:s');\n-            return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n+         \n         })\n         ->addColumn('action', \n         function ($query) {\n         return '\n"
+                },
+                {
+                    "date": 1630828517064,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n                 }\n             }\n             if($cocok = \"tidak\")\n             {\n-\n+                return '<label id = \"tanggal'.$query->idproduct.'\">No Record</label>';\n             }\n             else{\n                 $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n                 $mydate = $date->format('jS F Y  H:i:s');\n"
+                },
+                {
+                    "date": 1630828525149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n                 }\n             }\n             if($cocok = \"tidak\")\n             {\n-                return '<label id = \"tanggal'.$query->idproduct.'\">No Record</label>';\n+                return '<label >No Record</label>';\n             }\n             else{\n                 $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n                 $mydate = $date->format('jS F Y  H:i:s');\n"
+                },
+                {
+                    "date": 1630828533864,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -42,9 +42,9 @@\n                 }\n             }\n             if($cocok = \"tidak\")\n             {\n-                return '<label >No Record</label>';\n+                return '<label>No Record</label>';\n             }\n             else{\n                 $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n                 $mydate = $date->format('jS F Y  H:i:s');\n"
+                },
+                {
+                    "date": 1630828562812,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,10 @@\n \n namespace App\\Http\\Controllers;\n \n use Illuminate\\Http\\Request;\n+use DB;\n+use DataTables;\n \n class StokController extends Controller\n {\n     /**\n"
+                },
+                {
+                    "date": 1630828583570,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     {\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n-        $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n+      \n         $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n         return DataTables::of($stock)\n@@ -34,8 +34,9 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n+            $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             $cocok = \"tidak\";\n             for($i = 0; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]['idproduct'] == $query->idproduct)\n"
+                },
+                {
+                    "date": 1630828608569,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n-            $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n+            $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\")->get();\n             $cocok = \"tidak\";\n             for($i = 0; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]['idproduct'] == $query->idproduct)\n"
+                },
+                {
+                    "date": 1630828713350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n       \n-        $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\");\n+        $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\")->get();\n \n \n         return DataTables::of($stock)\n         ->editColumn('kode', function($query) {\n"
+                },
+                {
+                    "date": 1630828723142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n       \n-        $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\")->get();\n+        $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\");\n \n \n         return DataTables::of($stock)\n         ->editColumn('kode', function($query) {\n"
+                },
+                {
+                    "date": 1630828762751,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n-            $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\")->get();\n+            $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             $cocok = \"tidak\";\n             for($i = 0; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]['idproduct'] == $query->idproduct)\n"
+                },
+                {
+                    "date": 1630828803120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,8 +35,9 @@\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n+            echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n             for($i = 0; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]['idproduct'] == $query->idproduct)\n"
+                },
+                {
+                    "date": 1630828866909,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n-            $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n+            $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\")->toArray();\n             echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n             for($i = 0; $i < count($mylog); $i++)\n             {\n"
+                },
+                {
+                    "date": 1630828965417,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,23 +37,28 @@\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\")->toArray();\n             echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n-            for($i = 0; $i < count($mylog); $i++)\n-            {\n+\n+            foreach ($selection as $key => $selection) {\n                 if($mylog[$i]['idproduct'] == $query->idproduct)\n                 {\n-                    $cocok = \"ya\";\n+                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n+                    $mydate = $date->format('jS F Y  H:i:s');\n+                    return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n                 }\n+                else if($mylog[$i]['idproduct'] == $query->idproduct)\n+                {\n+                    return '<label>No Record</label>';\n+                }\n             }\n+          \n             if($cocok = \"tidak\")\n             {\n-                return '<label>No Record</label>';\n+               \n             }\n             else{\n-                $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n-                $mydate = $date->format('jS F Y  H:i:s');\n-                return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n+          \n             }\n          \n         })\n         ->addColumn('action', \n"
+                },
+                {
+                    "date": 1630828982882,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n-            $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\")->toArray();\n+            $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n \n             foreach ($selection as $key => $selection) {\n@@ -51,15 +51,9 @@\n                     return '<label>No Record</label>';\n                 }\n             }\n           \n-            if($cocok = \"tidak\")\n-            {\n-               \n-            }\n-            else{\n           \n-            }\n          \n         })\n         ->addColumn('action', \n         function ($query) {\n"
+                },
+                {
+                    "date": 1630828988426,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,9 @@\n             echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n \n             foreach ($selection as $key => $selection) {\n-                if($mylog[$i]['idproduct'] == $query->idproduct)\n+                if($mylog[$key]['idproduct'] == $query->idproduct)\n                 {\n                     $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n                     $mydate = $date->format('jS F Y  H:i:s');\n                     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n"
+                },
+                {
+                    "date": 1630828996189,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,16 +38,16 @@\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n \n-            foreach ($selection as $key => $selection) {\n+            foreach ($mylog as $key => $selection) {\n                 if($mylog[$key]['idproduct'] == $query->idproduct)\n                 {\n                     $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n                     $mydate = $date->format('jS F Y  H:i:s');\n                     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n                 }\n-                else if($mylog[$i]['idproduct'] == $query->idproduct)\n+                else if($mylog[$key]['idproduct'] == $query->idproduct)\n                 {\n                     return '<label>No Record</label>';\n                 }\n             }\n"
+                },
+                {
+                    "date": 1630829002742,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,16 +38,16 @@\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n \n-            foreach ($mylog as $key => $selection) {\n-                if($mylog[$key]['idproduct'] == $query->idproduct)\n+            foreach ($mylog as $key => $mylogs) {\n+                if($mylogs[$key]['idproduct'] == $query->idproduct)\n                 {\n                     $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n                     $mydate = $date->format('jS F Y  H:i:s');\n                     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n                 }\n-                else if($mylog[$key]['idproduct'] == $query->idproduct)\n+                else if($mylogs[$key]['idproduct'] == $query->idproduct)\n                 {\n                     return '<label>No Record</label>';\n                 }\n             }\n"
+                },
+                {
+                    "date": 1630829012127,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,9 +41,9 @@\n \n             foreach ($mylog as $key => $mylogs) {\n                 if($mylogs[$key]['idproduct'] == $query->idproduct)\n                 {\n-                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\n+                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n                     $mydate = $date->format('jS F Y  H:i:s');\n                     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n                 }\n                 else if($mylogs[$key]['idproduct'] == $query->idproduct)\n"
+                },
+                {
+                    "date": 1630829031898,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,9 @@\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n-            echo $mylog[0]['idproduct'];\n+            // echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n \n             foreach ($mylog as $key => $mylogs) {\n                 if($mylogs[$key]['idproduct'] == $query->idproduct)\n"
+                },
+                {
+                    "date": 1630829093015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             // echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n-\n+            $mylog = json_encode($mylog);\n             foreach ($mylog as $key => $mylogs) {\n                 if($mylogs[$key]['idproduct'] == $query->idproduct)\n                 {\n                     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n"
+                },
+                {
+                    "date": 1630829111815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             // echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n-            $mylog = json_encode($mylog);\n+            // $mylog = json_encode($mylog);\n             foreach ($mylog as $key => $mylogs) {\n                 if($mylogs[$key]['idproduct'] == $query->idproduct)\n                 {\n                     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n"
+                },
+                {
+                    "date": 1630829158789,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,15 +39,15 @@\n             // echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n             foreach ($mylog as $key => $mylogs) {\n-                if($mylogs[$key]['idproduct'] == $query->idproduct)\n+                if($mylogs[$key]->idproduct == $query->idproduct)\n                 {\n                     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n                     $mydate = $date->format('jS F Y  H:i:s');\n                     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n                 }\n-                else if($mylogs[$key]['idproduct'] == $query->idproduct)\n+                else if($mylogs[$key]->idproduct == $query->idproduct)\n                 {\n                     return '<label>No Record</label>';\n                 }\n             }\n"
+                },
+                {
+                    "date": 1630829191113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,18 +39,18 @@\n             // echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n             foreach ($mylog as $key => $mylogs) {\n-                if($mylogs[$key]->idproduct == $query->idproduct)\n-                {\n-                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n-                    $mydate = $date->format('jS F Y  H:i:s');\n-                    return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n-                }\n-                else if($mylogs[$key]->idproduct == $query->idproduct)\n-                {\n-                    return '<label>No Record</label>';\n-                }\n+                // if($mylogs[$key]->idproduct == $query->idproduct)\n+                // {\n+                //     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n+                //     $mydate = $date->format('jS F Y  H:i:s');\n+                //     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n+                // }\n+                // else if($mylogs[$key]->idproduct == $query->idproduct)\n+                // {\n+                //     return '<label>No Record</label>';\n+                // }\n             }\n           \n           \n          \n"
+                },
+                {
+                    "date": 1630829197152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,8 +39,9 @@\n             // echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n             foreach ($mylog as $key => $mylogs) {\n+                return $key;\n                 // if($mylogs[$key]->idproduct == $query->idproduct)\n                 // {\n                 //     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n                 //     $mydate = $date->format('jS F Y  H:i:s');\n"
+                },
+                {
+                    "date": 1630829211618,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,8 +38,9 @@\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             // echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n+            echo count($mylog);\n             foreach ($mylog as $key => $mylogs) {\n                 return $key;\n                 // if($mylogs[$key]->idproduct == $query->idproduct)\n                 // {\n"
+                },
+                {
+                    "date": 1630829222333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,11 +38,11 @@\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             // echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n-            echo count($mylog);\n+            echo ;\n             foreach ($mylog as $key => $mylogs) {\n-                return $key;\n+                return count($mylog);\n                 // if($mylogs[$key]->idproduct == $query->idproduct)\n                 // {\n                 //     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n                 //     $mydate = $date->format('jS F Y  H:i:s');\n"
+                },
+                {
+                    "date": 1630829273895,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,12 +35,12 @@\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n-            // echo $mylog[0]['idproduct'];\n+            echo $mylog[0]['idproduct'];\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n-            echo ;\n+            // echo ;\n             foreach ($mylog as $key => $mylogs) {\n                 return count($mylog);\n                 // if($mylogs[$key]->idproduct == $query->idproduct)\n                 // {\n"
+                },
+                {
+                    "date": 1630829280992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,9 @@\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n-            echo $mylog[0]['idproduct'];\n+            echo $mylog[0]-idproduct;\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n             // echo ;\n             foreach ($mylog as $key => $mylogs) {\n"
+                },
+                {
+                    "date": 1630829293292,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,14 +35,14 @@\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n-            echo $mylog[0]-idproduct;\n+            echo $mylog[0]->idproduct;\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n             // echo ;\n             foreach ($mylog as $key => $mylogs) {\n-                return count($mylog);\n+                return $mylog[0]->idproduct;\n                 // if($mylogs[$key]->idproduct == $query->idproduct)\n                 // {\n                 //     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n                 //     $mydate = $date->format('jS F Y  H:i:s');\n"
+                },
+                {
+                    "date": 1630829318268,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,9 @@\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n-            echo $mylog[0]->idproduct;\n+            return $mylog[0]->idproduct;\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n             // echo ;\n             foreach ($mylog as $key => $mylogs) {\n"
+                },
+                {
+                    "date": 1630829351312,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,24 +36,28 @@\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n             return $mylog[0]->idproduct;\n+            for($i = 0 ; $i < count($mylog); $i++)\n+            {\n+                \n+            }\n             $cocok = \"tidak\";\n             // $mylog = json_encode($mylog);\n             // echo ;\n-            foreach ($mylog as $key => $mylogs) {\n-                return $mylog[0]->idproduct;\n-                // if($mylogs[$key]->idproduct == $query->idproduct)\n-                // {\n-                //     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n-                //     $mydate = $date->format('jS F Y  H:i:s');\n-                //     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n-                // }\n-                // else if($mylogs[$key]->idproduct == $query->idproduct)\n-                // {\n-                //     return '<label>No Record</label>';\n-                // }\n-            }\n+            // foreach ($mylog as $key => $mylogs) {\n+            //     return $mylog[0]->idproduct;\n+            //     // if($mylogs[$key]->idproduct == $query->idproduct)\n+            //     // {\n+            //     //     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n+            //     //     $mydate = $date->format('jS F Y  H:i:s');\n+            //     //     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n+            //     // }\n+            //     // else if($mylogs[$key]->idproduct == $query->idproduct)\n+            //     // {\n+            //     //     return '<label>No Record</label>';\n+            //     // }\n+            // }\n           \n           \n          \n         })\n"
+                },
+                {
+                    "date": 1630829358846,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,14 +35,15 @@\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n-            return $mylog[0]->idproduct;\n+            // return $mylog[0]->idproduct;\n+            $cocok = \"tidak\";\n             for($i = 0 ; $i < count($mylog); $i++)\n             {\n                 \n             }\n-            $cocok = \"tidak\";\n+         \n             // $mylog = json_encode($mylog);\n             // echo ;\n             // foreach ($mylog as $key => $mylogs) {\n             //     return $mylog[0]->idproduct;\n"
+                },
+                {
+                    "date": 1630829365833,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,13 +35,13 @@\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n             $mylog = DB::select(\"SELECT idproduct, max(created_at) as tanggalterbaru FROM `stok_log` group by idproduct\");\n-            // return $mylog[0]->idproduct;\n+            // return \n             $cocok = \"tidak\";\n             for($i = 0 ; $i < count($mylog); $i++)\n             {\n-                \n+                if($mylog[$i]->idproduct;)\n             }\n          \n             // $mylog = json_encode($mylog);\n             // echo ;\n"
+                },
+                {
+                    "date": 1630829381757,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,9 @@\n             // return \n             $cocok = \"tidak\";\n             for($i = 0 ; $i < count($mylog); $i++)\n             {\n-                if($mylog[$i]->idproduct;)\n+                if($mylog[$i]->idproduct == $query->idproduct)\n             }\n          \n             // $mylog = json_encode($mylog);\n             // echo ;\n"
+                },
+                {
+                    "date": 1630829388762,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,8 +40,11 @@\n             $cocok = \"tidak\";\n             for($i = 0 ; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]->idproduct == $query->idproduct)\n+                {\n+                    cocok = \"ya\";\n+                }\n             }\n          \n             // $mylog = json_encode($mylog);\n             // echo ;\n"
+                },
+                {
+                    "date": 1630829400315,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,12 +41,15 @@\n             for($i = 0 ; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]->idproduct == $query->idproduct)\n                 {\n-                    cocok = \"ya\";\n+                    $cocok = \"ya\";\n                 }\n             }\n-         \n+            if($cocok == \"ya\")\n+            {\n+                \n+            }\n             // $mylog = json_encode($mylog);\n             // echo ;\n             // foreach ($mylog as $key => $mylogs) {\n             //     return $mylog[0]->idproduct;\n"
+                },
+                {
+                    "date": 1630829405721,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,9 +46,11 @@\n                 }\n             }\n             if($cocok == \"ya\")\n             {\n-                \n+                   //     //     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n+            //     //     $mydate = $date->format('jS F Y  H:i:s');\n+            //     //     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n             }\n             // $mylog = json_encode($mylog);\n             // echo ;\n             // foreach ($mylog as $key => $mylogs) {\n"
+                },
+                {
+                    "date": 1630829424581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,11 +46,11 @@\n                 }\n             }\n             if($cocok == \"ya\")\n             {\n-                   //     //     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n-            //     //     $mydate = $date->format('jS F Y  H:i:s');\n-            //     //     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n+                           $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n+                    $mydate = $date->format('jS F Y  H:i:s');\n+                    return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n             }\n             // $mylog = json_encode($mylog);\n             // echo ;\n             // foreach ($mylog as $key => $mylogs) {\n"
+                },
+                {
+                    "date": 1630829447074,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,16 +41,16 @@\n             for($i = 0 ; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]->idproduct == $query->idproduct)\n                 {\n-                    $cocok = \"ya\";\n+                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n+                    $mydate = $date->format('jS F Y  H:i:s');\n+                    return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n                 }\n             }\n             if($cocok == \"ya\")\n             {\n-                           $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n-                    $mydate = $date->format('jS F Y  H:i:s');\n-                    return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n+                   \n             }\n             // $mylog = json_encode($mylog);\n             // echo ;\n             // foreach ($mylog as $key => $mylogs) {\n"
+                },
+                {
+                    "date": 1630829458431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,14 +41,15 @@\n             for($i = 0 ; $i < count($mylog); $i++)\n             {\n                 if($mylog[$i]->idproduct == $query->idproduct)\n                 {\n+                    $cocok = \"ya\";\n                     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n                     $mydate = $date->format('jS F Y  H:i:s');\n                     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n                 }\n             }\n-            if($cocok == \"ya\")\n+            if($cocok == \"tidak\")\n             {\n                    \n             }\n             // $mylog = json_encode($mylog);\n"
+                },
+                {
+                    "date": 1630829466651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,9 +49,10 @@\n                 }\n             }\n             if($cocok == \"tidak\")\n             {\n-                   \n+         \n+                    return '<label id = \"tanggal'.$query->idproduct.'\">- </label>';\n             }\n             // $mylog = json_encode($mylog);\n             // echo ;\n             // foreach ($mylog as $key => $mylogs) {\n"
+                },
+                {
+                    "date": 1630829479634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n \n use Illuminate\\Http\\Request;\n use DB;\n use DataTables;\n+use DateTime;\n \n class StokController extends Controller\n {\n     /**\n@@ -50,9 +51,9 @@\n             }\n             if($cocok == \"tidak\")\n             {\n          \n-                    return '<label id = \"tanggal'.$query->idproduct.'\">- </label>';\n+                    return '<label id = \"tanggal'.$query->idproduct.'\">-</label>';\n             }\n             // $mylog = json_encode($mylog);\n             // echo ;\n             // foreach ($mylog as $key => $mylogs) {\n"
+                },
+                {
+                    "date": 1630829490415,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n             {\n                 if($mylog[$i]->idproduct == $query->idproduct)\n                 {\n                     $cocok = \"ya\";\n-                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n+                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylog->tanggalterbaru);\n                     $mydate = $date->format('jS F Y  H:i:s');\n                     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n                 }\n             }\n"
+                },
+                {
+                    "date": 1630829510529,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n             {\n                 if($mylog[$i]->idproduct == $query->idproduct)\n                 {\n                     $cocok = \"ya\";\n-                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylog->tanggalterbaru);\n+                    $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylog[$i]->tanggalterbaru);\n                     $mydate = $date->format('jS F Y  H:i:s');\n                     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n                 }\n             }\n"
+                },
+                {
+                    "date": 1630829523907,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n-        ->rawColumns(['action', 'name', 'code','updatedat','price'])\n+        ->rawColumns(['action', 'name', 'code','tanggal','price'])\n         ->make(true);\n \n \n         //  Supplier        \n"
+                },
+                {
+                    "date": 1630829533585,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n-        ->rawColumns(['action', 'name', 'code','tanggal','price'])\n+        ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n         ->make(true);\n \n \n         //  Supplier        \n"
+                },
+                {
+                    "date": 1630829551869,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -53,25 +53,10 @@\n             {\n          \n                     return '<label id = \"tanggal'.$query->idproduct.'\">-</label>';\n             }\n-            // $mylog = json_encode($mylog);\n-            // echo ;\n-            // foreach ($mylog as $key => $mylogs) {\n-            //     return $mylog[0]->idproduct;\n-            //     // if($mylogs[$key]->idproduct == $query->idproduct)\n-            //     // {\n-            //     //     $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylogs->tanggalterbaru);\n-            //     //     $mydate = $date->format('jS F Y  H:i:s');\n-            //     //     return '<label id = \"tanggal'.$query->idproduct.'\"> '.$mydate.' </label>';\n-            //     // }\n-            //     // else if($mylogs[$key]->idproduct == $query->idproduct)\n-            //     // {\n-            //     //     return '<label>No Record</label>';\n-            //     // }\n-            // }\n+\n           \n-          \n          \n         })\n         ->addColumn('action', \n         function ($query) {\n"
+                },
+                {
+                    "date": 1630829666297,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         return view('stok');\n     }\n     public function getdatatableproductlog(){\n       \n-        $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id\");\n+        $stock = DB::select(\"select *, p.id as idproduct from product p left join stok_log sl on sl.idproduct = p.id group by p.id\");\n \n \n         return DataTables::of($stock)\n         ->editColumn('kode', function($query) {\n"
+                },
+                {
+                    "date": 1630829698337,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,9 +51,9 @@\n             }\n             if($cocok == \"tidak\")\n             {\n          \n-                    return '<label id = \"tanggal'.$query->idproduct.'\">-</label>';\n+                    return '<label id = \"tanggal'.$query->idproduct.'\">No Recordx</label>';\n             }\n \n           \n          \n"
+                },
+                {
+                    "date": 1630829736112,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         ->editColumn('name', function($query) {\n         return '<label id = \"name'.$query->idproduct.'\"> '.$query->name.'</label>';\n         })\n         ->editColumn('stok', function($query) {\n-            return '<label id = \"price'.$query->idproduct.'\"> '.$query->stok.'</label>';\n+            return '<label id = \"price'.$query->idproduct.'\"> '.$query->stok.' Pcs</label>';\n             })\n         ->editColumn('tanggal', function($query) {\n             // $format = 'jS F Y  H:i:s\"';\n             // $mytanggalku = \"2020-09-21 08:00:00\";\n@@ -51,9 +51,9 @@\n             }\n             if($cocok == \"tidak\")\n             {\n          \n-                    return '<label id = \"tanggal'.$query->idproduct.'\">No Recordx</label>';\n+                    return '<label id = \"tanggal'.$query->idproduct.'\">No Record</label>';\n             }\n \n           \n          \n"
+                },
+                {
+                    "date": 1630829827392,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,9 @@\n         })\n         ->addColumn('action', \n         function ($query) {\n         return '\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id =\"\"><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n"
+                },
+                {
+                    "date": 1630829837211,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,9 @@\n         })\n         ->addColumn('action', \n         function ($query) {\n         return '\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id =\"\"><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id =\".$query->idproduct.\"><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n"
+                },
+                {
+                    "date": 1630829845023,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,9 @@\n         })\n         ->addColumn('action', \n         function ($query) {\n         return '\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id =\".$query->idproduct.\"><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.'><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n"
+                },
+                {
+                    "date": 1630829880543,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,9 @@\n         })\n         ->addColumn('action', \n         function ($query) {\n         return '\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.'><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.' onclick=opentambahmodul()><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n"
+                },
+                {
+                    "date": 1630829906586,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,9 @@\n         })\n         ->addColumn('action', \n         function ($query) {\n         return '\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.' onclick=opentambahmodul()><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.' onclick=opentambahmodul(this)><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n"
+                },
+                {
+                    "date": 1630830093178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,8 +74,11 @@\n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n+    function getsupplieraddstocklog(){\n+        \n+    }\n \n     /**\n      * Show the form for creating a new resource.\n      *\n"
+                },
+                {
+                    "date": 1630830102169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,10 +74,10 @@\n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n-    function getsupplieraddstocklog(){\n-        \n+    function getsupplieraddstocklog(Request $request){\n+\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630830134022,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -75,9 +75,9 @@\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n     function getsupplieraddstocklog(Request $request){\n-\n+        $myid = $request->id;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630830183564,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,8 +76,13 @@\n         // where sp.idproduct = 1\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n+        $getsupplier = Supplier::join()\n+         // SELECT s.id, s.name from supplier_product sp \n+        // inner join product p on p.id = sp.idproduct\n+        // inner join supplier s on s.id = sp.idsupplier\n+        // where sp.idproduct = 1\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630830258735,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,9 +76,9 @@\n         // where sp.idproduct = 1\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n-        $getsupplier = Supplier::join()\n+        $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','')->join()->where('')\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n"
+                },
+                {
+                    "date": 1630830267594,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,9 +76,9 @@\n         // where sp.idproduct = 1\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n-        $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','')->join()->where('')\n+        $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')->join()->where('')\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n"
+                },
+                {
+                    "date": 1630830279764,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,9 +76,10 @@\n         // where sp.idproduct = 1\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n-        $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')->join()->where('')\n+        $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n+                                      ->join(\"product\", \"product.id\", '=','supplier_product.idproduct')->where('')\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n"
+                },
+                {
+                    "date": 1630830288212,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,9 +77,9 @@\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n-                                      ->join(\"product\", \"product.id\", '=','supplier_product.idproduct')->where('')\n+                                      ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')->where('')\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n"
+                },
+                {
+                    "date": 1630830294886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,9 +77,10 @@\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n-                                      ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')->where('')\n+                                      ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n+                                      ->where('');\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n"
+                },
+                {
+                    "date": 1630830307412,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,11 @@\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n-                                      ->where('');\n+                                      ->where('')\n+                                      ->select()\n+                                      ->get();\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n"
+                },
+                {
+                    "date": 1630830316768,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n                                       ->where('')\n-                                      ->select()\n+                                      ->select(supplier.id, s.name)\n                                       ->get();\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n"
+                },
+                {
+                    "date": 1630830322958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n                                       ->where('')\n-                                      ->select(supplier.id, s.name)\n+                                      ->select(\"supplier.id\", \"s.name\")\n                                       ->get();\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n"
+                },
+                {
+                    "date": 1630830341733,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n-                                      ->where('')\n+                                      ->where('supplier_product.idsupplier_','=',$myid)\n                                       ->select(\"supplier.id\", \"s.name\")\n                                       ->get();\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n"
+                },
+                {
+                    "date": 1630830351120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n-                                      ->where('supplier_product.idsupplier_','=',$myid)\n+                                      ->where('supplier_product.idproduct','=',$myid)\n                                       ->select(\"supplier.id\", \"s.name\")\n                                       ->get();\n          // SELECT s.id, s.name from supplier_product sp \n         // inner join product p on p.id = sp.idproduct\n"
+                },
+                {
+                    "date": 1630830356720,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,12 +81,9 @@\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n                                       ->where('supplier_product.idproduct','=',$myid)\n                                       ->select(\"supplier.id\", \"s.name\")\n                                       ->get();\n-         // SELECT s.id, s.name from supplier_product sp \n-        // inner join product p on p.id = sp.idproduct\n-        // inner join supplier s on s.id = sp.idsupplier\n-        // where sp.idproduct = 1\n+         \n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630830362131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,9 @@\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n                                       ->where('supplier_product.idproduct','=',$myid)\n                                       ->select(\"supplier.id\", \"s.name\")\n                                       ->get();\n-         \n+        \n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630830381342,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,10 @@\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n                                       ->where('supplier_product.idproduct','=',$myid)\n                                       ->select(\"supplier.id\", \"s.name\")\n                                       ->get();\n-        \n+        for($i= 0; $i<count($getsupplier);$i++)\n+        {PASSWORD_BCRYPT}\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630830393092,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,10 +81,13 @@\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n                                       ->where('supplier_product.idproduct','=',$myid)\n                                       ->select(\"supplier.id\", \"s.name\")\n                                       ->get();\n+        $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n-        {PASSWORD_BCRYPT}\n+        {\n+\n+        }\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630830401021,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n-\n+            $mystring .= \"\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630830407876,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n-            $mystring .= \"\";\n+            $mystring .= \"<option>\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630830417882,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n-            $mystring .= \"<option>\";\n+            $mystring .= \"<option id = '$getsupplier'>\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630830439164,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n-            $mystring .= \"<option id = '$getsupplier'>\";\n+            $mystring .= \"<option id = '\".$getsupplier[$i]->.\"'>\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630830445723,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n-            $mystring .= \"<option id = '\".$getsupplier[$i]->.\"'>\";\n+            $mystring .= \"<option id = '\".$getsupplier[$i]->\"id\".\"'>\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630830452222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n-            $mystring .= \"<option id = '\".$getsupplier[$i]->\"id\".\"'>\";\n+            $mystring .= \"<option id = '\".$getsupplier[$i]->id.\"'></option>\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630830457351,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n-            $mystring .= \"<option id = '\".$getsupplier[$i]->id.\"'></option>\";\n+            $mystring .= \"<option id = '\".$getsupplier[$i]->id.\"'>\"..\"</option>\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630830473296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n-            $mystring .= \"<option id = '\".$getsupplier[$i]->id.\"'>\"..\"</option>\";\n+            $mystring .= \"<option id = '\".$getsupplier[$i]->id.\"'>\".$getsupplier[$i]->name.\"</option>\";\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630830479990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n                                       ->where('supplier_product.idproduct','=',$myid)\n-                                      ->select(\"supplier.id\", \"s.name\")\n+                                      ->select(\"supplier.id\", \"supplier.name\")\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n"
+                },
+                {
+                    "date": 1630830490401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -86,8 +86,9 @@\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n             $mystring .= \"<option id = '\".$getsupplier[$i]->id.\"'>\".$getsupplier[$i]->name.\"</option>\";\n         }\n+        return $mystring;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630830569420,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,11 @@\n \n namespace App\\Http\\Controllers;\n \n use Illuminate\\Http\\Request;\n+use App\\Models\\Supplier;\n+use App\\Models\\SupplierProduct;\n+use App\\Models\\SupplierProductLog;\n use DB;\n use DataTables;\n use DateTime;\n \n"
+                },
+                {
+                    "date": 1630831166123,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,8 +91,11 @@\n             $mystring .= \"<option id = '\".$getsupplier[$i]->id.\"'>\".$getsupplier[$i]->name.\"</option>\";\n         }\n         return $mystring;\n     }\n+    public function addstocklog(){\n+        \n+    }\n \n     /**\n      * Show the form for creating a new resource.\n      *\n"
+                },
+                {
+                    "date": 1630831171961,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,10 +91,10 @@\n             $mystring .= \"<option id = '\".$getsupplier[$i]->id.\"'>\".$getsupplier[$i]->name.\"</option>\";\n         }\n         return $mystring;\n     }\n-    public function addstocklog(){\n-        \n+    public function addstocklog(Request $request){\n+\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831212022,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -92,9 +92,10 @@\n         }\n         return $mystring;\n     }\n     public function addstocklog(Request $request){\n-\n+        $idproduct = $request->idproducts;\n+        $idsupplier = $request->idsuppliers;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831256811,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,8 +94,9 @@\n     }\n     public function addstocklog(Request $request){\n         $idproduct = $request->idproducts;\n         $idsupplier = $request->idsuppliers;\n+        $stok = $request->stock;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831261852,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,9 @@\n     }\n     public function addstocklog(Request $request){\n         $idproduct = $request->idproducts;\n         $idsupplier = $request->idsuppliers;\n-        $stok = $request->stock;\n+        $stok = $request->qty;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831399007,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,8 +95,9 @@\n     public function addstocklog(Request $request){\n         $idproduct = $request->idproducts;\n         $idsupplier = $request->idsuppliers;\n         $stok = $request->qty;\n+        \n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831418367,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n namespace App\\Http\\Controllers;\n \n use Illuminate\\Http\\Request;\n use App\\Models\\Supplier;\n+use App\\Models\\SupplierLog;\n use App\\Models\\SupplierProduct;\n use App\\Models\\SupplierProductLog;\n use DB;\n use DataTables;\n@@ -95,9 +96,9 @@\n     public function addstocklog(Request $request){\n         $idproduct = $request->idproducts;\n         $idsupplier = $request->idsuppliers;\n         $stok = $request->qty;\n-        \n+\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831425611,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n namespace App\\Http\\Controllers;\n \n use Illuminate\\Http\\Request;\n use App\\Models\\Supplier;\n-use App\\Models\\SupplierLog;\n+use App\\Models\\StokLog;\n use App\\Models\\SupplierProduct;\n use App\\Models\\SupplierProductLog;\n use DB;\n use DataTables;\n"
+                },
+                {
+                    "date": 1630831434233,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,9 +96,9 @@\n     public function addstocklog(Request $request){\n         $idproduct = $request->idproducts;\n         $idsupplier = $request->idsuppliers;\n         $stok = $request->qty;\n-\n+        \n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831440477,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,9 +96,9 @@\n     public function addstocklog(Request $request){\n         $idproduct = $request->idproducts;\n         $idsupplier = $request->idsuppliers;\n         $stok = $request->qty;\n-        \n+        $addstocklog = StockLog::\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831476520,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,9 +96,10 @@\n     public function addstocklog(Request $request){\n         $idproduct = $request->idproducts;\n         $idsupplier = $request->idsuppliers;\n         $stok = $request->qty;\n-        $addstocklog = StockLog::\n+        $addstocklog = new StockLog;\n+        $addstocklog->idproduct = $idproduct \n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831484959,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -97,9 +97,10 @@\n         $idproduct = $request->idproducts;\n         $idsupplier = $request->idsuppliers;\n         $stok = $request->qty;\n         $addstocklog = new StockLog;\n-        $addstocklog->idproduct = $idproduct \n+        $addstocklog->idproduct = $idproduct;\n+        $addstocklog->idsupplier = $idsupplier;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831495938,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,8 +99,9 @@\n         $stok = $request->qty;\n         $addstocklog = new StockLog;\n         $addstocklog->idproduct = $idproduct;\n         $addstocklog->idsupplier = $idsupplier;\n+        $addstocklog->qty = $stok;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831500984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -100,8 +100,9 @@\n         $addstocklog = new StockLog;\n         $addstocklog->idproduct = $idproduct;\n         $addstocklog->idsupplier = $idsupplier;\n         $addstocklog->qty = $stok;\n+        $addstocklog->save();\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831518849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n namespace App\\Http\\Controllers;\n \n use Illuminate\\Http\\Request;\n use App\\Models\\Supplier;\n+use App\\Models\\Supplier;\n use App\\Models\\StokLog;\n use App\\Models\\SupplierProduct;\n use App\\Models\\SupplierProductLog;\n use DB;\n@@ -101,8 +102,10 @@\n         $addstocklog->idproduct = $idproduct;\n         $addstocklog->idsupplier = $idsupplier;\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n+\n+        $product = Product::\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831526207,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,10 +2,10 @@\n \n namespace App\\Http\\Controllers;\n \n use Illuminate\\Http\\Request;\n+use App\\Models\\Product;\n use App\\Models\\Supplier;\n-use App\\Models\\Supplier;\n use App\\Models\\StokLog;\n use App\\Models\\SupplierProduct;\n use App\\Models\\SupplierProductLog;\n use DB;\n"
+                },
+                {
+                    "date": 1630831532003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,9 @@\n         $addstocklog->idsupplier = $idsupplier;\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n \n-        $product = Product::\n+        $product = Product::find()\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831542379,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,9 @@\n         $addstocklog->idsupplier = $idsupplier;\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n \n-        $product = Product::find()\n+        $product = Product::find($idproduct);\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831608451,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,8 +104,12 @@\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n \n         $product = Product::find($idproduct);\n+        ->update([\n+            'count'=> DB::raw('count+1'), \n+            'last_count_increased_at' => Carbon::now()\n+          ]);\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831619407,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,10 +103,9 @@\n         $addstocklog->idsupplier = $idsupplier;\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n \n-        $product = Product::find($idproduct);\n-        ->update([\n+        $product = Product::find($idproduct)->update([\n             'count'=> DB::raw('count+1'), \n             'last_count_increased_at' => Carbon::now()\n           ]);\n     }\n"
+                },
+                {
+                    "date": 1630831628791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,12 +103,13 @@\n         $addstocklog->idsupplier = $idsupplier;\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n \n-        $product = Product::find($idproduct)->update([\n-            'count'=> DB::raw('count+1'), \n-            'last_count_increased_at' => Carbon::now()\n-          ]);\n+        $product = Product::find($idproduct)\n+                            ->update([\n+                                'count'=> DB::raw('count+1'), \n+                                'last_count_increased_at' => Carbon::now()\n+                            ]);\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630831636284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,10 +105,9 @@\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n                             ->update([\n-                                'count'=> DB::raw('count+1'), \n-                                'last_count_increased_at' => Carbon::now()\n+                                'stok'=> DB::raw('count+1')\n                             ]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630831644065,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n                             ->update([\n-                                'stok'=> DB::raw('count+1')\n+                                'stok'=> DB::raw('stok+1')\n                             ]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630831668909,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n                             ->update([\n-                                'stok'=> DB::raw('stok+1')\n+                                'stok'=> DB::raw(\"stok+$stok\")\n                             ]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630831775528,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -97,9 +97,9 @@\n     public function addstocklog(Request $request){\n         $idproduct = $request->idproducts;\n         $idsupplier = $request->idsuppliers;\n         $stok = $request->qty;\n-        $addstocklog = new StockLog;\n+        $addstocklog = new StokLog;\n         $addstocklog->idproduct = $idproduct;\n         $addstocklog->idsupplier = $idsupplier;\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n"
+                },
+                {
+                    "date": 1630831927368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n                                       ->get();\n         $mystring = \"\";\n         for($i= 0; $i<count($getsupplier);$i++)\n         {\n-            $mystring .= \"<option id = '\".$getsupplier[$i]->id.\"'>\".$getsupplier[$i]->name.\"</option>\";\n+            $mystring .= \"<option value = '\".$getsupplier[$i]->id.\"'>\".$getsupplier[$i]->name.\"</option>\";\n         }\n         return $mystring;\n     }\n     public function addstocklog(Request $request){\n"
+                },
+                {
+                    "date": 1630832053922,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n                             ->update([\n-                                'stok'=> DB::raw(\"stok+$stok\")\n+                                'stok'=> DB::raw(\"stok+\".$stok)\n                             ]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630832089552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n                             ->update([\n-                                'stok'=> DB::raw(\"stok+\".$stok)\n+                                'stok'=> DB::raw(\"stok+\".(int)$stok)\n                             ]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630832116768,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n                             ->update([\n-                                'stok'=> DB::raw(\"stok+\".(int)$stok)\n+                                'stok'=> DB::raw(\"stok+1\")\n                             ]);\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1630832258738,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,11 +104,9 @@\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n-                            ->update([\n-                                'stok'=> DB::raw(\"stok+1\")\n-                            ]);\n+        ->increment(‘popularity’,1);;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630832266258,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n-        ->increment(‘popularity’,1);;\n+                            ->increment('popularity',1);;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630832292272,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n-                            ->increment('popularity',1);;\n+                            ->increment('stok',1);;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630832311639,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n         $addstocklog->qty = $stok;\n         $addstocklog->save();\n \n         $product = Product::find($idproduct)\n-                            ->increment('stok',1);;\n+                            ->increment('stok',$stok);;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1630833285263,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,8 +79,11 @@\n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n+    function gethistory(){\n+        \n+    }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n                                       ->join(\"supplier\", \"supplier.id\", '=','supplier_product.idsupplier')\n"
+                },
+                {
+                    "date": 1630833295447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,10 +79,10 @@\n         // inner join product p on p.id = sp.idproduct\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n-    function gethistory(){\n-        \n+    function gethistory(Request $request ){\n+\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833315277,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n     function gethistory(Request $request ){\n-\n+        \n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833324355,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n     function gethistory(Request $request ){\n-        \n+        $gethistory = StokLog::\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833330082,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n     function gethistory(Request $request ){\n-        $gethistory = StokLog::\n+        $gethistory = StokLog::where()\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833338070,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n     function gethistory(Request $request ){\n-        $gethistory = StokLog::where()\n+        $gethistory = StokLog::where(\"idproduct\",'=')\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833348916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,10 @@\n         // inner join supplier s on s.id = sp.idsupplier\n         // where sp.idproduct = 1\n     }\n     function gethistory(Request $request ){\n-        $gethistory = StokLog::where(\"idproduct\",'=')\n+        $idproduct = $request->idproduct;\n+        $gethistory = StokLog::where(\"idproduct\",'=',$req)\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833354317,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,9 @@\n         // where sp.idproduct = 1\n     }\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n-        $gethistory = StokLog::where(\"idproduct\",'=',$req)\n+        $gethistory = StokLog::where(\"idproduct\",'=',$idproduct);\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833360205,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,10 @@\n         // where sp.idproduct = 1\n     }\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n-        $gethistory = StokLog::where(\"idproduct\",'=',$idproduct);\n+        $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n+                               ->;\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833378391,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,9 +82,9 @@\n     }\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n-                               ->;\n+                               ->join();\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833384985,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,9 +82,9 @@\n     }\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n-                               ->join();\n+                               ->join(\"supplier\");\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833398807,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,9 +82,9 @@\n     }\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n-                               ->join(\"supplier\");\n+                               ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier');\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833412693,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,9 +82,10 @@\n     }\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n-                               ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier');\n+                               ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier')\n+                               ->get();\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833429227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,8 +84,12 @@\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n                                ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier')\n                                ->get();\n+        for($i = 0 ; $i < count($gethistory); $i++)\n+        {\n+            \n+        }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833456257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,11 +84,12 @@\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n                                ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier')\n                                ->get();\n+        $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n-            \n+            $m\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833461937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -87,9 +87,9 @@\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n-            $m\n+            $mystring .= \"\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833472944,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -87,9 +87,9 @@\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n-            $mystring .= \"\";\n+            $mystring .= \"<tr><td></td><td></td><<td></td>/tr>\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833485016,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -87,8 +87,10 @@\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylog[$i]->tanggalterbaru);\n+            $mydate = $date->format('jS F Y  H:i:s');\n             $mystring .= \"<tr><td></td><td></td><<td></td>/tr>\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n"
+                },
+                {
+                    "date": 1630833498717,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -87,9 +87,9 @@\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $mylog[$i]->tanggalterbaru);\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y  H:i:s');\n             $mystring .= \"<tr><td></td><td></td><<td></td>/tr>\";\n         }\n     }\n"
+                },
+                {
+                    "date": 1630833517223,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,10 +88,10 @@\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n-            $mydate = $date->format('jS F Y  H:i:s');\n-            $mystring .= \"<tr><td></td><td></td><<td></td>/tr>\";\n+            $mydate = $date->format('jS F Y');\n+            $mystring .= \"<tr>$name<td></td><td></td><<td></td>/tr>\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833538081,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y');\n-            $mystring .= \"<tr>$name<td></td><td></td><<td></td>/tr>\";\n+            $mystring .= \"<tr>\".$gethistory[$i]->.\"<td></td><td></td><<td></td>/tr>\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833561102,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y');\n-            $mystring .= \"<tr>\".$gethistory[$i]->.\"<td></td><td></td><<td></td>/tr>\";\n+            $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->name.\"</td><<td></td>/tr>\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833579822,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y');\n-            $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->name.\"</td><<td></td>/tr>\";\n+            $mystring .= \"<tr><td>\".$mydate.\"</td><td></td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833584916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y');\n-            $mystring .= \"<tr><td>\".$mydate.\"</td><td></td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n+            $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->name.\"</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833590859,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y');\n-            $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->name.\"</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n+            $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833598798,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y');\n-            $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n+            $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" Pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n"
+                },
+                {
+                    "date": 1630833608261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,8 +91,9 @@\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y');\n             $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" Pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n+        return $mystringh;\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833916407,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -66,9 +66,9 @@\n         ->addColumn('action', \n         function ($query) {\n         return '\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.' onclick=opentambahmodul(this)><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\"><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = gethistorystock('$query->idproduct')><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n         ->make(true);\n@@ -91,9 +91,9 @@\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y');\n             $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" Pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n-        return $mystringh;\n+        return $mystring;\n     }\n     function getsupplieraddstocklog(Request $request){\n         $myid = $request->id;\n         $getsupplier = SupplierProduct::join(\"product\", \"product.id\", '=','supplier_product.idproduct')\n"
+                },
+                {
+                    "date": 1630833922708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -66,9 +66,9 @@\n         ->addColumn('action', \n         function ($query) {\n         return '\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.' onclick=opentambahmodul(this)><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = gethistorystock('$query->idproduct')><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = gethistorystock($query->idproduct)><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n         ->make(true);\n"
+                },
+                {
+                    "date": 1630833969967,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -66,9 +66,9 @@\n         ->addColumn('action', \n         function ($query) {\n         return '\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.' onclick=opentambahmodul(this)><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = gethistorystock($query->idproduct)><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = gethistorystock(\"$query->idproduct\")><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n         ->make(true);\n"
+                },
+                {
+                    "date": 1630833983656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -66,9 +66,9 @@\n         ->addColumn('action', \n         function ($query) {\n         return '\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.' onclick=opentambahmodul(this)><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = gethistorystock(\"$query->idproduct\")><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = gethistorystock('.$query->idproduct\")><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n         ->make(true);\n"
+                },
+                {
+                    "date": 1630834044168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -66,9 +66,9 @@\n         ->addColumn('action', \n         function ($query) {\n         return '\n         <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\" id ='.$query->idproduct.' onclick=opentambahmodul(this)><i class=\"fas fa-plus pr-2\"></i>Tambah</button>\n-        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = gethistorystock('.$query->idproduct\")><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n+        <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pr-2\" data-toggle=\"modal\" data-target=\"#riwayat\" onclick = gethistorystock('.$query->idproduct.')><i class=\"far fa-file pr-2\"></i>Riwayat</button>\n         ';})\n \n         ->rawColumns(['action', 'name', 'kode','tanggal','stok'])\n         ->make(true);\n"
+                },
+                {
+                    "date": 1630834052963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,8 +83,9 @@\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n                                ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier')\n+                               ->orderBy()\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n"
+                },
+                {
+                    "date": 1630834062703,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,9 @@\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n                                ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier')\n-                               ->orderBy()\n+                               ->orderBy(\"id\", 'desc')\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n"
+                },
+                {
+                    "date": 1630834076894,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,9 @@\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n                                ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier')\n-                               ->orderBy(\"id\", 'desc')\n+                               ->orderBy(\"stok_logid\", 'desc')\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n"
+                },
+                {
+                    "date": 1630835354561,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,15 +83,15 @@\n     function gethistory(Request $request ){\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n                                ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier')\n-                               ->orderBy(\"stok_logid\", 'desc')\n+                               ->orderBy(\"stok_log.id\", 'desc')\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n-            $mydate = $date->format('jS F Y');\n+            $mydate = $date->format('d F Y');\n             $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" Pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n         return $mystring;\n     }\n"
+                },
+                {
+                    "date": 1630835473037,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,9 +88,9 @@\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n+            $date = DateTime::createFromFormat('jS F Y  H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('d F Y');\n             $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" Pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n         return $mystring;\n"
+                },
+                {
+                    "date": 1630835482442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,9 +88,9 @@\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n-            $date = DateTime::createFromFormat('jS F Y  H:i:s', $gethistory[$i]->created_at);\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('d F Y');\n             $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" Pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n         return $mystring;\n"
+                },
+                {
+                    "date": 1630843969108,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n-            $mydate = $date->format('d F Y');\n+            $mydate = $date->format('jS F Y');\n             $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" Pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n         return $mystring;\n     }\n"
+                },
+                {
+                    "date": 1630844007302,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -90,9 +90,9 @@\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $gethistory[$i]->created_at);\n             $mydate = $date->format('jS F Y');\n-            $mystring .= \"<tr><td>\".$mydate.\"</td><td>\".$gethistory[$i]->qty.\" Pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n+            $mystring .= \"<tr><td>\".$gethistory[$i]->created_at.\"</td><td>\".$gethistory[$i]->qty.\" Pcs</td><td>\".$gethistory[$i]->name.\"</td>/tr>\";\n         }\n         return $mystring;\n     }\n     function getsupplieraddstocklog(Request $request){\n"
+                },
+                {
+                    "date": 1630844082385,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,8 +84,9 @@\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n                                ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier')\n                                ->orderBy(\"stok_log.id\", 'desc')\n+                               ->select(\"stok_log.*\")\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n"
+                },
+                {
+                    "date": 1630844089722,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n         $idproduct = $request->idproduct;\n         $gethistory = StokLog::where(\"idproduct\",'=',$idproduct)\n                                ->join(\"supplier\",'supplier.id','=','stok_log.idsupplier')\n                                ->orderBy(\"stok_log.id\", 'desc')\n-                               ->select(\"stok_log.*\")\n+                               ->select(\"stok_log.*\", \"supplier.name\")\n                                ->get();\n         $mystring = \"\";\n         for($i = 0 ; $i < count($gethistory); $i++)\n         {\n"
+                }
+            ],
+            "date": 1630204262557,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\\Request;\n\nclass StokController extends Controller\n{\n    /**\n     * Display a listing of the resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function index()\n    {\n        return view('kasir');\n    }\n\n    /**\n     * Show the form for creating a new resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function create()\n    {\n        //\n    }\n\n    /**\n     * Store a newly created resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function store(Request $request)\n    {\n        //\n    }\n\n    /**\n     * Display the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function show($id)\n    {\n        //\n    }\n\n    /**\n     * Show the form for editing the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function edit($id)\n    {\n        //\n    }\n\n    /**\n     * Update the specified resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function update(Request $request, $id)\n    {\n        //\n    }\n\n    /**\n     * Remove the specified resource from storage.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function destroy($id)\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

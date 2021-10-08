@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/Models/Product.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1630211002561,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1630211002561,
+            "name": "Commit-0",
+            "content": "<?php\n\n/**\n * Created by Reliese Model.\n */\n\nnamespace App\\Models;\n\nuse Carbon\\Carbon;\nuse Illuminate\\Database\\Eloquent\\Model;\n\n/**\n * Class Product\n * \n * @property int $id\n * @property string $name\n * @property string|null $kode\n * @property int|null $harga1\n * @property int|null $harga2\n * @property int|null $harga3\n * @property Carbon|null $created_at\n * @property Carbon|null $updated_at\n *\n * @package App\\Models\n */\nclass Product extends Model\n{\n\tprotected $table = 'product';\n\n\tprotected $casts = [\n\t\t'harga1' => 'int',\n\t\t'harga2' => 'int',\n\t\t'harga3' => 'int'\n\t];\n\n\tprotected $fillable = [\n\t\t'name',\n\t\t'kode',\n\t\t'harga1',\n\t\t'harga2',\n\t\t'harga3'\n\t];\n}\n"
+        }
+    ]
+}

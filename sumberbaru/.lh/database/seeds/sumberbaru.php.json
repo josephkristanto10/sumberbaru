@@ -1,0 +1,58 @@
+{
+    "sourceFile": "database/seeds/sumberbaru.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 10,
+            "patches": [
+                {
+                    "date": 1630206023666,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630206029589,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n );\r\n \r\n /* `sumberbaru`.`product` */\r\n $product = array(\r\n-  array('id' => '1','name' => 'product1','name' => 'product1','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n+  array('id' => '1','name' => 'product1','harga1' => 'NULL','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n );\r\n \r\n /* `sumberbaru`.`supplier` */\r\n $supplier = array(\r\n"
+                },
+                {
+                    "date": 1630206034735,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n );\r\n \r\n /* `sumberbaru`.`product` */\r\n $product = array(\r\n-  array('id' => '1','name' => 'product1','harga1' => 'NULL','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n+  array('id' => '1','name' => 'product1','harga1' => 'NULL','harga1' => 'NULL','harga1' => 'NULL','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n );\r\n \r\n /* `sumberbaru`.`supplier` */\r\n $supplier = array(\r\n"
+                },
+                {
+                    "date": 1630206091164,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n );\r\n \r\n /* `sumberbaru`.`product` */\r\n $product = array(\r\n-  array('id' => '1','name' => 'product1','harga1' => 'NULL','harga1' => 'NULL','harga1' => 'NULL','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n+  array('id' => '1','name' => 'product1','harga1' => 0,'harga2' => 'NULL','harga3' => 'NULL','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n );\r\n \r\n /* `sumberbaru`.`supplier` */\r\n $supplier = array(\r\n"
+                },
+                {
+                    "date": 1630206099777,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n );\r\n \r\n /* `sumberbaru`.`product` */\r\n $product = array(\r\n-  array('id' => '1','name' => 'product1','harga1' => 0,'harga2' => 'NULL','harga3' => 'NULL','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n+  array('id' => '1','name' => 'product1','harga1' => 0,'harga2' => 0,'harga3' => 0,'created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n );\r\n \r\n /* `sumberbaru`.`supplier` */\r\n $supplier = array(\r\n"
+                },
+                {
+                    "date": 1630206632877,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n );\r\n \r\n /* `sumberbaru`.`product` */\r\n $product = array(\r\n-  array('id' => '1','name' => 'product1','harga1' => 0,'harga2' => 0,'harga3' => 0,'created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n+  array('id' => '1','name' => 'product1','id' => '1','harga1' => 0,'harga2' => 0,'harga3' => 0,'created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n );\r\n \r\n /* `sumberbaru`.`supplier` */\r\n $supplier = array(\r\n"
+                },
+                {
+                    "date": 1630206673972,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n );\r\n \r\n /* `sumberbaru`.`product` */\r\n $product = array(\r\n-  array('id' => '1','name' => 'product1','id' => '1','harga1' => 0,'harga2' => 0,'harga3' => 0,'created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n+  array('id' => '1','name' => 'product1','kode' => '1','harga1' => 0,'harga2' => 0,'harga3' => 0,'created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n );\r\n \r\n /* `sumberbaru`.`supplier` */\r\n $supplier = array(\r\n"
+                },
+                {
+                    "date": 1630714145295,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,23 +17,33 @@\n   array('id' => '1','migration' => '2014_10_12_000000_create_users_table','batch' => '1'),\r\n   array('id' => '2','migration' => '2014_10_12_100000_create_password_resets_table','batch' => '1'),\r\n   array('id' => '3','migration' => '2019_08_19_000000_create_failed_jobs_table','batch' => '1'),\r\n   array('id' => '4','migration' => '2021_08_29_023751_product_migration','batch' => '1'),\r\n-  array('id' => '5','migration' => '2021_08_29_023819_supplier_migration','batch' => '1')\r\n+  array('id' => '5','migration' => '2021_08_29_023819_supplier_migration','batch' => '1'),\r\n+  array('id' => '6','migration' => '2021_08_31_154231_supplierproduct','batch' => '1')\r\n );\r\n \r\n /* `sumberbaru`.`password_resets` */\r\n $password_resets = array(\r\n );\r\n \r\n /* `sumberbaru`.`product` */\r\n $product = array(\r\n-  array('id' => '1','name' => 'product1','kode' => '1','harga1' => 0,'harga2' => 0,'harga3' => 0,'created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n+  array('id' => '1','name' => 'product1','kode' => 'xxx','harga1' => '0','harga2' => '0','harga3' => '0','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00'),\r\n+  array('id' => '2','name' => 'producty','kode' => 'P-01','harga1' => NULL,'harga2' => NULL,'harga3' => NULL,'created_at' => NULL,'updated_at' => NULL)\r\n );\r\n \r\n /* `sumberbaru`.`supplier` */\r\n $supplier = array(\r\n+  array('id' => '1','name' => 'PT Kaca Megah','phone' => '08182873672','address' => 'Mulyosari 10','price' => \"0\",'status' => NULL,'created_at' => '2021-09-02 14:36:25','updated_at' => '2021-09-02 14:36:25'),\r\n+  array('id' => '2','name' => 'PT Neraca Kaya','phone' => '08199827384','address' => 'Kedung Asem gg 2 / 49','price' => \"0\",'status' => NULL,'created_at' => '2021-09-02 14:37:03','updated_at' => '2021-09-02 14:37:03')\r\n );\r\n \r\n+/* `sumberbaru`.`supplier_product` */\r\n+$supplier_product = array(\r\n+  array('id' => '1','idsupplier' => '2','idproduct' => '1','status' => 'Active','created_at' => '2021-09-02 15:11:17','updated_at' => '2021-09-02 15:11:17'),\r\n+  array('id' => '4','idsupplier' => '2','idproduct' => '2','status' => NULL,'created_at' => NULL,'updated_at' => NULL)\r\n+);\r\n+\r\n /* `sumberbaru`.`users` */\r\n $users = array(\r\n );\r\n"
+                },
+                {
+                    "date": 1630714152710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,10 +33,10 @@\n );\r\n \r\n /* `sumberbaru`.`supplier` */\r\n $supplier = array(\r\n-  array('id' => '1','name' => 'PT Kaca Megah','phone' => '08182873672','address' => 'Mulyosari 10','price' => \"0\",'status' => NULL,'created_at' => '2021-09-02 14:36:25','updated_at' => '2021-09-02 14:36:25'),\r\n-  array('id' => '2','name' => 'PT Neraca Kaya','phone' => '08199827384','address' => 'Kedung Asem gg 2 / 49','price' => \"0\",'status' => NULL,'created_at' => '2021-09-02 14:37:03','updated_at' => '2021-09-02 14:37:03')\r\n+  array('id' => '1','name' => 'PT Kaca Megah','phone' => '08182873672','address' => 'Mulyosari 10','status' => NULL,'status' => NULL,'created_at' => '2021-09-02 14:36:25','updated_at' => '2021-09-02 14:36:25'),\r\n+  array('id' => '2','name' => 'PT Neraca Kaya','phone' => '08199827384','address' => 'Kedung Asem gg 2 / 49','status' => NULL,'created_at' => '2021-09-02 14:37:03','updated_at' => '2021-09-02 14:37:03')\r\n );\r\n \r\n /* `sumberbaru`.`supplier_product` */\r\n $supplier_product = array(\r\n"
+                },
+                {
+                    "date": 1630714158898,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,10 +39,10 @@\n );\r\n \r\n /* `sumberbaru`.`supplier_product` */\r\n $supplier_product = array(\r\n-  array('id' => '1','idsupplier' => '2','idproduct' => '1','status' => 'Active','created_at' => '2021-09-02 15:11:17','updated_at' => '2021-09-02 15:11:17'),\r\n-  array('id' => '4','idsupplier' => '2','idproduct' => '2','status' => NULL,'created_at' => NULL,'updated_at' => NULL)\r\n+  array('id' => '1','idsupplier' => '2','idproduct' => '1','price' => \"0\",'status' => 'Active','created_at' => '2021-09-02 15:11:17','updated_at' => '2021-09-02 15:11:17'),\r\n+  array('id' => '4','idsupplier' => '2','idproduct' => '2','price' => \"0\",'status' => NULL,'created_at' => NULL,'updated_at' => NULL)\r\n );\r\n \r\n /* `sumberbaru`.`users` */\r\n $users = array(\r\n"
+                },
+                {
+                    "date": 1630818427959,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,10 +27,10 @@\n );\r\n \r\n /* `sumberbaru`.`product` */\r\n $product = array(\r\n-  array('id' => '1','name' => 'product1','kode' => 'xxx','harga1' => '0','harga2' => '0','harga3' => '0','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00'),\r\n-  array('id' => '2','name' => 'producty','kode' => 'P-01','harga1' => NULL,'harga2' => NULL,'harga3' => NULL,'created_at' => NULL,'updated_at' => NULL)\r\n+  array('id' => '1','name' => 'product1','stok' => '0','kode' => 'xxx','harga1' => '0','harga2' => '0','harga3' => '0','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00'),\r\n+  array('id' => '2','name' => 'producty','stok' => '0','kode' => 'P-01','harga1' => NULL,'harga2' => NULL,'harga3' => NULL,'created_at' => NULL,'updated_at' => NULL)\r\n );\r\n \r\n /* `sumberbaru`.`supplier` */\r\n $supplier = array(\r\n"
+                }
+            ],
+            "date": 1630206023666,
+            "name": "Commit-0",
+            "content": "<?php\r\n/**\r\n * Export to PHP Array plugin for PHPMyAdmin\r\n * @version 4.8.3\r\n */\r\n\r\n/**\r\n * Database `sumberbaru`\r\n */\r\n\r\n/* `sumberbaru`.`failed_jobs` */\r\n$failed_jobs = array(\r\n);\r\n\r\n/* `sumberbaru`.`migrations` */\r\n$migrations = array(\r\n  array('id' => '1','migration' => '2014_10_12_000000_create_users_table','batch' => '1'),\r\n  array('id' => '2','migration' => '2014_10_12_100000_create_password_resets_table','batch' => '1'),\r\n  array('id' => '3','migration' => '2019_08_19_000000_create_failed_jobs_table','batch' => '1'),\r\n  array('id' => '4','migration' => '2021_08_29_023751_product_migration','batch' => '1'),\r\n  array('id' => '5','migration' => '2021_08_29_023819_supplier_migration','batch' => '1')\r\n);\r\n\r\n/* `sumberbaru`.`password_resets` */\r\n$password_resets = array(\r\n);\r\n\r\n/* `sumberbaru`.`product` */\r\n$product = array(\r\n  array('id' => '1','name' => 'product1','name' => 'product1','created_at' => '2021-08-29 08:00:00','updated_at' => '2021-08-29 08:00:00')\r\n);\r\n\r\n/* `sumberbaru`.`supplier` */\r\n$supplier = array(\r\n);\r\n\r\n/* `sumberbaru`.`users` */\r\n$users = array(\r\n);\r\n"
+        }
+    ]
+}
