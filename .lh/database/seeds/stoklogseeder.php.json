@@ -1,0 +1,38 @@
+{
+    "sourceFile": "database/seeds/stoklogseeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1630834656419,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630834661662,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,12 +11,12 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $myproduct = $product;\n+        $stok_logs = $stok_log;\n         DB::table('product')->delete();\n         foreach($product as $p){\n             Product::create($p);\n         }\n-        stok_log\n+        \n     }\n }\n"
+                },
+                {
+                    "date": 1630834668048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,10 @@\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $stok_logs = $stok_log;\n         DB::table('product')->delete();\n-        foreach($product as $p){\n-            Product::create($p);\n+        foreach($stok_logs as $sl){\n+            Product::create($sl);\n         }\n         \n     }\n }\n"
+                },
+                {
+                    "date": 1630834682466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n+use App\\Models\\Product;\n \n class stoklogseeder extends Seeder\n {\n     /**\n@@ -12,9 +13,9 @@\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $stok_logs = $stok_log;\n-        DB::table('product')->delete();\n+        DB::table('stok_log')->delete();\n         foreach($stok_logs as $sl){\n             Product::create($sl);\n         }\n         \n"
+                },
+                {
+                    "date": 1630834691529,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n-use App\\Models\\Product;\n+use App\\Models\\SupplierProductLog;\n \n class stoklogseeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1630834699069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n-use App\\Models\\SupplierProductLog;\n+use App\\Models\\StokLog;\n \n class stoklogseeder extends Seeder\n {\n     /**\n@@ -15,9 +15,9 @@\n         include base_path().'/database/seeds/sumberbaru.php';\n         $stok_logs = $stok_log;\n         DB::table('stok_log')->delete();\n         foreach($stok_logs as $sl){\n-            Product::create($sl);\n+            SupplierProductLog::create($sl);\n         }\n         \n     }\n }\n"
+                }
+            ],
+            "date": 1630834656419,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass stoklogseeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        include base_path().'/database/seeds/sumberbaru.php';\n        $myproduct = $product;\n        DB::table('product')->delete();\n        foreach($product as $p){\n            Product::create($p);\n        }\n        stok_log\n    }\n}\n"
+        }
+    ]
+}

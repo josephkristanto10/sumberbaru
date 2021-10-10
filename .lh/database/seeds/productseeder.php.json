@@ -1,0 +1,46 @@
+{
+    "sourceFile": "database/seeds/productseeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1630205498562,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630205514296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,13 +10,10 @@\n      * @return void\n      */\n     public function run()\n     {\n-        include base_path().'/database/seeds/efilling.php';\n-        // $path = base_path().'/database/seeds/efilling.php';\n-        // $sql = file_get_contents($path);\n-        // $hasil = json_decode($sql);\n-        $departmen = $departments;\n+        include base_path().'/database/seeds/sumberbaru.php';\n+        $myproduct = $p;\n         DB::table('departments')->delete();\n         foreach($departmen as $d){\n             Department::create($d);\n         }\n"
+                },
+                {
+                    "date": 1630205539038,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $myproduct = $p;\n+        $myproduct = $product;\n         DB::table('departments')->delete();\n         foreach($departmen as $d){\n             Department::create($d);\n         }\n"
+                },
+                {
+                    "date": 1630205546326,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,10 @@\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $myproduct = $product;\n-        DB::table('departments')->delete();\n+        DB::table('product')->delete();\n         foreach($departmen as $d){\n-            Department::create($d);\n+            Products::create($d);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1630205686781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n+use App\\Models\\Department;\n \n class productseeder extends Seeder\n {\n     /**\n@@ -14,8 +15,8 @@\n         include base_path().'/database/seeds/sumberbaru.php';\n         $myproduct = $product;\n         DB::table('product')->delete();\n         foreach($departmen as $d){\n-            Products::create($d);\n+            Product::create($d);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1630205692833,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n-use App\\Models\\Department;\n+use App\\Models\\Products;\n \n class productseeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1630205697956,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n-use App\\Models\\Products;\n+use App\\Models\\Product;\n \n class productseeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1630205723533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $myproduct = $product;\n         DB::table('product')->delete();\n-        foreach($departmen as $d){\n+        foreach($product as $d){\n             Product::create($d);\n         }\n     }\n }\n"
+                }
+            ],
+            "date": 1630205498562,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass productseeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        include base_path().'/database/seeds/efilling.php';\n        // $path = base_path().'/database/seeds/efilling.php';\n        // $sql = file_get_contents($path);\n        // $hasil = json_decode($sql);\n        $departmen = $departments;\n        DB::table('departments')->delete();\n        foreach($departmen as $d){\n            Department::create($d);\n        }\n    }\n}\n"
+        }
+    ]
+}

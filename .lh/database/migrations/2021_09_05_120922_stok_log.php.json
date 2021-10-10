@@ -1,0 +1,50 @@
+{
+    "sourceFile": "database/migrations/2021_09_05_120922_stok_log.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1630818575042,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630818587290,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::create('supplier_product_log', function (Blueprint $table) {\n+        Schema::create('stok_log', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('idsupplierproduct')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n             $table->integer('price')->default(\"0\");\n"
+                },
+                {
+                    "date": 1630818625337,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('stok_log', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('idsupplierproduct')->unsigned();\n+            $table->string('type')->unsigned();\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n             $table->integer('price')->default(\"0\");\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630818648552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,10 @@\n     public function up()\n     {\n         Schema::create('stok_log', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->string('type')->unsigned();\n+            $table->integer('type')->unsigned();\n+            $table->string('type');\n             $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n             $table->integer('price')->default(\"0\");\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1630818660621,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n         Schema::create('stok_log', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('type')->unsigned();\n             $table->string('type');\n-            $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n+            $table->foreign('idproduct')->references('id')->on('supplier_product');\n             $table->integer('price')->default(\"0\");\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1630818726142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,12 +14,12 @@\n     public function up()\n     {\n         Schema::create('stok_log', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('type')->unsigned();\n-            $table->string('type');\n-            $table->foreign('idproduct')->references('id')->on('supplier_product');\n-            $table->integer('price')->default(\"0\");\n+            $table->integer('idproduct')->unsigned();\n+            $table->foreign('idproduct')->references('id')->on('product');\n+            $table->integer('idproduct')->unsigned();\n+            $table->foreign('idproduct')->references('id')->on('product');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630818738387,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,10 +16,10 @@\n         Schema::create('stok_log', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n-            $table->integer('idproduct')->unsigned();\n-            $table->foreign('idproduct')->references('id')->on('product');\n+            $table->integer('idsupplier')->unsigned();\n+            $table->foreign('idsupplier')->references('id')->on('product');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630818745700,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n             $table->increments(\"id\");\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer('idsupplier')->unsigned();\n-            $table->foreign('idsupplier')->references('id')->on('product');\n+            $table->foreign('idsupplier')->references('id')->on('supplier');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630818952861,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer('idsupplier')->unsigned();\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n+            $table->integer('qty');\n             $table->timestamps();\n         });\n     }\n \n"
+                }
+            ],
+            "date": 1630818575042,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass StokLog extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('supplier_product_log', function (Blueprint $table) {\n            $table->increments(\"id\");\n            $table->integer('idsupplierproduct')->unsigned();\n            $table->foreign('idsupplierproduct')->references('id')->on('supplier_product');\n            $table->integer('price')->default(\"0\");\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

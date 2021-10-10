@@ -1,0 +1,54 @@
+{
+    "sourceFile": "database/migrations/2021_08_29_023819_supplier_migration.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1630205029711,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630205042674,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,7 +26,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        //\n+        Schema::drop('product');\n     }\n }\n"
+                },
+                {
+                    "date": 1630205048093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::create('product', function (Blueprint $table) {\n+        Schema::create('supplier', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n             $table->timestamps();\n         });\n@@ -26,7 +26,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        Schema::drop('product');\n+        Schema::drop('supplier');\n     }\n }\n"
+                },
+                {
+                    "date": 1630419445154,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,9 @@\n     {\n         Schema::create('supplier', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n+            $table->string('name');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630419450792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('supplier', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n-            $table->string('name');\n+            $table->string('phone');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630419460833,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n         Schema::create('supplier', function (Blueprint $table) {\n             $table->id(\"id\");\n             $table->string('name');\n             $table->string('phone');\n+            $table->string('address');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630419466223,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n             $table->id(\"id\");\n             $table->string('name');\n             $table->string('phone');\n             $table->string('address');\n+            $table->string('status');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630419473620,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n             $table->id(\"id\");\n             $table->string('name');\n             $table->string('phone');\n             $table->string('address');\n-            $table->string('status');\n+            $table->string('status')->nullable;\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630419478663,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n             $table->id(\"id\");\n             $table->string('name');\n             $table->string('phone');\n             $table->string('address');\n-            $table->string('status')->nullable;\n+            $table->string('status')->nullable();\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1630424955459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      */\n     public function up()\n     {\n         Schema::create('supplier', function (Blueprint $table) {\n-            $table->id(\"id\");\n+            $table->increments(\"id\");\n             $table->string('name');\n             $table->string('phone');\n             $table->string('address');\n             $table->string('status')->nullable();\n"
+                }
+            ],
+            "date": 1630205029711,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass SupplierMigration extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('product', function (Blueprint $table) {\n            $table->id(\"id\");\n            $table->string('name');\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

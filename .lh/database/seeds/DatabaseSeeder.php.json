@@ -1,0 +1,38 @@
+{
+    "sourceFile": "database/seeds/DatabaseSeeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1630205948428,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630205954613,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,7 @@\n      */\n     public function run()\n     {\n         // $this->call(UserSeeder::class);\n-        $this->call(userseeder::class);\n+        $this->call(productseeder::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1630425333402,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,6 +12,7 @@\n     public function run()\n     {\n         // $this->call(UserSeeder::class);\n         $this->call(productseeder::class);\n+        $this->call(productseeder::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1630425338599,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,7 +12,7 @@\n     public function run()\n     {\n         // $this->call(UserSeeder::class);\n         $this->call(productseeder::class);\n-        $this->call(productseeder::class);\n+        $this->call(supplier::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1630596049091,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,7 +12,8 @@\n     public function run()\n     {\n         // $this->call(UserSeeder::class);\n         $this->call(productseeder::class);\n-        $this->call(supplier::class);\n+        $this->call(supplierseeder::class);\n+        $this->call(supplierseeder::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1630596054433,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,7 @@\n     {\n         // $this->call(UserSeeder::class);\n         $this->call(productseeder::class);\n         $this->call(supplierseeder::class);\n-        $this->call(supplierseeder::class);\n+        $this->call(supplierproductseeder::class);\n     }\n }\n"
+                }
+            ],
+            "date": 1630205948428,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass DatabaseSeeder extends Seeder\n{\n    /**\n     * Seed the application's database.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        // $this->call(UserSeeder::class);\n        $this->call(userseeder::class);\n    }\n}\n"
+        }
+    ]
+}

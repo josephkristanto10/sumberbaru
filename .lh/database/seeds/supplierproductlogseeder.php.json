@@ -1,0 +1,42 @@
+{
+    "sourceFile": "database/seeds/supplierproductlogseeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1630834716939,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630834726156,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $stok_logs = $stok_log;\n+        $stok_logs = $supplier_product_log;\n         DB::table('stok_log')->delete();\n         foreach($stok_logs as $sl){\n             StokLog::create($sl);\n         }\n"
+                },
+                {
+                    "date": 1630834735317,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,11 +11,11 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $stok_logs = $supplier_product_log;\n-        DB::table('stok_log')->delete();\n-        foreach($stok_logs as $sl){\n+        $supplier_product_logs = $supplier_product_log;\n+        DB::table('supplier_product_log')->delete();\n+        foreach($supplier_product_logs as $sl){\n             StokLog::create($sl);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1630834740429,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $supplier_product_logs = $supplier_product_log;\n         DB::table('supplier_product_log')->delete();\n-        foreach($supplier_product_logs as $sl){\n+        foreach($supplier_product_logs as $spl){\n             StokLog::create($sl);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1630834747219,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n+use App\\Models\\StokLog;\n \n class supplierproductlogseeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1630834752305,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n-use App\\Models\\StokLog;\n+use App\\Models\\SupplierProductLog;\n \n class supplierproductlogseeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1630834759432,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,8 @@\n         include base_path().'/database/seeds/sumberbaru.php';\n         $supplier_product_logs = $supplier_product_log;\n         DB::table('supplier_product_log')->delete();\n         foreach($supplier_product_logs as $spl){\n-            StokLog::create($sl);\n+            SupplierProductLog::create($spl);\n         }\n     }\n }\n"
+                }
+            ],
+            "date": 1630834716939,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass supplierproductlogseeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        include base_path().'/database/seeds/sumberbaru.php';\n        $stok_logs = $stok_log;\n        DB::table('stok_log')->delete();\n        foreach($stok_logs as $sl){\n            StokLog::create($sl);\n        }\n    }\n}\n"
+        }
+    ]
+}

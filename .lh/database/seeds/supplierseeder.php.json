@@ -1,0 +1,50 @@
+{
+    "sourceFile": "database/seeds/supplierseeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1630425259317,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1630425269106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n <?php\n \n use Illuminate\\Database\\Seeder;\n+use App\\Models\\Supplier;\n \n class supplierseeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1630425274342,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $myproduct = $product;\n+        $myproduct = $supplier;\n         DB::table('product')->delete();\n         foreach($product as $p){\n             Product::create($p);\n         }\n"
+                },
+                {
+                    "date": 1630425284402,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $myproduct = $supplier;\n-        DB::table('product')->delete();\n+        DB::table('supplier')->delete();\n         foreach($product as $p){\n             Product::create($p);\n         }\n     }\n"
+                },
+                {
+                    "date": 1630425295967,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $myproduct = $supplier;\n         DB::table('supplier')->delete();\n-        foreach($product as $p){\n+        foreach($myproduct as $mp){\n             Product::create($p);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1630425301704,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,11 +12,11 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $myproduct = $supplier;\n+        $mysupplier = $supplier;\n         DB::table('supplier')->delete();\n-        foreach($myproduct as $mp){\n+        foreach($mysupplier as $mp){\n             Product::create($p);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1630425306864,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,8 @@\n         include base_path().'/database/seeds/sumberbaru.php';\n         $mysupplier = $supplier;\n         DB::table('supplier')->delete();\n         foreach($mysupplier as $mp){\n-            Product::create($p);\n+            Product::create($ms);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1630425313605,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $mysupplier = $supplier;\n         DB::table('supplier')->delete();\n-        foreach($mysupplier as $mp){\n+        foreach($mysupplier as $ms){\n             Product::create($ms);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1630593283451,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,8 @@\n         include base_path().'/database/seeds/sumberbaru.php';\n         $mysupplier = $supplier;\n         DB::table('supplier')->delete();\n         foreach($mysupplier as $ms){\n-            Product::create($ms);\n+            Supplier::create($ms);\n         }\n     }\n }\n"
+                }
+            ],
+            "date": 1630425259317,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass supplierseeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        include base_path().'/database/seeds/sumberbaru.php';\n        $myproduct = $product;\n        DB::table('product')->delete();\n        foreach($product as $p){\n            Product::create($p);\n        }\n    }\n}\n"
+        }
+    ]
+}
