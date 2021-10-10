@@ -30,6 +30,6 @@ class SupplierMigration extends Migration
      */
     public function down()
     {
-        Schema::drop('supplier');
+        Schema::dropIfExists('supplier');
     }
 }

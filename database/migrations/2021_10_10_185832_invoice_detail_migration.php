@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Supplierproduct extends Migration
+class InvoiceDetailMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,18 @@ class Supplierproduct extends Migration
      */
     public function up()
     {
-        Schema::create('supplier_product', function (Blueprint $table) {
+        Schema::create('invoice_detail', function (Blueprint $table) {
             $table->increments("id");
-            $table->integer('idsupplier')->unsigned();
-            $table->foreign('idsupplier')->references('id')->on('supplier');
             $table->integer('idproduct')->unsigned();
             $table->foreign('idproduct')->references('id')->on('product');
-            $table->integer('price')->default("0");
-            $table->string('status')->nullable();
+            $table->integer('idtransaction')->unsigned();
+            $table->foreign('idtransaction')->references('id')->on('invoice');
+            // $table->integer('idsupplier')->unsigned();
+            // $table->foreign('idsupplier')->references('id')->on('supplier');
+            $table->integer('qty');
+            $table->integer('selling_price');
+            $table->integer('subtotal');
             $table->timestamps();
-            $table->unique([
-                'idsupplier',
-                'idproduct'
-            ]);
         });
     }
 
@@ -36,6 +35,6 @@ class Supplierproduct extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supplier_product');
+        Schema::dropIfExists('invoice_detail');
     }
 }

@@ -80,13 +80,13 @@
             <div class="col-xl-5">
                 <div class="card">
                     <div class="card-body">
-                        <button type="button" class="btn waves-effect waves-light btn-outline-danger float-right"><i class="fas fa-shopping-cart pr-2"></i>Reset Keranjang</button>
+                        <button type="button" onclick = "reset()" class="btn waves-effect waves-light btn-outline-danger float-right"><i class="fas fa-shopping-cart pr-2"></i>Reset Keranjang</button>
                         <h4 class="card-title">Keranjang Nota</h4>
                         <h6 class="card-subtitle">No 17082021001 </h6>
 
                         <hr>
                         <div class="table m-t-40" style="clear: both;">
-                            <table class="table table-hover">
+                            <table  class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Barang</th>
@@ -95,19 +95,9 @@
                                         <th class="text-right">Ubah</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Barang A, Varian A </td>
-                                        <td class="text-right">2</td>
-                                        <td class="text-right"> Rp. 100.000 </td>
-                                        <td class="text-right"> <button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#tambah"><i class="fas fa-edit"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Barang A, Varian B</td>
-                                        <td class="text-right">3</td>
-                                        <td class="text-right"> Rp. 120.000 </td>
-                                        <td class="text-right"> <button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#tambah"><i class="fas fa-edit"></i></button></td>
-                                    </tr>
+                                <tbody id = "tabelkeranjang">
+                                        
+                                        {!!$mystring!!}
                                 </tbody>
                             </table>
                         </div>
@@ -117,43 +107,43 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nama Pelanggan</label>
-                                        <input type="text" class="form-control" placeholder="Masukan Nama">
+                                        <input type="text" id = "customer_name" class="form-control" placeholder="Masukan Nama">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Note</label>
-                                        <input type="text" class="form-control" placeholder="Masukan Note">
+                                        <input type="text" id = "invoicenote" class="form-control" placeholder="Masukan Note">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <div class="form-check mr-sm-2">
-                                                <input type="checkbox" class="form-check-input mt-1" id="checkbox00" value="check">
+                                                <input type="checkbox" class="form-check-input mt-1" onclick = "checkstatus(this);" id="checkboxkirim" value="check">
                                                 <label class="form-check-label" for="checkbox00">Kirim</label>
                                             </div>
                                         </div>
-                                        <input type="number" class="form-control" aria-label="Text input with checkbox" placeholder="Masukan Ongkir">
+                                        <input type="number" id = "deliverycost" class="form-control" aria-label="Text input with checkbox" placeholder="Masukan Ongkir" disabled>
                                     </div>
                                 </div>
                             </div>
                             <hr>
                         </div>
                         <div class="pull-right m-t-30 text-right">
-                            <p>Jumlah : 5</p>
+                            <p>Jumlah Product : <label id = "qtyitemtotal"> {{$myitemcount}}  <label> </p>
                             <hr>
-                            <h3><b>Total :</b> 220.000</h3>
+                            <h3><b>Total :</b> <label id = "allitemtotal"> {{$mytotal}} </label></h3>
                         </div>
                         <div class="clearfix"></div>
                         <hr>
                         <div class="text-right">
                             <select class="custom-select col-6 float-left" id="inlineFormCustomSelect">
-                                <option selected>Pilih Metode Pembayaran</option>
-                                <option value="1">Tunai</option>
-                                <option value="2">Transfer</option>
+                                <option value ="0" selected>Pilih Metode Pembayaran</option>
+                                <option value="Tunai">Tunai</option>
+                                <option value="Transfer">Transfer</option>
                             </select>
-                            <button class="btn btn-info" type="submit"><i class="fa fa-print pr-2"></i> Proses Pembayaran </button>
+                            <button class="btn btn-info" onclick = "createinvoice()" type="button"><i class="fa fa-print pr-2"></i> Proses Pembayaran </button>
                         </div>
                     </div>
                 </div>
@@ -217,8 +207,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-info waves-effect col-4" data-dismiss="modal">Simpan</button>
+                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal" id = "tutupmodal">Tutup</button>
+                <button type="button" class="btn btn-info waves-effect col-4"  onclick = "addcart(this)">Simpan</button>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -231,17 +221,293 @@
 
 
 <script>
-      $(document).ready(function() {
-     
+    var subtotalawal = 0;
+  
+   var checkedshipment = false;
+//    $("#deliverycost").val(0);
+   
+    var idproductchoose = "";
+    // $(document).ready(function() {
+    
+    //     $("#buttonbantuanharga2").text(harga2);
+    //     $("#buttonbantuanharga3").text(harga3);
+    //     $("#deliverycost").val(0);
+       
+    // });
+    
+  
+  
+    function createinvoice(){
+        var paymentmethod = $("#inlineFormCustomSelect").val();
+        if(paymentmethod == "0")
+        {
+            Swal.fire({
+                            type: 'info',
+                            title: 'Payment method',
+                            text: 'Please choose payment method first !! ',
+                            confirmButtonColor: '#e00d0d',
+                        });
+        }
+        else{
+            var customername = $("#customer_name").val();
+            var invoicenote = $("#invoicenote").val();
+            // var checkedchekbox = $("#checkboxkirim").checked;
+            var cost = 0;
+            if(checkedshipment)
+            {
+                cost = $("#deliverycost").val();
+            }
+           $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('createinvoice')}}",
+                method: 'POST',
+                data: {
+                    mycustomername : customername,
+                    myinvoicenote : invoicenote,
+                    mychecked : checkedshipment,
+                    mymethod : paymentmethod,
+                    mycost : cost
+                },
+                success: function (result) {
+                    if(result == "noitem")
+                    {
+                        Swal.fire({
+                            type: 'info',
+                            title: 'Zero item',
+                            text: 'Please enter items / product first !! ',
+                            confirmButtonColor: '#e00d0d',
+                        });
+                    }
+                    else{
+                        $("#allitemtotal").text("0");
+                        $("#qtyitemtotal").text("0");
+                        $("#customer_name").val("");
+                        $("#invoicenote").val("");
+                        $("#deliverycost").val(0);
+                        $("#tabelkeranjang").html("");
+                        subtotalawal = 0;
+                        Swal.fire({
+                            title: 'Invoice Created',
+                            text: 'Invoice Created Successfully',
+                            type: 'success',
+                            confirmButtonColor: '#53d408',
+                        });
+                    }
+                }
+            });
+        }
+        
+    }
+    
+    function checkstatus(element)
+    {
+        subtotalawal = $("#allitemtotal").text();
+    // alert(element.cheked);
+       if(element.checked)
+       {    
+           var ongkos = 0;
+         
+            ongkos = $("#deliverycost").val();
+            if(ongkos == ""){
+                ongkos = 0;
+            }
+        //    alert(subtotalawal);
+             $("#deliverycost").prop('disabled', false);
+             checkedshipment = true;
+             $('#deliverycost').keyup(function(event){
+                 
+            if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+                event.preventDefault(); //stop character from entering input
+            }
+            else
+            {
+            
+                var qty = $("#qtyinputinterface").val();
+                var price =  $("#priceinputinterface").val();
+                if(qty == null || qty == 0 )
+                {
+                    qty = 1;
+                    $("#qtyinputinterface").val(1);
+                }
+                if(price == ""){
+                    price = 1;
+                
+                }
+                ongkos = $("#deliverycost").val();
+                var subtotal = $("#allitemtotal").text();
+                // alert(subtotal);
+                
+                var calculate = parseInt(subtotalawal) + parseInt(ongkos);
+
+                $("#allitemtotal").text(calculate);
+                if( $("#deliverycost").val() == ""){
+                    $("#allitemtotal").text(subtotalawal);
+                }
+        
+                // $("#allitemtotal").text(resultsubtotal);
+            }
+            });
+            var resultsubtotal = parseInt(subtotalawal)+parseInt(ongkos);
+            $("#allitemtotal").text(resultsubtotal);
+         
+       }
+       else{
+        var ongkos = 0;
+        ongkos = $("#deliverycost").val();
+             $("#deliverycost").prop('disabled', true);
+             checkedshipment = false;
+         
+             $('#deliverycost').keyup(function(event){
+            if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+                event.preventDefault(); //stop character from entering input
+            }
+            else
+            {
+            
+                var qty = $("#qtyinputinterface").val();
+                var price =  $("#priceinputinterface").val();
+                if(qty == null || qty == 0 )
+                {
+                    qty = 1;
+                    $("#qtyinputinterface").val(1);
+                }
+                if(price == ""){
+                    price = 1;
+                
+                }
+                 ongkos = $("#deliverycost").val();
+                var subtotal = $("#allitemtotal").text();
+                // alert(subtotal);
+                var calculate = parseInt(subtotalawal) ;
+
+                $("#allitemtotal").text(calculate);
+                if( $("#deliverycost").val() == ""){
+                    $("#allitemtotal").text(subtotalawal);
+                }
+             
+            
+            }
+            });
+          
+            var resultsubtotal = parseInt(subtotalawal)-parseInt(ongkos);
+            $("#allitemtotal").text(resultsubtotal);
+              
+       }
+    }
+  
+    function addcart(element){
       
+        var subtotal =  $("#subtotalinputinterface").text();
+        if(subtotal == "0"){
+                    Swal.fire({
+                            type: 'info',
+                            title: 'Zero quantity or price',
+                            text: 'Please enter qty with price first!!',
+                            confirmButtonColor: '#e00d0d',
+                        });
+        }
+        else{
+            var hargaakhir = $("#subtotalinputinterface").text();
+        var quantity = $("#qtyinputinterface").val();
+        var namaproduct = $("#titleinputinterface").text();
+        var mystring = idproductchoose  + "||" + namaproduct + "||" + quantity + "||" + hargaakhir;
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('addcart')}}",
+                method: 'POST',
+                data: {
+                    mydata: mystring
 
-               
-                $("#buttonbantuanharga2").text(harga2);
-                $("#buttonbantuanharga3").text(harga3);
-        });
+                },
+                success: function (result) {
+                    var obj = result;
+                        // var mystring = jsonparse[0][mystring];
+                        // var spliiter = result.split("~~~");
+                        // var mydatatable = spliiter[0];
+                        // var myalltaotal = spliiter[1];
+                        $("#tutupmodal").click();
+                        $("#tabelkeranjang").html("");
+                        $("#tabelkeranjang").html(obj.mystring);
+                        $("#allitemtotal").text(obj.alltotal);
+                        $("#qtyitemtotal").text(obj.mytotalqty);
+                        Swal.fire({
+                            title: 'Data Changed',
+                            text: 'Data Changed Successfully',
+                            type: 'success',
+                            confirmButtonColor: '#53d408',
+                        });
+                        if(checkedshipment)
+                        {
+                            var subtotal = $("#allitemtotal").text();
+                            var ongkos = $("#deliverycost").val();
+                            var resultcalculate = parseInt(subtotal) + parseInt(ongkos);
+                            $("#allitemtotal").text(resultcalculate);
+                            subtotalawal = parseInt(resultcalculate);
+                        }
+                }
+            });
+        }
+       
+    };
+    function reset(){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        allowOutsideClick: false,
+        confirmButtonText: 'Yes, empty my cart!'
+        }).then((result) => {
+        var myresult =  result['value'];
+        if (myresult) {
+          
+
+            subtotalawal = 0;
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('clearcart')}}",
+                method: 'POST',
+                data: {
+                    mydata: "mystring"
+
+                },
+                success: function (result) {
+                    $("#qtyitemtotal").html("0");
+                    $("#allitemtotal").html("0");
+                    $("#tabelkeranjang").html("");
+                     Swal.fire({
+                            type: 'success',
+                            title: 'Empty Cart Success Confirmation ',
+                            text: 'Your cart is now empty!!',
+                            confirmButtonColor: '#1fa00c',
+                        });
+                }
+            });
+                
+           
+        }
+        })
+    }
+
     function inputinterface(element){
-
+      
         var myid = element.id;
+        var splitter = myid.split("-");
+        idproductchoose = splitter[1];
         var mysplit = myid.split("-");
         var idperproduct  =  mysplit[1];
         var kodeproduct = $("#kode" + idperproduct).text();
@@ -252,7 +518,16 @@
         var spliiterharga1 = harga1.split(". ");
         var spliiterharga2 = harga2.split(". ");
         var spliiterharga3 = harga3.split(". ");
-
+        // var qty = $("#qtyinputinterface").val();
+        var price =  $("#priceinputinterface").val();
+        
+        if(price  == 0 )
+        {
+            $("#subtotalinputinterface").text("0");
+        }
+        
+       
+          
         $('#priceinputinterface').keyup(function(event){
         if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
             event.preventDefault(); //stop character from entering input
@@ -295,9 +570,13 @@
             $("#subtotalinputinterface").text(calculate);
         }
         });
+
         $("#qtyinputinterface").val(1);
-        
         $("#priceinputinterface").val(spliiterharga3[1]);
+             var calculate = parseInt($("#qtyinputinterface").val()) * parseInt($("#priceinputinterface").val());
+           
+            $("#subtotalinputinterface").text(calculate);
+
         
         // -- 
         $("#titleinputinterface").text(namaproduct);

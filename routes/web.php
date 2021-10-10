@@ -29,6 +29,9 @@ Route::get('/stok/getdatatableproductlog', 'StokController@getdatatableproductlo
 Route::get('/stok/getsupplieraddstocklog', 'StokController@getsupplieraddstocklog')->name("getsupplieraddstocklog");
 Route::post('/stok/addstocklog', 'StokController@addstocklog')->name("addstocklog");
 Route::post('/stok/gethistory', 'StokController@gethistory')->name("gethistory");
+Route::post('/kasir/addcart', "KasirController@addcart")->name("addcart");
+Route::post('/kasir/clearcart', "KasirController@clearcart")->name("clearcart");
+Route::post('/kasir/createinvoice', "KasirController@createinvoice")->name("createinvoice");
 Route::resource('/product', 'ProductController');
 Route::resource('/supplier', 'SupplierController');
 Route::resource('/invoice', 'NotaController');

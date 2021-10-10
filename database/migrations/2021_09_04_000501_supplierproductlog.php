@@ -32,6 +32,6 @@ class Supplierproductlog extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('supplier_product_log');
     }
 }
