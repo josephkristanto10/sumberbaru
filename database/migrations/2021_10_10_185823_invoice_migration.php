@@ -24,6 +24,7 @@ class InvoiceMigration extends Migration
             $table->string('transaction_method');
             $table->string('transaction_shipment_delivery');
             $table->integer('transaction_shipment_delivery_cost');
+            $table->string('transaction_customer');
             $table->string('transaction_note');
             $table->integer('qty_item');
             $table->integer('total');

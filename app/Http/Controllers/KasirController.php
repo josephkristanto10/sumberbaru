@@ -82,6 +82,7 @@ class KasirController extends Controller
             $invoice->transaction_method = $paymentmethod;
             $invoice->transaction_shipment_delivery = $checked;
             $invoice->transaction_shipment_delivery_cost = $cost;
+            $invoice->transaction_customer = $custname;
             $invoice->transaction_note = $invoicenote;
             $invoice->qty_item = session()->get('totalqty');
             $invoice->total = session()->get('subtotalcart');

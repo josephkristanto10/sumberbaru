@@ -32,6 +32,8 @@ Route::post('/stok/gethistory', 'StokController@gethistory')->name("gethistory")
 Route::post('/kasir/addcart', "KasirController@addcart")->name("addcart");
 Route::post('/kasir/clearcart', "KasirController@clearcart")->name("clearcart");
 Route::post('/kasir/createinvoice', "KasirController@createinvoice")->name("createinvoice");
+Route::get('/invoice/getmydata', 'NotaController@getmydata')->name("gettableinvoice");
+Route::get('invoice/detail/{id}', 'NotaController@getmydetaildata')->name("getinvoicedetail");
 Route::resource('/product', 'ProductController');
 Route::resource('/supplier', 'SupplierController');
 Route::resource('/invoice', 'NotaController');

@@ -14,16 +14,15 @@ $failed_jobs = array(
 
 /* `sumberbaru`.`invoice` */
 $invoice = array(
-  array('id' => '1','transaction_no' => 'txx','transaction_date' => '2021-10-10','transaction_method' => 'Tunai','transaction_shipment_delivery' => 'false','transaction_shipment_delivery_cost' => '0','transaction_note' => '-','qty_item' => '1','total' => '20000','created_at' => '2021-10-10 19:55:53','updated_at' => '2021-10-10 19:55:53'),
-  array('id' => '2','transaction_no' => 'txx','transaction_date' => '2021-10-10','transaction_method' => 'Transfer','transaction_shipment_delivery' => 'true','transaction_shipment_delivery_cost' => '0','transaction_note' => '-','qty_item' => '5','total' => '110000','created_at' => '2021-10-10 20:00:12','updated_at' => '2021-10-10 20:00:12'),
-  array('id' => '3','transaction_no' => 'txx','transaction_date' => '2021-10-10','transaction_method' => 'Transfer','transaction_shipment_delivery' => 'true','transaction_shipment_delivery_cost' => '15000','transaction_note' => '-','qty_item' => '5','total' => '110000','created_at' => '2021-10-10 20:05:55','updated_at' => '2021-10-10 20:05:55'),
-  array('id' => '4','transaction_no' => 'txx','transaction_date' => '2021-10-10','transaction_method' => 'Transfer','transaction_shipment_delivery' => 'false','transaction_shipment_delivery_cost' => '0','transaction_note' => '-','qty_item' => '5','total' => '110000','created_at' => '2021-10-10 20:06:06','updated_at' => '2021-10-10 20:06:06'),
-  array('id' => '5','transaction_no' => 'txx','transaction_date' => '2021-10-10','transaction_method' => 'Tunai','transaction_shipment_delivery' => 'true','transaction_shipment_delivery_cost' => '30000','transaction_note' => '-','qty_item' => '4','total' => '170000','created_at' => '2021-10-10 20:08:14','updated_at' => '2021-10-10 20:08:14'),
-  array('id' => '6','transaction_no' => 'txx','transaction_date' => '2021-10-10','transaction_method' => 'Tunai','transaction_shipment_delivery' => 'true','transaction_shipment_delivery_cost' => '10000','transaction_note' => '-','qty_item' => '12','total' => '120000','created_at' => '2021-10-10 20:09:34','updated_at' => '2021-10-10 20:09:34')
+  array('id' => '9','transaction_no' => 'txx','transaction_date' => '2021-10-10','transaction_method' => 'Tunai','transaction_shipment_delivery' => 'true','transaction_shipment_delivery_cost' => '10000','transaction_customer' => 'Bejo','transaction_note' => 'Note Fix','qty_item' => '5','total' => '250000','created_at' => '2021-10-10 21:03:07','updated_at' => '2021-10-10 21:03:07'),
+  array('id' => '10','transaction_no' => 'txx','transaction_date' => '2021-10-10','transaction_method' => 'Transfer','transaction_shipment_delivery' => 'true','transaction_shipment_delivery_cost' => '5000','transaction_customer' => 'Joseph','transaction_note' => '13000','qty_item' => '1','total' => '20000','created_at' => '2021-10-10 23:14:00','updated_at' => '2021-10-10 23:14:00')
 );
 
 /* `sumberbaru`.`invoice_detail` */
 $invoice_detail = array(
+  array('id' => '3','idproduct' => '3','idtransaction' => '9','qty' => '2','selling_price' => '50000','subtotal' => '100000','created_at' => '2021-10-10 21:03:08','updated_at' => '2021-10-10 21:03:08'),
+  array('id' => '4','idproduct' => '1','idtransaction' => '9','qty' => '3','selling_price' => '50000','subtotal' => '150000','created_at' => '2021-10-10 21:03:08','updated_at' => '2021-10-10 21:03:08'),
+  array('id' => '5','idproduct' => '2','idtransaction' => '10','qty' => '1','selling_price' => '20000','subtotal' => '20000','created_at' => '2021-10-10 23:14:01','updated_at' => '2021-10-10 23:14:01')
 );
 
 /* `sumberbaru`.`migrations` */

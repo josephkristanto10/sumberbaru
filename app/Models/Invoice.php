@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $transaction_method
  * @property string $transaction_shipment_delivery
  * @property int $transaction_shipment_delivery_cost
+ * @property string $transaction_customer
  * @property string $transaction_note
  * @property int $qty_item
  * @property int $total
@@ -49,6 +50,7 @@ class Invoice extends Model
 		'transaction_method',
 		'transaction_shipment_delivery',
 		'transaction_shipment_delivery_cost',
+		'transaction_customer',
 		'transaction_note',
 		'qty_item',
 		'total'
