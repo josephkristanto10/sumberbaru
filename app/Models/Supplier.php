@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property Collection|StokLog[] $stok_logs
  * @property Collection|Product[] $products
+ * @property Collection|TransactionReturn[] $transaction_returns
  *
  * @package App\Models
  */
@@ -47,5 +48,10 @@ class Supplier extends Model
 		return $this->belongsToMany(Product::class, 'supplier_product', 'idsupplier', 'idproduct')
 					->withPivot('id', 'price', 'status')
 					->withTimestamps();
+	}
+
+	public function transaction_returns()
+	{
+		return $this->hasMany(TransactionReturn::class, 'idsupplier');
 	}
 }

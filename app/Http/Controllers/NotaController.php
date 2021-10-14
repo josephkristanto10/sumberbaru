@@ -54,10 +54,13 @@ class NotaController extends Controller
         $getdatadetail = Invoicedetail::join("product", "product.id", '=', 'invoice_detail.idproduct')
                          ->join("invoice", "invoice.id", '=', 'invoice_detail.idtransaction')
                          ->where('idtransaction','=',$id)
-                         ->select("invoice_detail.*", 'product.name as productname','product.kode as productcode', 'invoice.transaction_shipment_delivery_cost as delivery_cost', "invoice.total", "invoice.transaction_no", "invoice.transaction_customer", "invoice.transaction_note")
+                         ->select("invoice_detail.*", 'product.name as productname','product.kode as productcode', 'invoice.transaction_shipment_delivery_cost as delivery_cost', "invoice.total", "invoice.transaction_no", "invoice.transaction_customer", "invoice.transaction_note", "invoice.created_at as tanggaldibuat")
                          ->get();
         $mystring = "";
         $mycountnumber = count($getdatadetail);
+        $mydate = $getdatadetail[0]['tanggaldibuat'];
+        $mydateconvert = date_create($mydate);
+        $mydateconvertfix = date_format($mydateconvert, 'j F Y -  H:i');
         $total = $getdatadetail[0]['total'];
         $deliverycost = $getdatadetail[0]['delivery_cost'];
         $customer = $getdatadetail[0]['transaction_customer'];
@@ -68,6 +71,7 @@ class NotaController extends Controller
         }
         return response()->json([
             'notransaction' => $transactionno,
+            'transactiondate' => $mydateconvertfix,
             'counts' => $mycountnumber,
             'customer' => $customer,
             'note' => $note,

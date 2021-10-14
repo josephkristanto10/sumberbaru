@@ -133,7 +133,7 @@
                             <a class="waves-effect waves-dark" href="{{url('/stok')}}" aria-expanded="false"><i class="ti-layers"></i><span class="hide-menu">Stok Barang</span></a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="{{url('/retur')}}" aria-expanded="false"><i class="ti-back-left"></i><span class="hide-menu">Retur Barang</span></a>
+                            <a class="waves-effect waves-dark" href="{{url('/transactionreturn')}}" aria-expanded="false"><i class="ti-back-left"></i><span class="hide-menu">Retur Barang</span></a>
                         </li>
                         <li>
                             <a class="waves-effect waves-dark" href="{{url('/invoice')}}" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">Nota Transaksi</span></a>

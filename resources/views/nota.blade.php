@@ -197,7 +197,7 @@
 
                 <div class="col-12">
                     <h5 class="float-right"><b>Total <label id = "qty_barang_detail">25</label> Barang - Rp. <label id = "totalall">1.300.000</label></b></h5>
-                    <h5>No Transaksi TS004 - 01 Juli 2021 - 13.30</h5>
+                    <h5>No Transaksi <label id ="nomortransaksi">TS004</label> - <label id ="transaction_date">01 Juli 2021 - 13.30</label></h5>
                     <table class="display table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -342,7 +342,9 @@
                     
                 },
                 success: function (result) {
-                console.log(result);
+                // console.log(result);
+                $("#nomortransaksi").text(result['notransaction'])
+                $("#transaction_date").text(result['transactiondate']);
                  $("#qty_barang_detail").text(result['counts']);
                  $("#totalall").text(result['total']);
                  $("#transaction_customer").val(result['customer']);
