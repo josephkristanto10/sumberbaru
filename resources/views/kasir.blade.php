@@ -1,5 +1,21 @@
 @include("layout.header")
-
+<style >
+    #myproduct_filter{
+        display:none;
+    }
+    #mycart_filter{
+        display:none;
+    }
+    #mycart_length{
+        display: none;
+    }
+    #mycart_wrapper{
+        padding:0px;
+    }
+    #mycart_info, #mycart_paginate{
+        display:none;
+    }
+</style>
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
 <div class="page-wrapper">
@@ -37,14 +53,14 @@
                     <div class="card-body">
                         <div class="input-group">
                             <span class="input-group-text">Cari Barang</span>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" id = "mysearchdatatable" class="form-control" aria-label="Amount (to the nearest dollar)">
                             <span class="input-group-text"><i class="ti-search"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="mt-3 mb-4">
-                        <table id="example26" class="display table table-hover table-striped table-bordered" cellspacing="0">
+                        <table id="myproduct" class="display table table-hover table-striped table-bordered" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="2%">Kode</th>
@@ -56,20 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($myproduct as $mp)
-                                <tr>
-                                   
-                                    <td id = 'kode{{$mp->id}}'>{{$mp->kode}}</td>
-                                    <td id = 'name{{$mp->id}}'>{{$mp->name}}</td>
-                                    <td id = 'hargapertama{{$mp->id}}'>Rp. {{$mp->harga1}}</td>
-                                    <td id = 'hargakedua{{$mp->id}}'>Rp. {{$mp->harga2}}</td>
-                                    <td id = 'hargaketiga{{$mp->id}}'>Rp. {{$mp->harga3}}</td>
-                                    <td>
-                                        <button type="button" id = "b-{{$mp->id}}" onclick = "inputinterface(this)" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus pl-2 pr-2"></i></button>
-                                    </td>
-                                  
-                                </tr>
-                             @endforeach 
+                  
                             </tbody>
                         </table>
                     </div>
@@ -85,8 +88,8 @@
                         <h6 class="card-subtitle">No 17082021001 </h6>
 
                         <hr>
-                        <div class="table m-t-40" style="clear: both;">
-                            <table  class="table table-hover">
+                        <div class="table mt-40" style="clear: both;">
+                            <table id = "mycart" class="table table-hover" >
                                 <thead>
                                     <tr>
                                         <th>Barang</th>
@@ -95,7 +98,7 @@
                                         <th class="text-right">Ubah</th>
                                     </tr>
                                 </thead>
-                                <tbody id = "tabelkeranjang">
+                                <tbody >
                                         
                                         {!!$mystring!!}
                                 </tbody>
@@ -207,7 +210,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal" id = "tutupmodal">Tutup</button>
+                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal" id = "tutupmodaltambah">Tutup</button>
                 <button type="button" class="btn btn-info waves-effect col-4"  onclick = "addcart(this)">Simpan</button>
             </div>
             <!-- /.modal-content -->
@@ -216,6 +219,55 @@
     </div>
 </div>
 <!-- End Modal  -->
+<div id="edit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-l">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="vcenter" ><label id = 'titleinputinterfaceedit'>-</label></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <p>Pastikan Anda memasukan informasi yang benar</p>
+                    <table class="display table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <th>Kuantitas</th>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" id = "qtyinputinterfaceedit" class="form-control">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">&nbsp; pcs</i></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Harga</th>
+                                <td>
+                                    <input type="text" id = "priceinputinterfaceedit" class="form-control mb-2">
+                                    <button class="btn btn-sm btn-outline-info waves-effect waves-light" id = "buttonbantuanharga1edit">-</button>
+                                    <button class="btn btn-sm btn-outline-info waves-effect waves-light" id = "buttonbantuanharga2edit">-</button>
+                                    <button class="btn btn-sm btn-outline-info waves-effect waves-light" id = "buttonbantuanharga3edit">-</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Subtotal</th>
+                                <td>Rp. <label id = "subtotalinputinterfaceedit">60.000</label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal" id = "tutupmodaledit">Tutup</button>
+                <button type="button" class="btn btn-info waves-effect col-4"  onclick = "editcart()">Simpan</button>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
 <!-- ============================================================== -->
 <!-- ============================================================== -->
 
@@ -227,18 +279,16 @@
 //    $("#deliverycost").val(0);
    
     var idproductchoose = "";
-    // $(document).ready(function() {
+    $(document).ready(function() {
     
-    //     $("#buttonbantuanharga2").text(harga2);
-    //     $("#buttonbantuanharga3").text(harga3);
-    //     $("#deliverycost").val(0);
-       
-    // });
-    
-  
+     
+      
+    });
+   
   
     function createinvoice(){
         var paymentmethod = $("#inlineFormCustomSelect").val();
+        var mygrandtotal = $("#allitemtotal").text();
         if(paymentmethod == "0")
         {
             Swal.fire({
@@ -251,54 +301,73 @@
         else{
             var customername = $("#customer_name").val();
             var invoicenote = $("#invoicenote").val();
+            var myqtyitemtotal = $("#qtyitemtotal").text();
             // var checkedchekbox = $("#checkboxkirim").checked;
             var cost = 0;
             if(checkedshipment)
             {
                 cost = $("#deliverycost").val();
             }
-           $.ajaxSetup({
+            if(myqtyitemtotal == "")
+            {
+                Swal.fire({
+                            type: 'info',
+                            title: 'Item Zero on cart',
+                            text: 'Please select product first !! ',
+                            confirmButtonColor: '#e00d0d',
+                        });
+            }
+            else
+            {
+                $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });
-            $.ajax({
-                url: "{{route('createinvoice')}}",
-                method: 'POST',
-                data: {
-                    mycustomername : customername,
-                    myinvoicenote : invoicenote,
-                    mychecked : checkedshipment,
-                    mymethod : paymentmethod,
-                    mycost : cost
-                },
-                success: function (result) {
-                    if(result == "noitem")
-                    {
-                        Swal.fire({
-                            type: 'info',
-                            title: 'Zero item',
-                            text: 'Please enter items / product first !! ',
-                            confirmButtonColor: '#e00d0d',
-                        });
+                });
+                $.ajax({
+                    url: "{{route('createinvoice')}}",
+                    method: 'POST',
+                    data: {
+                        mycustomername : customername,
+                        myinvoicenote : invoicenote,
+                        mychecked : checkedshipment,
+                        mymethod : paymentmethod,
+                        myqty : myqtyitemtotal,
+                        mygrandtotals : mygrandtotal,
+                        mycost : cost
+                    },
+                    success: function (result) {
+                        // alert(result);
+                        firstsummary();
+                        successcart();
+                        if(result == "noitem")
+                        {
+                            Swal.fire({
+                                type: 'info',
+                                title: 'Zero item',
+                                text: 'Please enter items / product first !! ',
+                                confirmButtonColor: '#e00d0d',
+                            });
+                        }
+                        else{
+                            $("#allitemtotal").text("0");
+                            $("#qtyitemtotal").text("0");
+                            $("#customer_name").val("");
+                            $("#invoicenote").val("");
+                            $("#deliverycost").val(0);
+                            $("#tabelkeranjang").html("");
+                            subtotalawal = 0;
+                            Swal.fire({
+                                title: 'Invoice Created',
+                                text: 'Invoice Created Successfully',
+                                type: 'success',
+                                confirmButtonColor: '#53d408',
+                            });
+                        }
                     }
-                    else{
-                        $("#allitemtotal").text("0");
-                        $("#qtyitemtotal").text("0");
-                        $("#customer_name").val("");
-                        $("#invoicenote").val("");
-                        $("#deliverycost").val(0);
-                        $("#tabelkeranjang").html("");
-                        subtotalawal = 0;
-                        Swal.fire({
-                            title: 'Invoice Created',
-                            text: 'Invoice Created Successfully',
-                            type: 'success',
-                            confirmButtonColor: '#53d408',
-                        });
-                    }
-                }
-            });
+                });
+            }
+        
         }
         
     }
@@ -411,10 +480,12 @@
                         });
         }
         else{
-            var hargaakhir = $("#subtotalinputinterface").text();
-        var quantity = $("#qtyinputinterface").val();
-        var namaproduct = $("#titleinputinterface").text();
-        var mystring = idproductchoose  + "||" + namaproduct + "||" + quantity + "||" + hargaakhir;
+            var idproduct = idproductchoose;
+            var price =  $("#priceinputinterface").val();
+            var quantity = $("#qtyinputinterface").val();
+
+            var hargaakhir = parseInt(price) * parseInt(quantity);
+
         $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -424,34 +495,62 @@
                 url: "{{route('addcart')}}",
                 method: 'POST',
                 data: {
-                    mydata: mystring
+                    myidproduct : idproduct,
+                    mypriceproduct : price,
+                    myquantity : quantity,
+                    mylastprice : hargaakhir
 
                 },
-                success: function (result) {
-                    var obj = result;
+                success: function (myresult) {
+                    if(myresult == "exist")
+                    {
+                        Swal.fire({
+                            title: 'Data Exists',
+                            text: 'Cannot add product, duplicated product on cart',
+                            type: 'info',
+                        });
+                    }
+                    else{
+                        successcart();
+                        // console.log(result);
+                        Swal.fire({
+                                title: 'Data Added',
+                                text: 'Data Added Successfully',
+                                type: 'success',
+                                confirmButtonColor: '#53d408',
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                                // $("#myformedit").trigger("reset");
+                                // $("#canceledit").click();
+                                $("#tutupmodaltambah").click();
+                                $("#allitemtotal").text(myresult.myproductgrantotal);
+                                $("#qtyitemtotal").text(myresult.myproductqty);
+                                    if(checkedshipment)
+                                    {
+                                        var subtotal = $("#allitemtotal").text();
+                                        var ongkos = $("#deliverycost").val();
+                                        var resultcalculate = parseInt(subtotal) + parseInt(ongkos);
+                                        $("#allitemtotal").text(resultcalculate);
+                                        subtotalawal = parseInt(resultcalculate);
+                                    }
+                            });
+                    }
+                    // var obj = result;
                         // var mystring = jsonparse[0][mystring];
                         // var spliiter = result.split("~~~");
                         // var mydatatable = spliiter[0];
                         // var myalltaotal = spliiter[1];
-                        $("#tutupmodal").click();
-                        $("#tabelkeranjang").html("");
-                        $("#tabelkeranjang").html(obj.mystring);
-                        $("#allitemtotal").text(obj.alltotal);
-                        $("#qtyitemtotal").text(obj.mytotalqty);
-                        Swal.fire({
-                            title: 'Data Changed',
-                            text: 'Data Changed Successfully',
-                            type: 'success',
-                            confirmButtonColor: '#53d408',
-                        });
-                        if(checkedshipment)
-                        {
-                            var subtotal = $("#allitemtotal").text();
-                            var ongkos = $("#deliverycost").val();
-                            var resultcalculate = parseInt(subtotal) + parseInt(ongkos);
-                            $("#allitemtotal").text(resultcalculate);
-                            subtotalawal = parseInt(resultcalculate);
-                        }
+                        // $("#tutupmodal").click();
+                        // $("#tabelkeranjang").html("");
+                        // $("#tabelkeranjang").html(obj.mystring);
+                     
+                        // Swal.fire({
+                        //     title: 'Data Changed',
+                        //     text: 'Data Changed Successfully',
+                        //     type: 'success',
+                        //     confirmButtonColor: '#53d408',
+                        // });
+
                 }
             });
         }
@@ -486,15 +585,19 @@
 
                 },
                 success: function (result) {
-                    $("#qtyitemtotal").html("0");
-                    $("#allitemtotal").html("0");
-                    $("#tabelkeranjang").html("");
+                    // $("#qtyitemtotal").html("0");
+                    // $("#allitemtotal").html("0");
+                    // $("#tabelkeranjang").html("");
                      Swal.fire({
                             type: 'success',
                             title: 'Empty Cart Success Confirmation ',
                             text: 'Your cart is now empty!!',
                             confirmButtonColor: '#1fa00c',
-                        });
+                            allowOutsideClick: false,
+                            }).then((result) => {
+                                firstsummary();
+                                successcart();
+                            });
                 }
             });
                 
@@ -506,15 +609,15 @@
     function inputinterface(element){
       
         var myid = element.id;
-        var splitter = myid.split("-");
-        idproductchoose = splitter[1];
-        var mysplit = myid.split("-");
-        var idperproduct  =  mysplit[1];
-        var kodeproduct = $("#kode" + idperproduct).text();
-        var namaproduct =  $("#name" + idperproduct).text();
-        var harga1 = $("#hargapertama"+idperproduct).text();
-        var harga2 = $("#hargakedua"+idperproduct).text();
-        var harga3 = $("#hargaketiga"+idperproduct).text();
+   
+        var splitter = myid.split("_");
+        var idperproduct = splitter[1];
+        idproductchoose = idperproduct;
+        var kodeproduct = $("#kode_" + idperproduct).text();
+        var namaproduct =  $("#name_" + idperproduct).text();
+        var harga1 = $("#hargapertama_"+idperproduct).text();
+        var harga2 = $("#hargakedua_"+idperproduct).text();
+        var harga3 = $("#hargaketiga_"+idperproduct).text();
         var spliiterharga1 = harga1.split(". ");
         var spliiterharga2 = harga2.split(". ");
         var spliiterharga3 = harga3.split(". ");
@@ -572,7 +675,7 @@
         });
 
         $("#qtyinputinterface").val(1);
-        $("#priceinputinterface").val(spliiterharga3[1]);
+        $("#priceinputinterface").val(harga3);
              var calculate = parseInt($("#qtyinputinterface").val()) * parseInt($("#priceinputinterface").val());
            
             $("#subtotalinputinterface").text(calculate);
@@ -630,3 +733,168 @@
 </script>
 
 @include("layout.footer")
+<script>
+       firstsummary();
+     function firstsummary(){
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('getsummary')}}",
+                method: 'GET',
+                success: function (result) {
+                        // console.log(result);
+                        $("#allitemtotal").text(result.myproductgrantotal);
+                                $("#qtyitemtotal").text(result.myproductqty);
+                }
+            });
+    };
+ 
+        $('#qtyinputinterfaceedit').keyup(function(event){
+        if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+            event.preventDefault(); //stop character from entering input
+        }
+        else
+        {
+            var qty = $("#qtyinputinterfaceedit").val();
+            var price =  $("#priceinputinterfaceedit").val();
+            if(qty == null || qty == 0 )
+            {
+                qty = 1;
+             
+            }
+            if(price == ""){
+                price = 1;
+              
+            }
+            var calculate = parseInt(qty) * parseInt(price);
+            $("#subtotalinputinterfaceedit").text(calculate);
+        }
+        });
+
+        $('#priceinputinterfaceedit').keyup(function(event){
+        if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+            event.preventDefault(); //stop character from entering input
+        }
+        else
+        {
+            var qty = $("#qtyinputinterfaceedit").val();
+            var price =  $("#priceinputinterfaceedit").val();
+            if(qty == null || qty == 0 )
+            {
+                qty = 1;
+                $("#qtyinputinterfaceedit").val(1);
+            }
+            if(price == ""){
+                price = 1;
+              
+            }
+            var calculate = parseInt(qty) * parseInt(price);
+            $("#subtotalinputinterfaceedit").text(calculate);
+        }
+        });
+        function successproduct() {
+      $('#myproduct').DataTable().ajax.reload(null, false);
+   };
+     
+       function successcart() {
+      $('#mycart').DataTable().ajax.reload(null, false);
+   };
+   loaddatacart();
+   function loaddataproduct(){
+   var producttable =  $('#myproduct').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{route('gettableproduct')}}",
+        columns: [
+            { data: 'kode', name: 'kode' },
+            { data: 'name', name: 'name' },
+            { data: 'harga1', name: 'harga1' },
+            { data: 'harga2', name: 'harga2' },
+            { data: 'harga3', name: 'harga3' },
+            { data: 'action', name: 'action' }
+        ]
+           });
+           $('#mysearchdatatable').on( 'keyup', function () {
+            producttable.search( this.value ).draw();
+            } );
+   }
+   function loaddatacart(){
+    $('#mycart').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{route('getcart')}}",
+        columns: [
+            { data: 'name', name: 'name' },
+            { data: 'qty', name: 'qty' },
+            { data: 'subtotal', name: 'subtotal' },
+            { data: 'action', name: 'action' }
+        ],
+        initComplete: function(settings, json){
+            loaddataproduct();
+        }
+        });
+   }
+
+   
+   
+
+    
+        var globalidcart = "";
+        function openmodaleditcustom(element){
+            var myid = element.id;
+            globalidcart = myid;
+            var name = $("#name_"+myid).text();
+            var qty = $("#qty_"+myid).text();
+            var subtotal = $("#subtotal_"+myid).text();
+            var selliingprice = $("#seliingprice_"+myid).val();
+            $("#titleinputinterfaceedit").text(name);
+            $("#qtyinputinterfaceedit").val(qty);
+            $("#priceinputinterfaceedit").val(selliingprice);
+            $("#subtotalinputinterfaceedit").text(subtotal);
+            
+        }
+        function editcart(){
+            var myid = globalidcart;
+            var qty = $("#qtyinputinterfaceedit").val();
+            var price = $("#priceinputinterfaceedit").val();
+            var subtotal = parseInt(qty) * parseInt(price);
+            // var selliingprice = $("#seliingprice_"+myid).val(); 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('editcart')}}",
+                method: 'POST',
+                data: {
+                    myid: globalidcart,
+                    myqty: qty,
+                    myprice : price,
+                    mysubtotal : subtotal
+
+                },
+                success: function (myresult) {
+                  
+                    Swal.fire({
+                                title: 'Data Changed',
+                                text: 'Data Changed Successfully',
+                                type: 'success',
+                                confirmButtonColor: '#53d408',
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                                successcart();
+                                $("#myformedit").trigger("reset");
+                                $("#tutupmodaledit").click();
+                                $("#allitemtotal").text(myresult.myproductgrantotal);
+                                $("#qtyitemtotal").text(myresult.myproductqty);
+                            });
+                   
+                }
+            });
+        }
+</script>
+

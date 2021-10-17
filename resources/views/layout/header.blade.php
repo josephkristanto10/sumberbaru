@@ -124,7 +124,7 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li>
-                            <a class="waves-effect waves-dark" href="{{url('/')}}" aria-expanded="false"><i class="ti-layout-grid2"></i><span class="hide-menu">Beranda</span></a>
+                            <a class="waves-effect waves-dark" href="{{url('/dashboard')}}" aria-expanded="false"><i class="ti-layout-grid2"></i><span class="hide-menu">Beranda</span></a>
                         </li>
                         <li>
                             <a class="waves-effect waves-dark" href="{{url('/cashier')}}" aria-expanded="false"><i class="ti-money"></i><span class="hide-menu">Kasir</span></a>

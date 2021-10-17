@@ -38,6 +38,6 @@ class ReturMgration extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('transaction_return');
     }
 }

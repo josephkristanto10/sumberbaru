@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
+ * @property Collection|Cart[] $carts
  * @property Collection|InvoiceDetail[] $invoice_details
  * @property Collection|StokLog[] $stok_logs
  * @property Collection|Supplier[] $suppliers
@@ -49,6 +50,11 @@ class Product extends Model
 		'harga2',
 		'harga3'
 	];
+
+	public function carts()
+	{
+		return $this->hasMany(Cart::class, 'idproduct');
+	}
 
 	public function invoice_details()
 	{

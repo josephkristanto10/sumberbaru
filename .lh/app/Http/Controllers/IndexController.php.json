@@ -1,0 +1,178 @@
+{
+    "sourceFile": "app/Http/Controllers/IndexController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 40,
+            "patches": [
+                {
+                    "date": 1634477141974,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634477151236,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        return view('')\n+        return view('index');\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634477156437,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n+        \n         return view('index');\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634477163986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n+use App\\Model;\n use Illuminate\\Http\\Request;\n \n class IndexController extends Controller\n {\n@@ -12,9 +13,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        \n+        $\n         return view('index');\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634477175320,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n-use App\\Model;\n+use App\\Models\\Invoice;\n use Illuminate\\Http\\Request;\n \n class IndexController extends Controller\n {\n"
+                },
+                {
+                    "date": 1634477225679,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        $\n+        $invoice Invoice::count();\n         return view('index');\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634477230908,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        $invoice Invoice::count();\n+        $invoice =  Invoice::count();\n         return view('index');\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634477236123,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::count();\n-        return view('index');\n+        return view('index', compact());\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634477243785,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::count();\n-        return view('index', compact());\n+        return view('index', compact('invoice'));\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634477297609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::count();\n+        dd($invoice);\n         return view('index', compact('invoice'));\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634477319103,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        $invoice =  Invoice::count();\n+        $invoice =  Invoice::all();\n         dd($invoice);\n         return view('index', compact('invoice'));\n     }\n \n"
+                },
+                {
+                    "date": 1634477981324,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        dd($invoice);\n+        // dd($invoice);\n         return view('index', compact('invoice'));\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634478036402,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n+        $qty = Invoice::select()\n         // dd($invoice);\n         return view('index', compact('invoice'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478049399,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::select()\n+        $qty = Invoice::select(\"SUM('qty') as qtysum\");\n         // dd($invoice);\n         return view('index', compact('invoice'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478057423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,11 +14,11 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::select(\"SUM('qty') as qtysum\");\n+        $qty = Invoice::select(\"SUM('qty') as qtysum\")->get();\n         // dd($invoice);\n-        return view('index', compact('invoice'));\n+        return view('index', compact('invoice', 'qty'));\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634478107319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::select(\"SUM('qty') as qtysum\")->get();\n+        $qty = Invoice::select(\"SUM(qty) as qtysum\")->get();\n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478183907,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::select(\"SUM(qty) as qtysum\")->get();\n+        $qty = Invoice::select(\"select SUM(qty_item) as `qtysum` from `invoice`\")->get();\n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478196870,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::select(\"select SUM(qty_item) as `qtysum` from `invoice`\")->get();\n+        $qty = Invoice::select(\"SUM(qty_item) as qtysum\")->get();\n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478222528,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::select(\"SUM(qty_item) as qtysum\")->get();\n+        $qty = Invoice::select('SUM(qty_item) as qtysum')->get();\n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478247819,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::select('SUM(qty_item) as qtysum')->get();\n+        $qty = Invoice::sum('transactions.amount');select('SUM(qty_item) as qtysum')->get();\n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478254554,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::sum('transactions.amount');select('SUM(qty_item) as qtysum')->get();\n+        $qty = Invoice::sum('qty_item as qtysum');select('SUM() as qtysum')->get();\n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478277492,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::sum('qty_item as qtysum');select('SUM() as qtysum')->get();\n+        $qty = Invoice::sum('qty_item');\n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478457388,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n+        $qty = Invoice::sum('qty_item');\n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634478496747,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,10 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $qty = Invoice::sum('qty_item');\n+        $total = Invoice::sum('qty_item');\n+        \n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634481983272,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,10 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::sum('qty_item');\n-        \n+        $total = Invoice::all();\n+\n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n \n"
+                },
+                {
+                    "date": 1634482005744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,11 @@\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n+        for($i = 0 ; $i< count($invoice);$i++){\n+            \n+        }\n \n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n     }\n"
+                },
+                {
+                    "date": 1634482012753,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,10 +16,10 @@\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n-        for($i = 0 ; $i< count($invoice);$i++){\n-            \n+        for($i = 0 ; $i< count($total);$i++){\n+\n         }\n \n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n"
+                },
+                {
+                    "date": 1634482035967,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n+        $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n \n         }\n \n"
+                },
+                {
+                    "date": 1634482105875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n-\n+            \n         }\n \n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n"
+                },
+                {
+                    "date": 1634482116340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n-            \n+            if($total[$i][''])\n         }\n \n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n"
+                },
+                {
+                    "date": 1634482143890,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n-            if($total[$i][''])\n+            if($total[$i]['transaction_shipment_delivery'])\n         }\n \n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n"
+                },
+                {
+                    "date": 1634482158485,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,12 @@\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n-            if($total[$i]['transaction_shipment_delivery'])\n+            if($total[$i]['transaction_shipment_delivery'] == \"true\")\n+            {\n+                \n+            }\n         }\n \n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n"
+                },
+                {
+                    "date": 1634482202420,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n+        \n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n             {\n                 \n             }\n"
+                },
+                {
+                    "date": 1634482228812,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n-        \n+            $subtotal = $total[$i]['transaction_shipment_delivery'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n             {\n                 \n             }\n"
+                },
+                {
+                    "date": 1634482234016,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n-            $subtotal = $total[$i]['transaction_shipment_delivery'];\n+            $subtotal = $total[$i]['transaction_shipment_delivery_cost'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n             {\n                 \n             }\n"
+                },
+                {
+                    "date": 1634482251681,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,12 +18,12 @@\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n-            $subtotal = $total[$i]['transaction_shipment_delivery_cost'];\n+            $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n             {\n-                \n+                $subtotal -= \n             }\n         }\n \n         // dd($invoice);\n"
+                },
+                {
+                    "date": 1634482274694,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n             {\n-                $subtotal -= \n+                $subtotal -= $total[$i]['transaction_shipment_delivery_cost'] ;\n             }\n         }\n \n         // dd($invoice);\n"
+                },
+                {
+                    "date": 1634482279926,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n             {\n-                $subtotal -= $total[$i]['transaction_shipment_delivery_cost'] ;\n+                $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\n             }\n         }\n \n         // dd($invoice);\n"
+                },
+                {
+                    "date": 1634482293304,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,8 +23,9 @@\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n             {\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\n             }\n+            $mytotal += $subtotal;\n         }\n \n         // dd($invoice);\n         return view('index', compact('invoice', 'qty'));\n"
+                },
+                {
+                    "date": 1634482299744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n             $mytotal += $subtotal;\n         }\n \n         // dd($invoice);\n-        return view('index', compact('invoice', 'qty'));\n+        return view('index', compact('invoice', 'qty', 'subtotal'));\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634482420159,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n             $mytotal += $subtotal;\n         }\n \n         // dd($invoice);\n-        return view('index', compact('invoice', 'qty', 'subtotal'));\n+        return view('index', compact('invoice', 'qty', 'mytotal'));\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                }
+            ],
+            "date": 1634477141974,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\\Request;\n\nclass IndexController extends Controller\n{\n    /**\n     * Display a listing of the resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function index()\n    {\n        return view('')\n    }\n\n    /**\n     * Show the form for creating a new resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function create()\n    {\n        //\n    }\n\n    /**\n     * Store a newly created resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function store(Request $request)\n    {\n        //\n    }\n\n    /**\n     * Display the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function show($id)\n    {\n        //\n    }\n\n    /**\n     * Show the form for editing the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function edit($id)\n    {\n        //\n    }\n\n    /**\n     * Update the specified resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function update(Request $request, $id)\n    {\n        //\n    }\n\n    /**\n     * Remove the specified resource from storage.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function destroy($id)\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

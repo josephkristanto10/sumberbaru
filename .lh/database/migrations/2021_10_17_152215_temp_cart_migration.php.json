@@ -1,0 +1,42 @@
+{
+    "sourceFile": "database/migrations/2021_10_17_152215_temp_cart_migration.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1634458946491,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634458956636,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,10 @@\n      * @return void\n      */\n     public function up()\n     {\n-        $table->increments(\"id\");\n+        Schema::create('transaction_return', function (Blueprint $table) {\n+            $table->increments(\"id\");\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer('idsupplier')->unsigned();\n             $table->foreign('idsupplier')->references('id')->on('supplier');\n@@ -26,8 +27,9 @@\n             $table->string('info');\n             $table->string('solution')->nullable();\n             $table->string('status')->default('Process');\n             $table->timestamps();\n+        });\n     }\n \n     /**\n      * Reverse the migrations.\n"
+                },
+                {
+                    "date": 1634458996472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,15 +12,14 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::create('transaction_return', function (Blueprint $table) {\n+        Schema::create('cart', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n-            $table->integer('idsupplier')->unsigned();\n-            $table->foreign('idsupplier')->references('id')->on('supplier');\n-            $table->string(\"returndate\");\n+            $table->integer(\"qty\");\n+            $table->integer(\"qty\");\n             $table->string(\"confirmationdate\")->nullable();\n             $table->string(\"returnitemqty\")->nullable();\n             $table->string(\"returnitemmoney\")->nullable();\n             $table->string('qty');\n"
+                },
+                {
+                    "date": 1634459003048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,10 @@\n             $table->increments(\"id\");\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer(\"qty\");\n-            $table->integer(\"qty\");\n+            $table->integer(\"selling_price\");\n+            $table->integer(\"selling_price\");\n             $table->string(\"confirmationdate\")->nullable();\n             $table->string(\"returnitemqty\")->nullable();\n             $table->string(\"returnitemmoney\")->nullable();\n             $table->string('qty');\n"
+                },
+                {
+                    "date": 1634459008765,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,16 +18,9 @@\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer(\"qty\");\n             $table->integer(\"selling_price\");\n-            $table->integer(\"selling_price\");\n-            $table->string(\"confirmationdate\")->nullable();\n-            $table->string(\"returnitemqty\")->nullable();\n-            $table->string(\"returnitemmoney\")->nullable();\n-            $table->string('qty');\n-            $table->string('info');\n-            $table->string('solution')->nullable();\n-            $table->string('status')->default('Process');\n+            $table->integer(\"subtotal\");\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1634459014589,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,8 @@\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer(\"qty\");\n             $table->integer(\"selling_price\");\n             $table->integer(\"subtotal\");\n-            $table->timestamps();\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634459036613,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,7 +29,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        //\n+        Schema::dropIfExists('transaction_return');\n     }\n }\n"
+                }
+            ],
+            "date": 1634458946491,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass TempCartMigration extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        $table->increments(\"id\");\n            $table->integer('idproduct')->unsigned();\n            $table->foreign('idproduct')->references('id')->on('product');\n            $table->integer('idsupplier')->unsigned();\n            $table->foreign('idsupplier')->references('id')->on('supplier');\n            $table->string(\"returndate\");\n            $table->string(\"confirmationdate\")->nullable();\n            $table->string(\"returnitemqty\")->nullable();\n            $table->string(\"returnitemmoney\")->nullable();\n            $table->string('qty');\n            $table->string('info');\n            $table->string('solution')->nullable();\n            $table->string('status')->default('Process');\n            $table->timestamps();\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

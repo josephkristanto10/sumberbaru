@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 Route::get('/getdatatable', 'ProductController@getjsons')->name("getdatatable");
 Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name("getdatatableproductsupplier");
 Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name("getdatatablesupplierpricelist");
@@ -31,6 +31,10 @@ Route::post('/stok/addstocklog', 'StokController@addstocklog')->name("addstocklo
 Route::post('/stok/gethistory', 'StokController@gethistory')->name("gethistory");
 Route::post('/kasir/addcart', "KasirController@addcart")->name("addcart");
 Route::post('/kasir/clearcart', "KasirController@clearcart")->name("clearcart");
+Route::post('/kasir/editcart', "KasirController@editcart")->name("editcart");
+Route::get('/kasir/getcart', 'KasirController@getcart')->name("getcart");
+Route::get('/kasir/gettableproduct', 'KasirController@gettableproduct')->name("gettableproduct");
+Route::get('/kasir/getsummary', 'KasirController@getsummary')->name("getsummary");
 Route::post('/kasir/createinvoice', "KasirController@createinvoice")->name("createinvoice");
 Route::get('/transactionreturn/getitem', "ReturController@getitem")->name("getitem");
 Route::post('/transactionreturn/addretur', "ReturController@addretur")->name("addretur");
@@ -41,6 +45,7 @@ Route::get('/transactionreturn/gettablereturfinish', 'ReturController@getdatafin
 Route::get('/transactionreturn/gettablereturprocess', 'ReturController@getdatainprogress')->name("gettablereturprocess");
 Route::get('/invoice/getmydata', 'NotaController@getmydata')->name("gettableinvoice");
 Route::get('invoice/detail/{id}', 'NotaController@getmydetaildata')->name("getinvoicedetail");
+Route::resource('/dashboard', 'IndexController');
 Route::resource('/product', 'ProductController');
 Route::resource('/supplier', 'SupplierController');
 Route::resource('/invoice', 'NotaController');
