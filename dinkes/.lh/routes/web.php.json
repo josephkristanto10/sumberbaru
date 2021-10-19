@@ -1,0 +1,46 @@
+{
+    "sourceFile": "routes/web.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1634546136405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634546142955,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,5 @@\n \n Route::get('/', function () {\n     return view('welcome');\n });\n-Route::get('getDataKPI')\n+Route::get('/getDataKPI','');\n"
+                },
+                {
+                    "date": 1634546166215,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,5 @@\n \n Route::get('/', function () {\n     return view('welcome');\n });\n-Route::get('/getDataKPI','');\n+Route::get('/keyperformancedoctor/getDataKPI','getDataKPI');\n"
+                },
+                {
+                    "date": 1634546178851,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,5 @@\n \n Route::get('/', function () {\n     return view('welcome');\n });\n-Route::get('/keyperformancedoctor/getDataKPI','getDataKPI');\n+Route::get('/keyperformancedoctor/getDataKPI','KeyPerformanceDoctorController@getDataKPI');\n"
+                },
+                {
+                    "date": 1634546245821,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,5 @@\n \n Route::get('/', function () {\n     return view('welcome');\n });\n-Route::get('/keyperformancedoctor/getDataKPI','KeyPerformanceDoctorController@getDataKPI');\n+Route::get('keyperformancedoctor/getDataKPI','KeyPerformanceDoctorController@getDataKPI');\n"
+                },
+                {
+                    "date": 1634561489804,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,6 @@\n \n Route::get('/', function () {\n     return view('welcome');\n });\n+Route::get(\"publichealthcenterdoctor/login\", '');\n Route::get('keyperformancedoctor/getDataKPI','KeyPerformanceDoctorController@getDataKPI');\n"
+                },
+                {
+                    "date": 1634561506210,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,6 +15,6 @@\n \n Route::get('/', function () {\n     return view('welcome');\n });\n-Route::get(\"publichealthcenterdoctor/login\", '');\n+Route::get(\"publichealthcenterdoctor/login\", 'UserController@');\n Route::get('keyperformancedoctor/getDataKPI','KeyPerformanceDoctorController@getDataKPI');\n"
+                },
+                {
+                    "date": 1634561511537,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,6 +15,6 @@\n \n Route::get('/', function () {\n     return view('welcome');\n });\n-Route::get(\"publichealthcenterdoctor/login\", 'UserController@');\n+Route::get(\"publichealthcenterdoctor/login\", 'UserController@login');\n Route::get('keyperformancedoctor/getDataKPI','KeyPerformanceDoctorController@getDataKPI');\n"
+                }
+            ],
+            "date": 1634546136405,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Support\\Facades\\Route;\n\n/*\n|--------------------------------------------------------------------------\n| Web Routes\n|--------------------------------------------------------------------------\n|\n| Here is where you can register web routes for your application. These\n| routes are loaded by the RouteServiceProvider within a group which\n| contains the \"web\" middleware group. Now create something great!\n|\n*/\n\nRoute::get('/', function () {\n    return view('welcome');\n});\nRoute::get('getDataKPI')\n"
+        }
+    ]
+}

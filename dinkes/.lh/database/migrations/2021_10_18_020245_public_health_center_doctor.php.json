@@ -1,0 +1,18 @@
+{
+    "sourceFile": "database/migrations/2021_10_18_020245_public_health_center_doctor.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1634522912313,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1634522912313,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass PublicHealthCenterDoctor extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('public_health_center_doctor', function (Blueprint $table) {\n            $table->increments(\"id\");\n            $table->integer('public_health_center')->unsigned();\n            $table->foreign('public_health_center')->references('id')->on('public_health_center');\n            $table->string('name');\n            $table->string('nik');\n            $table->string('address');\n            $table->string('phone');\n            $table->string('email');\n            $table->string('email');\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        Schema::dropIfExists('public_health_center_doctor');\n    }\n}\n"
+        }
+    ]
+}

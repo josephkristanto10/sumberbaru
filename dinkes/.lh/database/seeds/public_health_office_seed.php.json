@@ -1,0 +1,42 @@
+{
+    "sourceFile": "database/seeds/public_health_office_seed.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1634523321373,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634523332138,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n      * @return void\n      */\n     public function run()\n     {\n-        include base_path().'/database/seeds/sumberbaru.php';\n+        include base_path().'/database/seeds/public_health_office.php';\n         $invoices = $invoice;\n         DB::table('invoice')->delete();\n         foreach($invoices as $i){\n             Invoice::create($i);\n"
+                },
+                {
+                    "date": 1634523342575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n-        $invoices = $invoice;\n+        $public_health_offices = $invoice;\n         DB::table('invoice')->delete();\n         foreach($invoices as $i){\n             Invoice::create($i);\n         }\n"
+                },
+                {
+                    "date": 1634523361359,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n-        $public_health_offices = $invoice;\n+        $public_health_offices = $public_health_office;\n         DB::table('invoice')->delete();\n         foreach($invoices as $i){\n             Invoice::create($i);\n         }\n"
+                },
+                {
+                    "date": 1634523376791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,10 @@\n     public function run()\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n         $public_health_offices = $public_health_office;\n-        DB::table('invoice')->delete();\n-        foreach($invoices as $i){\n-            Invoice::create($i);\n+        DB::table('public_health_office')->delete();\n+        foreach($public_health_offices as $pho){\n+            Invoice::create($pho);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1634523473838,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n <?php\n \n+use App\\Models\\PublicHealthOffice;\n use Illuminate\\Database\\Seeder;\n \n class public_health_office_seed extends Seeder\n {\n"
+                },
+                {
+                    "date": 1634524026616,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,8 @@\n         include base_path().'/database/seeds/public_health_office.php';\n         $public_health_offices = $public_health_office;\n         DB::table('public_health_office')->delete();\n         foreach($public_health_offices as $pho){\n-            Invoice::create($pho);\n+            PublicHealthOffice::create($pho);\n         }\n     }\n }\n"
+                }
+            ],
+            "date": 1634523321373,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass public_health_office_seed extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        include base_path().'/database/seeds/sumberbaru.php';\n        $invoices = $invoice;\n        DB::table('invoice')->delete();\n        foreach($invoices as $i){\n            Invoice::create($i);\n        }\n    }\n}\n"
+        }
+    ]
+}

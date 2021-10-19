@@ -1,0 +1,62 @@
+{
+    "sourceFile": "app/Http/Controllers/KeyPerformanceDoctorController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1634546041069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634546063433,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,11 @@\n     public function index()\n     {\n         //\n     }\n-    public function \n+    public function getDataKPI{\n+        \n+    }\n \n     /**\n      * Show the form for creating a new resource.\n      *\n"
+                },
+                {
+                    "date": 1634546073990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n+use App\\Model\\\n use Illuminate\\Http\\Request;\n \n class KeyPerformanceDoctorController extends Controller\n {\n@@ -14,10 +15,10 @@\n     public function index()\n     {\n         //\n     }\n-    public function getDataKPI{\n-        \n+    public function getDataKPI(){\n+\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634546096309,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n-use App\\Model\\\n+use App\\Model\\KeyPerformanceDoctor;\n use Illuminate\\Http\\Request;\n \n class KeyPerformanceDoctorController extends Controller\n {\n"
+                },
+                {
+                    "date": 1634546104444,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     {\n         //\n     }\n     public function getDataKPI(){\n-\n+        $mydata  = KeyPerformanceDoctor::all();\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634546112692,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n         //\n     }\n     public function getDataKPI(){\n         $mydata  = KeyPerformanceDoctor::all();\n+        return $mydata;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634546310704,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n-use App\\Model\\KeyPerformanceDoctor;\n+use App\\Models\\KeyPerformanceDoctor;\n use Illuminate\\Http\\Request;\n \n class KeyPerformanceDoctorController extends Controller\n {\n"
+                },
+                {
+                    "date": 1634547849047,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,10 @@\n         //\n     }\n     public function getDataKPI(){\n         $mydata  = KeyPerformanceDoctor::all();\n-        return $mydata;\n+\n+        return  ->json(['name' => 'Abigail', 'state' => 'CA'])\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634547856359,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     }\n     public function getDataKPI(){\n         $mydata  = KeyPerformanceDoctor::all();\n \n-        return  ->json(['name' => 'Abigail', 'state' => 'CA'])\n+        return  response()->json(['name' => 'Abigail', 'state' => 'CA'])\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634547861685,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     }\n     public function getDataKPI(){\n         $mydata  = KeyPerformanceDoctor::all();\n \n-        return  response()->json(['name' => 'Abigail', 'state' => 'CA'])\n+        return  response()->json(['name' => 'Abigail', 'state' => 'CA']);\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634547872886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     }\n     public function getDataKPI(){\n         $mydata  = KeyPerformanceDoctor::all();\n \n-        return  response()->json(['name' => 'Abigail', 'state' => 'CA']);\n+        return  response()->json($mydata);\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634548029816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     }\n     public function getDataKPI(){\n         $mydata  = KeyPerformanceDoctor::all();\n \n-        return  response()->json($mydata);\n+        return $mydata;\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                }
+            ],
+            "date": 1634546041069,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\\Request;\n\nclass KeyPerformanceDoctorController extends Controller\n{\n    /**\n     * Display a listing of the resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function index()\n    {\n        //\n    }\n    public function \n\n    /**\n     * Show the form for creating a new resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function create()\n    {\n        //\n    }\n\n    /**\n     * Store a newly created resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function store(Request $request)\n    {\n        //\n    }\n\n    /**\n     * Display the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function show($id)\n    {\n        //\n    }\n\n    /**\n     * Show the form for editing the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function edit($id)\n    {\n        //\n    }\n\n    /**\n     * Update the specified resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function update(Request $request, $id)\n    {\n        //\n    }\n\n    /**\n     * Remove the specified resource from storage.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function destroy($id)\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

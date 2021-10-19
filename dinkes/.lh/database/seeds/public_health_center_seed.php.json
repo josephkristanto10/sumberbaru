@@ -1,0 +1,42 @@
+{
+    "sourceFile": "database/seeds/public_health_center_seed.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1634523494149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634523505112,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n-        $public_health_offices = $public_health_office;\n+        $public_health_centers = $public_health_office;\n         DB::table('public_health_office')->delete();\n         foreach($public_health_offices as $pho){\n             PublicHealthOffice::create($pho);\n         }\n"
+                },
+                {
+                    "date": 1634523513329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,11 +11,11 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n-        $public_health_centers = $public_health_office;\n+        $public_health_centers = $public_health_center;\n         DB::table('public_health_office')->delete();\n-        foreach($public_health_offices as $pho){\n+        foreach($public_health_centers as $pho){\n             PublicHealthOffice::create($pho);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1634523518711,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n         $public_health_centers = $public_health_center;\n         DB::table('public_health_office')->delete();\n-        foreach($public_health_centers as $pho){\n+        foreach($public_health_centers as $phc){\n             PublicHealthOffice::create($pho);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1634523527718,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n <?php\n \n+use App\\Models\\PublicHealthOffice;\n use Illuminate\\Database\\Seeder;\n \n class public_health_center_seed extends Seeder\n {\n@@ -14,8 +15,8 @@\n         include base_path().'/database/seeds/public_health_office.php';\n         $public_health_centers = $public_health_center;\n         DB::table('public_health_office')->delete();\n         foreach($public_health_centers as $phc){\n-            PublicHealthOffice::create($pho);\n+            PublicHealthOffice::create($phc);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1634523534633,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-use App\\Models\\PublicHealthOffice;\n+use App\\Models\\PublicHealthCenter;\n use Illuminate\\Database\\Seeder;\n \n class public_health_center_seed extends Seeder\n {\n@@ -15,8 +15,8 @@\n         include base_path().'/database/seeds/public_health_office.php';\n         $public_health_centers = $public_health_center;\n         DB::table('public_health_office')->delete();\n         foreach($public_health_centers as $phc){\n-            PublicHealthOffice::create($phc);\n+            PublicHealthCenter::create($phc);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1634524022727,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n     public function run()\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n         $public_health_centers = $public_health_center;\n-        DB::table('public_health_office')->delete();\n+        DB::table('public_health_center')->delete();\n         foreach($public_health_centers as $phc){\n             PublicHealthCenter::create($phc);\n         }\n     }\n"
+                }
+            ],
+            "date": 1634523494148,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass public_health_center_seed extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        include base_path().'/database/seeds/public_health_office.php';\n        $public_health_offices = $public_health_office;\n        DB::table('public_health_office')->delete();\n        foreach($public_health_offices as $pho){\n            PublicHealthOffice::create($pho);\n        }\n    }\n}\n"
+        }
+    ]
+}

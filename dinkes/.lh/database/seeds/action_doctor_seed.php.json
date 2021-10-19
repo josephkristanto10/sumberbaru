@@ -1,0 +1,34 @@
+{
+    "sourceFile": "database/seeds/action_doctor_seed.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1634525405713,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634525411067,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,12 @@\n      * @return void\n      */\n     public function run()\n     {\n-        //\n+        include base_path().'/database/seeds/public_health_office.php';\n+        $key_performance_doctors = $key_performance_doctor;\n+        DB::table('key_performance_doctor')->delete();\n+        foreach($key_performance_doctors as $kpd){\n+            KeyPerformanceDoctor::create($kpd);\n+        }\n     }\n }\n"
+                },
+                {
+                    "date": 1634525417803,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n-        $key_performance_doctors = $key_performance_doctor;\n+        $key_performance_doctors = $action_doctor;\n         DB::table('key_performance_doctor')->delete();\n         foreach($key_performance_doctors as $kpd){\n             KeyPerformanceDoctor::create($kpd);\n         }\n"
+                },
+                {
+                    "date": 1634525424210,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,11 +12,11 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n-        $key_performance_doctors = $action_doctor;\n-        DB::table('key_performance_doctor')->delete();\n-        foreach($key_performance_doctors as $kpd){\n+        $action_doctors = $action_doctor;\n+        DB::table('action_doctor')->delete();\n+        foreach($action_doctors as $kpd){\n             KeyPerformanceDoctor::create($kpd);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1634525431598,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     {\n         include base_path().'/database/seeds/public_health_office.php';\n         $action_doctors = $action_doctor;\n         DB::table('action_doctor')->delete();\n-        foreach($action_doctors as $kpd){\n-            KeyPerformanceDoctor::create($kpd);\n+        foreach($action_doctors as $ad){\n+            ActionDoctor::create($kpd);\n         }\n     }\n }\n"
+                }
+            ],
+            "date": 1634525405713,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse App\\Models\\ActionDoctor;\nuse Illuminate\\Database\\Seeder;\n\nclass action_doctor_seed extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

@@ -45,8 +45,8 @@
                 <div class="card">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs profile-tab" role="tablist">
-                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#belum" role="tab">Dalam Proses</a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sudah" role="tab">Telah Selesai</a> </li>
+                        <li class="nav-item" id = "tabprocess"> <a class="nav-link active" data-toggle="tab" href="#belum" role="tab">Dalam Proses</a> </li>
+                        <li class="nav-item"  id = "tabfinish"> <a class="nav-link" data-toggle="tab" href="#sudah" role="tab">Telah Selesai</a> </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="belum" role="tabpanel">
@@ -56,7 +56,7 @@
                                         <div class="card">
                                             <h4 class="card-title">Daftar Retur Dalam Proses</h4>
                                             <h6 class="card-subtitle">Informasi daftar retur barang yang dikembalikan ke supplier</h6>
-                                            <table id="example22" class="display table table-hover table-striped table-bordered" cellspacing="0">
+                                            <table id="datareturprocess" class="display table table-hover table-striped table-bordered" cellspacing="0">
                                                 <thead>
                                                     <tr>
                                                         <th width="5%">Tanggal</th>
@@ -64,31 +64,12 @@
                                                         <th width="10%">Nama Barang</th>
                                                         <th width="3%">Jumlah</th>
                                                         <th width="10%">Keterangan</th>
-                                                        <th width="3%">Status</th>
+                                                        <th width="10%">Status</th>
                                                         <th width="5%">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>21 Agustus 2021</td>
-                                                        <td>PT. Kaca Piring</td>
-                                                        <td>Piring A</td>
-                                                        <td>12</td>
-                                                        <td>Retak pasca Pengiriman</td>
-                                                        <td><span class="badge badge-pill badge-warning text-white ml-auto">Dalam Proses</span></span></a> </td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <i class="ti-layout-media-overlay pl-2 pr-1"></i> Pilih
-                                                                </button>
-                                                                <div class="dropdown-menu">
-                                                                    <a class="dropdown-item" href="javascript:void(0)" data-target="#konfirmasi" data-toggle="modal">Konfirmasi</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0)" data-target="#tambah" data-toggle="modal">Ubah</a>
-                                                                    <a class="dropdown-item" href="javascript:void(0)">Batal</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                  
 
                                                 </tbody>
                                             </table>
@@ -104,7 +85,7 @@
                                         <div class="card">
                                             <h4 class="card-title">Daftar Retur Yang Telah Selesai</h4>
                                             <h6 class="card-subtitle">Informasi daftar retur barang yang telah selesai dikembalikan oleh supplier </h6>
-                                            <table id="example24" class="display table table-hover table-striped table-bordered" cellspacing="0">
+                                            <table id="datareturfinish" class="display table table-hover table-striped table-bordered" cellspacing="0">
                                                 <thead>
                                                     <tr>
                                                         <th width="5%">Tanggal</th>
@@ -118,36 +99,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>21 Agustus 2021</td>
-                                                        <td>PT. Kaca Piring</td>
-                                                        <td>Piring A</td>
-                                                        <td>12</td>
-                                                        <td>Retak pasca Pengiriman</td>
-                                                        <td>29 Agustus 2021</td>
-                                                        <td>Retur (12)</td>
-                                                        <td><span class="badge badge-pill badge-success text-white ml-auto">Selesai</span></span></a> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>20 Agustus 2021</td>
-                                                        <td>PT. Kaca Piring</td>
-                                                        <td>Piring B</td>
-                                                        <td>10</td>
-                                                        <td>Retak pasca Pengiriman</td>
-                                                        <td>29 Agustus 2021</td>
-                                                        <td>Refund (Rp.300.000)</td>
-                                                        <td><span class="badge badge-pill badge-success text-white ml-auto">Selesai</span></span></a> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>20 Agustus 2021</td>
-                                                        <td>PT. Kaca Piring</td>
-                                                        <td>Piring C</td>
-                                                        <td>10</td>
-                                                        <td>Retak pasca Pengiriman</td>
-                                                        <td>29 Agustus 2021</td>
-                                                        <td>Retur (5) </br> Refund (Rp.200.000) </td>
-                                                        <td><span class="badge badge-pill badge-success text-white ml-auto">Selesai</span></span></a> </td>
-                                                    </tr>
+                                                   
 
                                                 </tbody>
                                             </table>
@@ -192,37 +144,33 @@
                         <tr>
                             <td width="20%">Tanggal Pencatatan</td>
                             <td>
-                                <input type="date" class="form-control" placeholder="">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="20%">Nama Barang</td>
-                            <td>
-                                <select id="modalselect2" class="form-control select2 custom-select" style="width: 100%;">
-                                    <option>Pilih Barang</option>
-                                    <option value="AZ">A101 - Piring A </option>
-                                    <option value="CO">A102 - Piring B</option>
-                                    <option value="ID">A103 - Piring C</option>
-                                    <option value="ID">A201 - Gelas Tipe 1</option>
-                                </select>
+                                <input type="date" id = "tanggalretur" class="form-control" placeholder="">
                             </td>
                         </tr>
                         <tr>
                             <td>Supplier</td>
                             <td>
                                 <select id="modalselect3" class="form-control select2 custom-select" style="width: 100%;">
-                                    <option>Pilih Supplier</option>
-                                    <option value="AZ">PT. Kaca Piring</option>
-                                    <option value="CO">PT. Beling Sejati</option>
-                                    <option value="ID">PT. Supp C</option>
-                                    <option value="ID">PT. Supp D</option>
+                                <option value = "no">Please Select Supplier</option>   
+                                  @foreach($supplier as $s)
+                                        <option value = '{{$s->id}}'>{{$s->name}}</option>
+                                   @endforeach
                                 </select>
                             </td>
                         </tr>
                         <tr>
+                            <td width="20%">Nama Barang</td>
+                            <td>
+                                <select id="modalselect2" class="form-control select2 custom-select" style="width: 100%;">
+                                   
+                                </select>
+                            </td>
+                        </tr>
+                       
+                        <tr>
                             <td>Jumlah</td>
                             <td>
-                                <input type="number" class="form-control">
+                                <input type="number" id ="qtyretur" class="form-control">
                             </td>
                         </tr>
                     </table>
@@ -230,15 +178,15 @@
                         <tr>
                             <td width="20%">Keterangan</td>
                             <td>
-                                <textarea class="form-control" placeholder="Masukan keterangan"></textarea>
+                                <textarea class="form-control" id = "keterangan" placeholder="Masukan keterangan"></textarea>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-info waves-effect col-3" data-dismiss="modal" alt="alert" class="img-fluid model_img" id="sa-success">Catat Retur Barang</button>
+                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal" id = "tutuptambahretur">Tutup</button>
+                <button type="button" class="btn btn-info waves-effect col-3" onclick = "adddata()"  class="img-fluid model_img" >Catat Retur Barang</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -246,6 +194,70 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- End Modal  -->
+<div id="edit" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="vcenter"><b>Form Edit Retur Barang</b></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <p>Pastikan Anda memasukan informasi yang benar</p>
+                    <table class="display table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="20%">Tanggal Pencatatan</td>
+                            <td>
+                                <input type="date" id = "tanggalreturedit" class="form-control" placeholder="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Supplier</td>
+                            <td>
+                                <select id="modalselect3edit" class="form-control select2 custom-select" style="width: 100%;">
+                                <option value = "no">Please Select Supplier</option>   
+                                  @foreach($supplier as $s)
+                                  
+                                        <option value = "{{$s->id}}">{{$s->name}}</option>
+                                   @endforeach
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="20%">Nama Barang</td>
+                            <td>
+                                <select id="modalselect2edit" class="form-control select2 custom-select" style="width: 100%;">
+                                   
+                                </select>
+                            </td>
+                        </tr>
+                       
+                        <tr>
+                            <td>Jumlah</td>
+                            <td>
+                                <input type="number" id ="qtyreturedit" class="form-control">
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="display table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                        <tr>
+                            <td width="20%">Keterangan</td>
+                            <td>
+                                <textarea class="form-control" id = "keteranganedit" placeholder="Masukan keterangan"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal" id = "tutupeditretur">Tutup</button>
+                <button type="button" class="btn btn-info waves-effect col-3" onclick = "editdata()"  class="img-fluid model_img" >Catat Retur Barang</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 <!-- ============================================================== -->
 
 <!-- Start Modal  -->
@@ -264,19 +276,20 @@
                             <tr>
                                 <td width="40%"><b>Supplier</b> </td>
                                 <td>
-                                    PT. Kaca Piring
+                                    <label id = "konfirmasisupplier">PT. Kaca Piring</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td width="40%"><b>Nama Barang</b> </td>
                                 <td>
-                                    Piring A
+                                <label id = "konfirmasibarang">Piring A</label> 
                                 </td>
                             </tr>
                             <tr>
                                 <td width="40%"><b>Jumlah</b> </td>
                                 <td>
-                                    12
+                                <label id = "konfirmasijumlah">12</label> 
+                                    
                                 </td>
                             </tr>
                         </table>
@@ -287,44 +300,45 @@
                             <tr>
                                 <td width="20%">Tanggal Konfirmasi</td>
                                 <td>
-                                    <input type="date" class="form-control" placeholder="">
+                                    <input type="date" id = "tanggalkonfirmasi" class="form-control" placeholder="">
                                 </td>
                             </tr>
                             <tr>
                                 <td width="20%">Penyelesaian</td>
-                                <td>
+                                <td><span id  = "radiopenyelesaian">
                                     <button type="button" class="btn waves-effect waves-light btn-outline-info mr-2">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio1" name="customRadio" class="form-check-input">
+                                            <input type="radio" id="customRadio1" name="customRadio" class="form-check-input" value = "Retur">
                                             <label class="form-check-label" for="customRadio1">Retur Barang</label>
                                         </div>
                                     </button>
 
                                     <button type="button" class="btn waves-effect waves-light btn-outline-info mr-2">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio2" name="customRadio" class="form-check-input">
+                                            <input type="radio" id="customRadio2" name="customRadio" class="form-check-input" value = "Refund">
                                             <label class="form-check-label" for="customRadio2">Refund Uang</label>
                                         </div>
                                     </button>
 
                                     <button type="button" class="btn waves-effect waves-light btn-outline-info mr-2">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio3" name="customRadio" class="form-check-input">
+                                            <input type="radio" id="customRadio3" name="customRadio" class="form-check-input" value = "ReturAndRefund">
                                             <label class="form-check-label" for="customRadio3">Retur dan Refund</label>
                                         </div>
                                     </button>
+</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Jumlah yang <br> di Retur <small>(Barang)</small></td>
                                 <td>
-                                    <input type="number" class="form-control" placeholder="Masukan Jumlah Barang">
+                                    <input type="number" id ="numberreturbarang" class="form-control" placeholder="Masukan Jumlah Barang">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Jumlah yang <br> di Refund <small>(Uang)</small> </td>
                                 <td>
-                                    <input type="number" class="form-control" placeholder="Masukan Jumlah Uang">
+                                    <input type="number" id ="numberreturuang" class="form-control" placeholder="Masukan Jumlah Uang">
                                 </td>
                             </tr>
                         </table>
@@ -333,8 +347,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-info waves-effect col-3" data-dismiss="modal" alt="alert" class="img-fluid model_img" id="sa-success">Simpan</button>
+                <button type="button" class="btn btn-outline waves-effect" data-dismiss="modal" id = "tutupkonfirmasi">Tutup</button>
+                <button type="button" class="btn btn-info waves-effect col-3" onclick = "confirmdata()"  class="img-fluid model_img" >Simpan</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -345,3 +359,417 @@
 <!-- ============================================================== -->
 
 @include("layout.footer")
+<script>
+    var statussolusi = "Retur";
+    var editproduct = "";
+    var idglobal = "";
+    var onclicktab = "process";
+    var statusfirstprocess = "yes";
+    var statusfirstfinished = "no";
+    $("#customRadio1").prop("checked", true);
+    $("#numberreturuang").prop("disabled", true);
+    $('input[type=radio][name="customRadio"]').change(function() {
+        var myvalue = $(this).val();
+        if(myvalue == "Retur")
+        {
+            $("#numberreturbarang").prop("disabled", false);
+            $("#numberreturuang").prop("disabled", true);
+            statussolusi = "Retur";
+        }
+        else if(myvalue =="Refund")
+        {
+         
+            $("#numberreturbarang").prop("disabled", true);
+            $("#numberreturuang").prop("disabled", false);
+            statussolusi = "Refund";
+           
+        }
+        else
+        {
+            $("#numberreturuang").prop("disabled", false);
+            $("#numberreturbarang").prop("disabled", false);
+            statussolusi = "ReturAndRefund";
+        }
+    });
+
+    function openmodalkonfirmasi(element){
+        var myid = element.id;
+         idglobal = myid;
+        // alert(myid);
+        
+        var idsupplier = $("#idsupplier_"+myid).val();
+        var namesupplier = $("#suppliername_"+myid).text();
+        var nameproduct = $("#product_"+myid).text();
+        var idproduct = $("#idproduct_"+myid).val();
+        var jumlah = $("#qty_"+myid).text();
+        var info = $("#info_"+myid).text();
+        var mydate = $("#returndate_"+myid).text();
+        editproduct = idproduct;
+     
+        $("#konfirmasisupplier").text(namesupplier);
+        $("#konfirmasibarang").text(nameproduct);
+        $("#konfirmasijumlah").text(jumlah);
+    //     $('#modalselect3edit').find('option[value='+idsupplier+']').prop('selected', true).change();
+    //    $("#qtyreturedit").val(jumlah);
+    //    $("#keteranganedit").val(info);
+    //    $("#tanggalreturedit").val(mydate);
+     
+         }
+    function openmodaledit(element){
+        var myid = element.id;
+         idglobal = myid;
+        // alert(myid);
+        
+        var idsupplier = $("#idsupplier_"+myid).val();
+        var idproduct = $("#idproduct_"+myid).val();
+        var jumlah = $("#qty_"+myid).text();
+        var info = $("#info_"+myid).text();
+        var mydate = $("#returndate_"+myid).text();
+        editproduct = idproduct;
+        $('#modalselect3edit').find('option[value='+idsupplier+']').prop('selected', true).change();
+       $("#qtyreturedit").val(jumlah);
+       $("#keteranganedit").val(info);
+       $("#tanggalreturedit").val(mydate);
+     
+         }
+     $(document).ready(function() {
+        loaddataprocess();
+        // loaddatafinish();
+        
+        $("#modalselect3").trigger("change");
+        $("#tabfinish").on("click", function(){
+            // alert("test");
+            if( statusfirstfinished == "no" )
+            {
+                loaddatafinish();
+                statusfirstfinished = "yes";
+            }
+            else {
+                successdatafinish();
+            }
+           
+        });
+        $("#tabprocess").on("click", function(){
+            if( statusfirstprocess == "no" )
+            {
+                loaddataprocess()
+                    statusfirstprocess = "yes";
+            }
+            else {
+                successdataprocess();
+            }
+           
+        });
+  
+      
+    });
+    function loaddatafinish(){
+   
+       $('#datareturfinish').DataTable({
+           processing: true,
+           serverSide: true,
+           ajax: "{{route('gettablereturfinish')}}",
+           columns: [
+               { data: 'returndate', name: 'returndate' },
+               { data: 'supplier.name', name: 'supplier.name' },
+               { data: 'product.name', name: 'product.name' },
+               { data: 'qty', name: 'qty' },
+               { data: 'info', name: 'info' },
+               { data: 'confirmationdate', name: 'confirmationdate' },
+               { data: 'retur', name: 'retur' },
+               { data: 'status', name: 'status' }
+           ]
+        });
+   }
+    function loaddataprocess(){
+       
+        $('#datareturprocess').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{route('gettablereturprocess')}}",
+            columns: [
+                { data: 'returndate', name: 'returndate' },
+                { data: 'supplier.name', name: 'supplier.name' },
+                { data: 'product.name', name: 'product.name' },
+                { data: 'qty', name: 'qty' },
+                { data: 'info', name: 'info' },
+                { data: 'status', name: 'status' },
+                { data: 'action', name: 'action' }
+            ]
+         });
+    }
+  
+    function successdataprocess() {
+      $('#datareturprocess').DataTable().ajax.reload(null, false);
+   };
+   function successdatafinish() {
+      $('#datareturfinish').DataTable().ajax.reload(null, false);
+   };
+    $("#modalselect3").on("change", function(){
+
+            var myid = this.value;
+            if(myid =="no")
+            {
+                $("#modalselect2").html("");
+                $("#modalselect2").html("<option value = 'no'>Please Select Product</option>");
+            }
+            else
+            {
+                $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                });
+                $.ajax({
+                    url: "{{route('getitem')}}",
+                    method: 'get',
+                    data: {
+                        idsupplier : myid
+                        
+                    },
+                    success: function (result) {
+                        $("#modalselect2").html("");
+                        $("#modalselect2").html(result);
+                       
+                    }
+                });
+            }
+            
+
+    });
+    $("#modalselect3edit").on("change", function(){
+
+var myid = this.value;
+if(myid =="no")
+{
+    $("#modalselect2edit").html("");
+    $("#modalselect2edit").html("<option value = 'no'>Please Select Product</option>");
+}
+else
+{
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    $.ajax({
+        url: "{{route('getitem')}}",
+        method: 'get',
+        data: {
+            idsupplier : myid
+            
+        },
+        success: function (result) {
+            $("#modalselect2edit").html("");
+            $("#modalselect2edit").html(result).promise().done(function () {
+                $('#modalselect2edit').find('option[value='+editproduct+']').prop('selected', true).change();
+            });
+         
+        }
+    });
+}
+
+
+});
+
+    function editdata(){
+        var idedit = editproduct;
+        var tanggalretur = $("#tanggalreturedit").val();
+        var supplier = $("#modalselect3edit").val();
+        var product = $("#modalselect2edit").val();
+        var qty = $("#qtyreturedit").val();
+        var info = $("#keteranganedit").val();
+         //adddata
+         $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        $.ajax({
+            url: "{{route('editretur')}}",
+            method: 'post',
+            data: {
+                myidedit : idglobal,
+                mytanggal : tanggalretur,
+                mysupplier : supplier,
+                myproduct : product,
+                myqty : qty,
+                myinfo : info
+                
+            },
+            success: function (result) {
+                console.log(result);
+                Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Data retur berhasil diganti',
+                                type: 'success',
+                                confirmButtonColor: '#53d408',
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                               $("#tanggalreturedit").val("");
+                               $("#qtyreturedit").val("");
+                               $("#keteranganedit").val("");
+                                    $("#tutupeditretur").click();
+                                    successdataprocess();
+                            });
+                
+            }
+        });
+    }
+    function canceldata(element)
+    {
+        var myid = element.id;
+       
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        allowOutsideClick: false,
+        confirmButtonText: 'Yes, delete this retur data!'
+        }).then((result) => {
+                var myresult =  result['value'];
+                if(myresult)
+                {
+                                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                            });
+                            $.ajax({
+                                url: "{{route('cancelretur')}}",
+                                method: 'post',
+                                data: {
+                                    myreturid : myid
+                                    
+                                },
+                                success: function (result) {
+                                    Swal.fire({
+                                                    title: 'Berhasil',
+                                                    text: 'Data retur berhasil dibatalkan',
+                                                    type: 'success',
+                                                    confirmButtonColor: '#53d408',
+                                                    allowOutsideClick: false,
+                                                }).then((result) => {
+                                             
+                                                        successdataprocess();
+                                                });
+                                    
+                                }
+                            });
+                  }
+        });
+      
+    }
+    function confirmdata(){
+        var statuscheckedreturn = $('#konfirmasi input[name=customRadio]:checked').val();
+        // alert(statuscheckedreturn);
+        // alert(statuscheckedreturn);
+        var productid = editproduct;
+        var confirmationdate = $("#tanggalkonfirmasi").val();
+        var myconfirmid = idglobal;
+        var mysolution = statussolusi;
+        var mymoney = $("#numberreturuang").val();
+        var mything = $("#numberreturbarang").val();
+        if(mymoney == "")
+        {
+            mymoney = "0";
+        }
+        if(mything == ""  )
+        {
+            mything = "0";
+        }
+        if(statuscheckedreturn == "Retur")
+        {
+            mymoney = "0";
+         
+        }
+        else if(statuscheckedreturn == "Refund")
+        {
+            mything = "0";
+        }
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        $.ajax({
+            url: "{{route('confirmretur')}}",
+            method: 'post',
+            data: {
+                myproductid : productid,
+                myconfirmid : myconfirmid,
+                mytanggal : confirmationdate,
+                mysolutions : mysolution,
+                mymoneys : mymoney,
+                mythings : mything
+                
+            },
+            success: function (result) {
+                Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Data retur berhasil dikonfirmasi',
+                                type: 'success',
+                                confirmButtonColor: '#53d408',
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                               $("#tanggalkonfirmasi").val("");
+                               $("#numberreturuang").val("");
+                               $("#numberreturbarang").val("");
+                                    $("#tutupkonfirmasi").click();
+                                    successdataprocess();
+                            });
+                
+            }
+        });
+        // alert(mymoney +"--" +mything);
+    }
+    function adddata(){
+
+        //declare
+        var tanggalretur = $("#tanggalretur").val();
+        var supplier = $("#modalselect3").val();
+        var product = $("#modalselect2").val();
+        var qty = $("#qtyretur").val();
+        var info = $("#keterangan").val();
+
+        //adddata
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        $.ajax({
+            url: "{{route('addretur')}}",
+            method: 'post',
+            data: {
+                mytanggal : tanggalretur,
+                mysupplier : supplier,
+                myproduct : product,
+                myqty : qty,
+                myinfo : info
+                
+            },
+            success: function (result) {
+                Swal.fire({
+                                title: 'Berhasil',
+                                text: 'Data retur berhasil diinput',
+                                type: 'success',
+                                confirmButtonColor: '#53d408',
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                               $("#tanggalretur").val("");
+                               $("#qtyretur").val("");
+                               $("#keterangan").val("");
+                                    $("#tutuptambahretur").click();
+                                    successdataprocess();
+                            });
+                
+            }
+        });
+            
+    }
+   
+</script>

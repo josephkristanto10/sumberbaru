@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 24,
             "patches": [
                 {
                     "date": 1630203303064,
@@ -96,6 +96,14 @@
                 {
                     "date": 1630596684357,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n     <meta name=\"description\" content=\"\">\r\n     <meta name=\"csrf-token\" content=\"{{ csrf_token() }}\">\r\n     <meta name=\"author\" content=\"\">\r\n     <!-- Favicon icon -->\r\n-    <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"../assets/images/favicon.png\">\r\n+    <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"{{ asset('assets/images/favicon.png')}}\">\r\n     <link rel=\"stylesheet\" type=\"text/css\" href=\"{{ asset('assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}\">\r\n     <title>POS - Sumber Baru</title>\r\n     <!-- This page CSS -->\r\n     <link href=\"{{ asset('assets/node_modules/morrisjs/morris.css')}}\" rel=\"stylesheet\">\r\n"
+                },
+                {
+                    "date": 1634183965292,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,9 +132,9 @@\n                         <li>\r\n                             <a class=\"waves-effect waves-dark\" href=\"{{url('/stok')}}\" aria-expanded=\"false\"><i class=\"ti-layers\"></i><span class=\"hide-menu\">Stok Barang</span></a>\r\n                         </li>\r\n                         <li>\r\n-                            <a class=\"waves-effect waves-dark\" href=\"{{url('/retur')}}\" aria-expanded=\"false\"><i class=\"ti-back-left\"></i><span class=\"hide-menu\">Retur Barang</span></a>\r\n+                            <a class=\"waves-effect waves-dark\" href=\"{{url('/transactionreturn')}}\" aria-expanded=\"false\"><i class=\"ti-back-left\"></i><span class=\"hide-menu\">Retur Barang</span></a>\r\n                         </li>\r\n                         <li>\r\n                             <a class=\"waves-effect waves-dark\" href=\"{{url('/invoice')}}\" aria-expanded=\"false\"><i class=\"ti-agenda\"></i><span class=\"hide-menu\">Nota Transaksi</span></a>\r\n                         </li>\r\n"
+                },
+                {
+                    "date": 1634477426738,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -123,9 +123,9 @@\n                 <!-- Sidebar navigation-->\r\n                 <nav class=\"sidebar-nav\">\r\n                     <ul id=\"sidebarnav\">\r\n                         <li>\r\n-                            <a class=\"waves-effect waves-dark\" href=\"{{url('/')}}\" aria-expanded=\"false\"><i class=\"ti-layout-grid2\"></i><span class=\"hide-menu\">Beranda</span></a>\r\n+                            <a class=\"waves-effect waves-dark\" href=\"{{url('/dashboard')}}\" aria-expanded=\"false\"><i class=\"ti-layout-grid2\"></i><span class=\"hide-menu\">Beranda</span></a>\r\n                         </li>\r\n                         <li>\r\n                             <a class=\"waves-effect waves-dark\" href=\"{{url('/cashier')}}\" aria-expanded=\"false\"><i class=\"ti-money\"></i><span class=\"hide-menu\">Kasir</span></a>\r\n                         </li>\r\n"
                 }
             ],
             "date": 1630203303064,

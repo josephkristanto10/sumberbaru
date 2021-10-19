@@ -36,6 +36,6 @@ class Supplierproduct extends Migration
      */
     public function down()
     {
-        Schema::drop('supplier_product');
+        Schema::dropIfExists('supplier_product');
     }
 }

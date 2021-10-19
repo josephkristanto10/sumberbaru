@@ -1,0 +1,38 @@
+{
+    "sourceFile": "database/migrations/2021_10_18_022920_key_performance_doctor.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1634524183804,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634524188912,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,20 @@\n      * @return void\n      */\n     public function up()\n     {\n-        \n+        Schema::create('public_health_center_doctor', function (Blueprint $table) {\n+            $table->increments(\"id\");\n+            $table->integer('public_health_center')->unsigned();\n+            $table->foreign('public_health_center')->references('id')->on('public_health_center');\n+            $table->string('name');\n+            $table->string('nik');\n+            $table->string('address');\n+            $table->string('phone');\n+            $table->string('email');\n+            $table->string('password');\n+            $table->timestamps();\n+        });\n     }\n \n     /**\n      * Reverse the migrations.\n"
+                },
+                {
+                    "date": 1634524198029,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::create('public_health_center_doctor', function (Blueprint $table) {\n+        Schema::create('key_performance_doctor', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('public_health_center')->unsigned();\n             $table->foreign('public_health_center')->references('id')->on('public_health_center');\n             $table->string('name');\n"
+                },
+                {
+                    "date": 1634524247919,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,8 @@\n     public function up()\n     {\n         Schema::create('key_performance_doctor', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('public_health_center')->unsigned();\n-            $table->foreign('public_health_center')->references('id')->on('public_health_center');\n             $table->string('name');\n             $table->string('nik');\n             $table->string('address');\n             $table->string('phone');\n"
+                },
+                {
+                    "date": 1634524255843,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,13 +15,9 @@\n     {\n         Schema::create('key_performance_doctor', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->string('name');\n-            $table->string('nik');\n-            $table->string('address');\n-            $table->string('phone');\n-            $table->string('email');\n-            $table->string('password');\n+            $table->string('name');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1634524264453,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('key_performance_doctor', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->string('name');\n-            $table->string('name');\n+            $table->string('score');\n             $table->timestamps();\n         });\n     }\n \n@@ -27,7 +27,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        //\n+        Schema::dropIfExists('public_health_center_doctor');\n     }\n }\n"
+                }
+            ],
+            "date": 1634524183804,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass KeyPerformanceDoctor extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        \n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

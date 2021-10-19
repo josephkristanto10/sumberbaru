@@ -1,0 +1,210 @@
+{
+    "sourceFile": "app/Http/Controllers/UserController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 48,
+            "patches": [
+                {
+                    "date": 1634561304707,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634561329481,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,10 @@\n <?php\n \n+\n namespace App\\Http\\Controllers;\n \n+use App\\Models\\PublicHealthCenterDoctor;\n use Illuminate\\Http\\Request;\n \n class UserController extends Controller\n {\n"
+                },
+                {
+                    "date": 1634561384649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         //\n     }\n     public function login(Request $request)\n     {\n-        \n+        $data = PublicHealthCenterDoctor::where(\"nik\",'=','')\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634561392152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         //\n     }\n     public function login(Request $request)\n     {\n-        $data = PublicHealthCenterDoctor::where(\"nik\",'=','')\n+        $data = PublicHealthCenterDoctor::where(\"nik\",'=',$request->nik)->get();\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634561404405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,11 +16,12 @@\n     public function index()\n     {\n         //\n     }\n-    public function login(Request $request)\n+    public function login()\n     {\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',$request->nik)->get();\n+\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634561424474,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,10 +18,11 @@\n         //\n     }\n     public function login()\n     {\n-        $data = PublicHealthCenterDoctor::where(\"nik\",'=',$request->nik)->get();\n-\n+        // Request $request\n+        $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475\")->get();\n+        \n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634561430920,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,9 @@\n     public function login()\n     {\n         // Request $request\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475\")->get();\n+        return $data;\n         \n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634561551809,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,10 +18,12 @@\n         //\n     }\n     public function login()\n     {\n+        $hitung = 0;\n         // Request $request\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475\")->get();\n+        if(0)\n         return $data;\n         \n     }\n \n"
+                },
+                {
+                    "date": 1634561557919,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,12 @@\n     {\n         $hitung = 0;\n         // Request $request\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475\")->get();\n-        if(0)\n+        if($data)\n+        {\n+            \n+        }\n         return $data;\n         \n     }\n \n"
+                },
+                {
+                    "date": 1634561563155,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         // Request $request\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475\")->get();\n         if($data)\n         {\n-            \n+            $hitung =1;\n         }\n         return $data;\n         \n     }\n"
+                },
+                {
+                    "date": 1634561570547,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,14 +20,14 @@\n     public function login()\n     {\n         $hitung = 0;\n         // Request $request\n-        $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475\")->get();\n+        $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475s\")->get();\n         if($data)\n         {\n             $hitung =1;\n         }\n-        return $data;\n+        return $hitung;\n         \n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634561577428,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n     public function login()\n     {\n         $hitung = 0;\n         // Request $request\n-        $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475s\")->get();\n+        $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475123\")->get();\n         if($data)\n         {\n             $hitung =1;\n         }\n"
+                },
+                {
+                    "date": 1634561589178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n         if($data)\n         {\n             $hitung =1;\n         }\n-        return $hitung;\n+        return $data;\n         \n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634561601195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,8 +25,12 @@\n         if($data)\n         {\n             $hitung =1;\n         }\n+        else\n+        {\n+            \n+        }\n         return $data;\n         \n     }\n \n"
+                },
+                {
+                    "date": 1634561615181,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,15 +21,14 @@\n     {\n         $hitung = 0;\n         // Request $request\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475123\")->get();\n-        if($data)\n+        if($data == null)\n         {\n             $hitung =1;\n         }\n-        else\n-        {\n-            \n+        else{\n+\n         }\n         return $data;\n         \n     }\n"
+                },
+                {
+                    "date": 1634561620894,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,12 +23,12 @@\n         // Request $request\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475123\")->get();\n         if($data == null)\n         {\n-            $hitung =1;\n+            $hitung =0;\n         }\n         else{\n-\n+            $hitung =0;\n         }\n         return $data;\n         \n     }\n"
+                },
+                {
+                    "date": 1634561629527,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,11 +26,11 @@\n         {\n             $hitung =0;\n         }\n         else{\n-            $hitung =0;\n+            $hitung =1;\n         }\n-        return $data;\n+        return $hitung;\n         \n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634561650091,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n     {\n         $hitung = 0;\n         // Request $request\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475123\")->get();\n-        if($data == null)\n+        if($data->count() == 0)\n         {\n             $hitung =0;\n         }\n         else{\n"
+                },
+                {
+                    "date": 1634561662254,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,11 @@\n         //\n     }\n     public function login()\n     {\n-        $hitung = 0;\n+        $exist = 0;\n         // Request $request\n-        $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475123\")->get();\n+        $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475\")->get();\n         if($data->count() == 0)\n         {\n             $hitung =0;\n         }\n"
+                },
+                {
+                    "date": 1634561678496,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,12 +23,12 @@\n         // Request $request\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475\")->get();\n         if($data->count() == 0)\n         {\n-            $hitung =0;\n+           return \"none\";\n         }\n         else{\n-            $hitung =1;\n+            $exist =1;\n         }\n         return $hitung;\n         \n     }\n"
+                },
+                {
+                    "date": 1634561703134,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,16 @@\n         {\n            return \"none\";\n         }\n         else{\n-            $exist =1;\n+            if (password_verify($passwordfromuser, $passfromdb)) {\n+                $_SESSION['iduser'] = $row['id'];\n+                $_SESSION['nik'] = $row['nik'];\n+                $_SESSION['username'] = $row['username'];\n+                echo 'ok';\n+            } else {\n+                echo 'wrong';\n+            }\n         }\n         return $hitung;\n         \n     }\n"
+                },
+                {
+                    "date": 1634561718825,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,8 +26,9 @@\n         {\n            return \"none\";\n         }\n         else{\n+            $passwordfromdb = $data[0]['password'];\n             if (password_verify($passwordfromuser, $passfromdb)) {\n                 $_SESSION['iduser'] = $row['id'];\n                 $_SESSION['nik'] = $row['nik'];\n                 $_SESSION['username'] = $row['username'];\n"
+                },
+                {
+                    "date": 1634561732766,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,10 @@\n            return \"none\";\n         }\n         else{\n             $passwordfromdb = $data[0]['password'];\n-            if (password_verify($passwordfromuser, $passfromdb)) {\n+            $passwordfromuser = $request->password;\n+            if (password_verify($passwordfromuser, $passwordfromdb)) {\n                 $_SESSION['iduser'] = $row['id'];\n                 $_SESSION['nik'] = $row['nik'];\n                 $_SESSION['username'] = $row['username'];\n                 echo 'ok';\n"
+                },
+                {
+                    "date": 1634561738200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,11 +29,9 @@\n         else{\n             $passwordfromdb = $data[0]['password'];\n             $passwordfromuser = $request->password;\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n-                $_SESSION['iduser'] = $row['id'];\n-                $_SESSION['nik'] = $row['nik'];\n-                $_SESSION['username'] = $row['username'];\n+          \n                 echo 'ok';\n             } else {\n                 echo 'wrong';\n             }\n"
+                },
+                {
+                    "date": 1634561743319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n           \n                 echo 'ok';\n             } else {\n-                echo 'wrong';\n+                echo 'none';\n             }\n         }\n         return $hitung;\n         \n"
+                },
+                {
+                    "date": 1634561750563,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,11 +30,11 @@\n             $passwordfromdb = $data[0]['password'];\n             $passwordfromuser = $request->password;\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n           \n-                echo 'ok';\n+                return 'ok';\n             } else {\n-                echo 'none';\n+                return 'none';\n             }\n         }\n         return $hitung;\n         \n"
+                },
+                {
+                    "date": 1634561755701,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,9 @@\n             } else {\n                 return 'none';\n             }\n         }\n-        return $hitung;\n+    \n         \n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634561765829,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n     public function login()\n     {\n         $exist = 0;\n         // Request $request\n-        $data = PublicHealthCenterDoctor::where(\"nik\",'=',\"582785475\")->get();\n+        $data = PublicHealthCenterDoctor::where(\"nik\",'=',$request->nik)->get();\n         if($data->count() == 0)\n         {\n            return \"none\";\n         }\n"
+                },
+                {
+                    "date": 1634562208650,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,12 +16,12 @@\n     public function index()\n     {\n         //\n     }\n-    public function login()\n+    public function login(Request $request)\n     {\n         $exist = 0;\n-        // Request $request\n+        // \n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',$request->nik)->get();\n         if($data->count() == 0)\n         {\n            return \"none\";\n@@ -32,9 +32,9 @@\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n           \n                 return 'ok';\n             } else {\n-                return 'none';\n+                return 'nones';\n             }\n         }\n     \n         \n"
+                },
+                {
+                    "date": 1634562213817,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n           \n                 return 'ok';\n             } else {\n-                return 'nones';\n+                return 'none';\n             }\n         }\n     \n         \n"
+                },
+                {
+                    "date": 1634562253753,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n           \n                 return 'ok';\n             } else {\n-                return 'none';\n+                return 'nones';\n             }\n         }\n     \n         \n"
+                },
+                {
+                    "date": 1634562418363,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n           \n                 return 'ok';\n             } else {\n-                return 'nones';\n+                return $passwordfromuser;\n             }\n         }\n     \n         \n"
+                },
+                {
+                    "date": 1634562437486,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n           \n                 return 'ok';\n             } else {\n-                return $passwordfromuser;\n+                return $passwordfromdb;\n             }\n         }\n     \n         \n"
+                },
+                {
+                    "date": 1634562474849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n           \n                 return 'ok';\n             } else {\n-                return $passwordfromdb;\n+                return \"none\";\n             }\n         }\n     \n         \n"
+                },
+                {
+                    "date": 1634562522787,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,11 @@\n     public function login(Request $request)\n     {\n         $exist = 0;\n         // \n+        $options = [\n+            'cost' => 11\n+          ];\n         $data = PublicHealthCenterDoctor::where(\"nik\",'=',$request->nik)->get();\n         if($data->count() == 0)\n         {\n            return \"none\";\n"
+                },
+                {
+                    "date": 1634562542840,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,16 +32,13 @@\n         else{\n             $passwordfromdb = $data[0]['password'];\n             $passwordfromuser = $request->password;\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n-          \n                 return 'ok';\n             } else {\n                 return \"none\";\n             }\n         }\n-    \n-        \n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1634562551265,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n         else{\n             $passwordfromdb = $data[0]['password'];\n             $passwordfromuser = $request->password;\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n-                return 'ok';\n+                return password_verify($passwordfromuser, $passwordfromdb);\n             } else {\n                 return \"none\";\n             }\n         }\n"
+                },
+                {
+                    "date": 1634562561577,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n             $passwordfromuser = $request->password;\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n                 return password_verify($passwordfromuser, $passwordfromdb);\n             } else {\n-                return \"none\";\n+                return password_verify($passwordfromuser, $passwordfromdb);\n             }\n         }\n     }\n \n"
+                },
+                {
+                    "date": 1634562634852,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n \n \n namespace App\\Http\\Controllers;\n \n+Illuminate\\Hashing\\BcryptHasher\n use App\\Models\\PublicHealthCenterDoctor;\n use Illuminate\\Http\\Request;\n \n class UserController extends Controller\n"
+                },
+                {
+                    "date": 1634562658276,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n \n namespace App\\Http\\Controllers;\n \n-Illuminate\\Hashing\\BcryptHasher\n+use Illuminate\\Hashing\\BcryptHasher;\n use App\\Models\\PublicHealthCenterDoctor;\n use Illuminate\\Http\\Request;\n \n class UserController extends Controller\n@@ -30,14 +30,17 @@\n         {\n            return \"none\";\n         }\n         else{\n-            $passwordfromdb = $data[0]['password'];\n-            $passwordfromuser = $request->password;\n-            if (password_verify($passwordfromuser, $passwordfromdb)) {\n-                return password_verify($passwordfromuser, $passwordfromdb);\n-            } else {\n-                return password_verify($passwordfromuser, $passwordfromdb);\n+            // $passwordfromdb = $data[0]['password'];\n+            // $passwordfromuser = $request->password;\n+            // if (password_verify($passwordfromuser, $passwordfromdb)) {\n+            //     return password_verify($passwordfromuser, $passwordfromdb);\n+            // } else {\n+            //     return password_verify($passwordfromuser, $passwordfromdb);\n+            // }\n+            if (Hash::check('passwordToCheck', $user->password)) {\n+                // Success\n             }\n         }\n     }\n \n"
+                },
+                {
+                    "date": 1634562682481,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,16 +30,16 @@\n         {\n            return \"none\";\n         }\n         else{\n-            // $passwordfromdb = $data[0]['password'];\n-            // $passwordfromuser = $request->password;\n+            $passwordfromdb = $data[0]['password'];\n+            $passwordfromuser = $request->password;\n             // if (password_verify($passwordfromuser, $passwordfromdb)) {\n             //     return password_verify($passwordfromuser, $passwordfromdb);\n             // } else {\n             //     return password_verify($passwordfromuser, $passwordfromdb);\n             // }\n-            if (Hash::check('passwordToCheck', $user->password)) {\n+            if (Hash::check($passwordfromuser, $user->password)) {\n                 // Success\n             }\n         }\n     }\n"
+                },
+                {
+                    "date": 1634562697380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,10 +37,10 @@\n             //     return password_verify($passwordfromuser, $passwordfromdb);\n             // } else {\n             //     return password_verify($passwordfromuser, $passwordfromdb);\n             // }\n-            if (Hash::check($passwordfromuser, $user->password)) {\n-                // Success\n+            if (Hash::check($passwordfromuser, $passwordfromdb)) {\n+                return \"ok\";\n             }\n         }\n     }\n \n"
+                },
+                {
+                    "date": 1634562711572,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,8 +40,9 @@\n             // }\n             if (Hash::check($passwordfromuser, $passwordfromdb)) {\n                 return \"ok\";\n             }\n+            return Hash::check($passwordfromuser, $passwordfromdb);\n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634562723430,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,12 +37,13 @@\n             //     return password_verify($passwordfromuser, $passwordfromdb);\n             // } else {\n             //     return password_verify($passwordfromuser, $passwordfromdb);\n             // }\n+            return Hash::check($passwordfromuser, $passwordfromdb);\n             if (Hash::check($passwordfromuser, $passwordfromdb)) {\n                 return \"ok\";\n             }\n-            return Hash::check($passwordfromuser, $passwordfromdb);\n+           \n         }\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1634562781167,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,13 +32,18 @@\n         }\n         else{\n             $passwordfromdb = $data[0]['password'];\n             $passwordfromuser = $request->password;\n-            // if (password_verify($passwordfromuser, $passwordfromdb)) {\n-            //     return password_verify($passwordfromuser, $passwordfromdb);\n-            // } else {\n-            //     return password_verify($passwordfromuser, $passwordfromdb);\n-            // }\n+\n+            $hasher = app('hash');\n+            if ($hasher->check('passwordToCheck', $user->password)) {\n+                // Success\n+            }\n+            if (password_verify($passwordfromuser, $passwordfromdb)) {\n+                return password_verify($passwordfromuser, $passwordfromdb);\n+            } else {\n+                return password_verify($passwordfromuser, $passwordfromdb);\n+            }\n             return Hash::check($passwordfromuser, $passwordfromdb);\n             if (Hash::check($passwordfromuser, $passwordfromdb)) {\n                 return \"ok\";\n             }\n"
+                },
+                {
+                    "date": 1634562790552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,11 +38,11 @@\n             if ($hasher->check('passwordToCheck', $user->password)) {\n                 // Success\n             }\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n-                return password_verify($passwordfromuser, $passwordfromdb);\n+                return \"ok\";\n             } else {\n-                return password_verify($passwordfromuser, $passwordfromdb);\n+                return \"none\";\n             }\n             return Hash::check($passwordfromuser, $passwordfromdb);\n             if (Hash::check($passwordfromuser, $passwordfromdb)) {\n                 return \"ok\";\n"
+                },
+                {
+                    "date": 1634562796957,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,21 +33,17 @@\n         else{\n             $passwordfromdb = $data[0]['password'];\n             $passwordfromuser = $request->password;\n \n-            $hasher = app('hash');\n             if ($hasher->check('passwordToCheck', $user->password)) {\n                 // Success\n             }\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n                 return \"ok\";\n             } else {\n                 return \"none\";\n             }\n-            return Hash::check($passwordfromuser, $passwordfromdb);\n-            if (Hash::check($passwordfromuser, $passwordfromdb)) {\n-                return \"ok\";\n-            }\n+          \n            \n         }\n     }\n \n"
+                },
+                {
+                    "date": 1634562802423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,11 +33,8 @@\n         else{\n             $passwordfromdb = $data[0]['password'];\n             $passwordfromuser = $request->password;\n \n-            if ($hasher->check('passwordToCheck', $user->password)) {\n-                // Success\n-            }\n             if (password_verify($passwordfromuser, $passwordfromdb)) {\n                 return \"ok\";\n             } else {\n                 return \"none\";\n"
+                },
+                {
+                    "date": 1634562889296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,10 +38,8 @@\n                 return \"ok\";\n             } else {\n                 return \"none\";\n             }\n-          \n-           \n         }\n     }\n \n     /**\n"
+                }
+            ],
+            "date": 1634561304707,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\\Request;\n\nclass UserController extends Controller\n{\n    /**\n     * Display a listing of the resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function index()\n    {\n        //\n    }\n    public function login(Request $request)\n    {\n        \n    }\n\n    /**\n     * Show the form for creating a new resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function create()\n    {\n        //\n    }\n\n    /**\n     * Store a newly created resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function store(Request $request)\n    {\n        //\n    }\n\n    /**\n     * Display the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function show($id)\n    {\n        //\n    }\n\n    /**\n     * Show the form for editing the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function edit($id)\n    {\n        //\n    }\n\n    /**\n     * Update the specified resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function update(Request $request, $id)\n    {\n        //\n    }\n\n    /**\n     * Remove the specified resource from storage.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function destroy($id)\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

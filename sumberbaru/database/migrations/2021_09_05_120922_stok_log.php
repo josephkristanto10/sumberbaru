@@ -31,6 +31,6 @@ class StokLog extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('stok_log');
     }
 }

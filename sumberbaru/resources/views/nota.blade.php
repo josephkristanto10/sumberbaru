@@ -151,7 +151,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Daftar Nota Transaksi</h4>
                         <h6 class="card-subtitle">Informasi Transaksi Dalam Waktu Tertentu</h6>
-                        <table id="example23" class="display table table-hover table-striped table-bordered" cellspacing="0">
+                        <table class="display table table-hover table-striped table-bordered" cellspacing="0" id="mydatatable" >
                             <thead>
                                 <tr>
                                     <th width="5%">Tanggal</th>
@@ -164,54 +164,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>01 Juli 2021 - 13.30</td>
-                                    <td>TS004</td>
-                                    <td>Pelanggan A</td>
-                                    <td>25</td>
-                                    <td>Rp 1300.000</td>
-                                    <td>Transfer</td>
-                                    <td>
-                                        <button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#detail"><i class="ti-layout-media-overlay pr-2"></i>Detail</button>
-                                        <button type="button" class="btn waves-effect waves-light btn-sm btn-info pr-2"><i class="fas fa-print"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>01 Juli 2021 - 12.31</td>
-                                    <td>KR003</td>
-                                    <td>Pelanggan B</td>
-                                    <td>5</td>
-                                    <td>Rp 150.000</td>
-                                    <td>Transfer</td>
-                                    <td>
-                                        <button type="button" class="btn waves-effect waves-light btn-sm btn-success pr-2" data-toggle="modal" data-target="#detail_kirim"><i class="ti-layout-media-overlay pr-2"></i>Detail</button>
-                                        <button type="button" class="btn waves-effect waves-light btn-sm btn-info pr-2"><i class="fas fa-print"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>01 Juli 2021 - 12.00</td>
-                                    <td>TS002</td>
-                                    <td>-</td>
-                                    <td>10</td>
-                                    <td>Rp 1000.000</td>
-                                    <td>Transfer</td>
-                                    <td>
-                                        <button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#detail"><i class="ti-layout-media-overlay pr-2"></i>Detail</button>
-                                        <button type="button" class="btn waves-effect waves-light btn-sm btn-info pr-2"><i class="fas fa-print"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>01 Juli 2021 - 11.50</td>
-                                    <td>TS001</td>
-                                    <td>-</td>
-                                    <td>7</td>
-                                    <td>Rp 70.000</td>
-                                    <td>Tunai</td>
-                                    <td>
-                                        <button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#detail"><i class="ti-layout-media-overlay pr-2"></i>Detail</button>
-                                        <button type="button" class="btn waves-effect waves-light btn-sm btn-info pr-2"><i class="fas fa-print"></i></button>
-                                    </td>
-                                </tr>
+                              
                             </tbody>
                         </table>
                     </div>
@@ -243,8 +196,8 @@
             <div class="modal-body">
 
                 <div class="col-12">
-                    <h5 class="float-right"><b>Total 25 Barang - Rp. 1.300.000</b></h5>
-                    <h5>No Transaksi TS004 - 01 Juli 2021 - 13.30</h5>
+                    <h5 class="float-right"><b>Total <label id = "qty_barang_detail">25</label> Barang - Rp. <label id = "totalall">1.300.000</label></b></h5>
+                    <h5>No Transaksi <label id ="nomortransaksi">TS004</label> - <label id ="transaction_date">01 Juli 2021 - 13.30</label></h5>
                     <table class="display table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -255,49 +208,21 @@
                                 <th width="10%">Subtotal</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>A101</td>
-                                <td>Piring A, Warna A</td>
-                                <td>3</td>
-                                <td>Rp. 30.000</td>
-                                <td>Rp. 90.000</td>
-                            </tr>
-                            <tr>
-                                <td>A102</td>
-                                <td>Piring B, Warna B</td>
-                                <td>10</td>
-                                <td>Rp. 100.000</td>
-                                <td>Rp. 1.000.000</td>
-                            </tr>
-                            <tr>
-                                <td>A103</td>
-                                <td>Piring C, Tipe 3</td>
-                                <td>7</td>
-                                <td>Rp. 20.000</td>
-                                <td>Rp. 140.000</td>
-                            </tr>
-                            <tr>
-                                <td>A104</td>
-                                <td> Gelas A, Tipe 1</td>
-                                <td>5</td>
-                                <td>Rp. 14.000</td>
-                                <td>Rp. 70.000</td>
-                            </tr>
-
+                        <tbody id = "detailtable">
+                         
                         </tbody>
                     </table>
                     <div class="modal-footer">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Pelanggan</label>
-                                <input type="text" class="form-control" placeholder="Pelanggan B" disabled>
+                                <input type="text" class="form-control" id = "transaction_customer" placeholder="Pelanggan B" disabled>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Note</label>
-                                <input type="text" class="form-control" placeholder="Isi Note" disabled>
+                                <input type="text" class="form-control" id = "transaction_note"  placeholder="Isi Note" disabled>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -329,7 +254,7 @@
                 <div class="col-12">
                     <h5 class="float-right"><b>Total 5 Barang - Rp. 150.000</b></h5>
                     <h5>No Transaksi KR003 - 01 Juli 2021 - 12.31</h5>
-                    <table class="display table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                    <table  class="display table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th width="5%">Kode</th>
@@ -339,35 +264,8 @@
                                 <th width="10%">Subtotal</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>A101</td>
-                                <td>Piring A, Warna A</td>
-                                <td>3</td>
-                                <td>Rp. 30.000</td>
-                                <td>Rp. 90.000</td>
-                            </tr>
-                            <tr>
-                                <td>A102</td>
-                                <td>Piring B, Warna B</td>
-                                <td>10</td>
-                                <td>Rp. 100.000</td>
-                                <td>Rp. 1.000.000</td>
-                            </tr>
-                            <tr>
-                                <td>A103</td>
-                                <td>Piring C, Tipe 3</td>
-                                <td>7</td>
-                                <td>Rp. 20.000</td>
-                                <td>Rp. 140.000</td>
-                            </tr>
-                            <tr>
-                                <td>A104</td>
-                                <td> Gelas A, Tipe 1</td>
-                                <td>5</td>
-                                <td>Rp. 14.000</td>
-                                <td>Rp. 70.000</td>
-                            </tr>
+                        <tbody >
+                       
 
                         </tbody>
                     </table>
@@ -404,6 +302,59 @@
 <!-- End Modal  -->
 
 <!-- ============================================================== -->
-
-
 @include("layout.footer")
+<script>
+    loadInvoice();
+    function loadInvoice(){
+        
+        $('#mydatatable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{route('gettableinvoice')}}",
+        columns: [
+            { data: 'testdate', name: 'created_at' },
+            { data: 'transaction_no', name: 'transaction_no' },
+            { data: 'customer', name: 'transaction_customer' },
+            { data: 'quantity', name: 'qty_item'},
+            { data: 'total', name: 'total' },
+            { data: 'method', name: 'transaction_method' },
+            { data: 'action', name: 'action' }
+        ]
+    });
+    };
+    function success() {
+      $('#mydatatable').DataTable().ajax.reload(null, false);
+   };
+   function openmodaldetailinvoice(element){
+    var idinvoice = element.id;
+    var myurl =  '{{ url("invoice/detail/") }}' + "/"+ idinvoice;
+      
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                });
+            $.ajax({
+                url: myurl,
+                method: 'get',
+                data: {
+                    myid : idinvoice
+                    
+                },
+                success: function (result) {
+                // console.log(result);
+                $("#nomortransaksi").text(result['notransaction'])
+                $("#transaction_date").text(result['transactiondate']);
+                 $("#qty_barang_detail").text(result['counts']);
+                 $("#totalall").text(result['total']);
+                 $("#transaction_customer").val(result['customer']);
+                 $("#transaction_note").val(result['note']);
+                    $('#detailtable').html("");
+                    $('#detailtable').html(result['mytable']);
+                }
+            });
+   }
+</script>
+
+
+

@@ -1,0 +1,46 @@
+{
+    "sourceFile": "database/migrations/2021_10_18_024158_public_health_office_officer.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1634524929390,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634524937247,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::create('action_doctor', function (Blueprint $table) {\n+        Schema::create('public_health_office_officer', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('id_key_performance')->unsigned();\n             $table->foreign('id_key_performance')->references('id')->on('key_performance_doctor');\n             $table->integer('id_public_health_doctor')->unsigned();\n"
+                },
+                {
+                    "date": 1634524950134,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,15 +14,16 @@\n     public function up()\n     {\n         Schema::create('public_health_office_officer', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('id_key_performance')->unsigned();\n-            $table->foreign('id_key_performance')->references('id')->on('key_performance_doctor');\n-            $table->integer('id_public_health_doctor')->unsigned();\n-            $table->foreign('id_public_health_doctor')->references('id')->on('public_health_center_doctor');\n-            $table->integer('quantity');\n-            $table->integer('score_per_action');\n-            $table->integer('total_score');\n+            $table->integer('public_health_center')->unsigned();\n+            $table->foreign('public_health_center')->references('id')->on('public_health_center');\n+            $table->string('name');\n+            $table->string('nik');\n+            $table->string('address');\n+            $table->string('phone');\n+            $table->string('email');\n+            $table->string('password');\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1634524956115,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('public_health_office_officer', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('public_health_center')->unsigned();\n+            $table->integer('public_health_office')->unsigned();\n             $table->foreign('public_health_center')->references('id')->on('public_health_center');\n             $table->string('name');\n             $table->string('nik');\n             $table->string('address');\n"
+                },
+                {
+                    "date": 1634524961168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('public_health_office_officer', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('public_health_office')->unsigned();\n+            $table->integer('public_health_center')->unsigned();\n             $table->foreign('public_health_center')->references('id')->on('public_health_center');\n             $table->string('name');\n             $table->string('nik');\n             $table->string('address');\n"
+                },
+                {
+                    "date": 1634524973876,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('public_health_office_officer', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('public_health_center')->unsigned();\n+            $table->integer('id_public_health_office')->unsigned();\n             $table->foreign('public_health_center')->references('id')->on('public_health_center');\n             $table->string('name');\n             $table->string('nik');\n             $table->string('address');\n"
+                },
+                {
+                    "date": 1634524980023,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     {\n         Schema::create('public_health_office_officer', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('id_public_health_office')->unsigned();\n-            $table->foreign('public_health_center')->references('id')->on('public_health_center');\n+            $table->foreign('id_public_health_office')->references('id')->on('public_health_office');\n             $table->string('name');\n             $table->string('nik');\n             $table->string('address');\n             $table->string('phone');\n"
+                },
+                {
+                    "date": 1634524994267,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,8 +22,9 @@\n             $table->string('address');\n             $table->string('phone');\n             $table->string('email');\n             $table->string('password');\n+            $table->string(\"status\");\n             $table->timestamps();\n         });\n     }\n \n"
+                }
+            ],
+            "date": 1634524929390,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass PublicHealthOfficeOfficer extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('action_doctor', function (Blueprint $table) {\n            $table->increments(\"id\");\n            $table->integer('id_key_performance')->unsigned();\n            $table->foreign('id_key_performance')->references('id')->on('key_performance_doctor');\n            $table->integer('id_public_health_doctor')->unsigned();\n            $table->foreign('id_public_health_doctor')->references('id')->on('public_health_center_doctor');\n            $table->integer('quantity');\n            $table->integer('score_per_action');\n            $table->integer('total_score');\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

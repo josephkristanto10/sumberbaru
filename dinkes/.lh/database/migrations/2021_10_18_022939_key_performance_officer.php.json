@@ -1,0 +1,26 @@
+{
+    "sourceFile": "database/migrations/2021_10_18_022939_key_performance_officer.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1634524269987,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1634524275813,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,7 +27,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        //\n+        Schema::dropIfExists('key_performance_doctor');\n     }\n }\n"
+                },
+                {
+                    "date": 1634524281934,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::create('key_performance_doctor', function (Blueprint $table) {\n+        Schema::create('key_performance_officer', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->string('name');\n             $table->string('score');\n             $table->timestamps();\n"
+                }
+            ],
+            "date": 1634524269987,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass KeyPerformanceOfficer extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('key_performance_doctor', function (Blueprint $table) {\n            $table->increments(\"id\");\n            $table->string('name');\n            $table->string('score');\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

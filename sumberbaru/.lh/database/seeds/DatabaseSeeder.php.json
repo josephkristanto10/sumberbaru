@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 8,
             "patches": [
                 {
                     "date": 1630205948428,
@@ -28,6 +28,18 @@
                 {
                     "date": 1630596054433,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,7 @@\n     {\n         // $this->call(UserSeeder::class);\n         $this->call(productseeder::class);\n         $this->call(supplierseeder::class);\n-        $this->call(supplierseeder::class);\n+        $this->call(supplierproductseeder::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1634183131262,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,19 +1,21 @@\n-<?php\n-\n-use Illuminate\\Database\\Seeder;\n-\n-class DatabaseSeeder extends Seeder\n-{\n-    /**\n-     * Seed the application's database.\n-     *\n-     * @return void\n-     */\n-    public function run()\n-    {\n-        // $this->call(UserSeeder::class);\n-        $this->call(productseeder::class);\n-        $this->call(supplierseeder::class);\n-        $this->call(supplierproductseeder::class);\n-    }\n-}\n+<?php\r\n+\r\n+use Illuminate\\Database\\Seeder;\r\n+\r\n+class DatabaseSeeder extends Seeder\r\n+{\r\n+    /**\r\n+     * Seed the application's database.\r\n+     *\r\n+     * @return void\r\n+     */\r\n+    public function run()\r\n+    {\r\n+        // $this->call(UserSeeder::class);\r\n+        // $this->call(productseeder::class);\r\n+        // $this->call(supplierseeder::class);\r\n+        // $this->call(supplierproductseeder::class);\r\n+        // $this->call(InvoiceSeeder::class);\r\n+        // $this->call(InvoiceDetailSeeder::class);\r\n+    }\r\n+}\r\n"
+                },
+                {
+                    "date": 1634183138296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,12 +10,12 @@\n      * @return void\r\n      */\r\n     public function run()\r\n     {\r\n-        // $this->call(UserSeeder::class);\r\n-        // $this->call(productseeder::class);\r\n-        // $this->call(supplierseeder::class);\r\n-        // $this->call(supplierproductseeder::class);\r\n-        // $this->call(InvoiceSeeder::class);\r\n-        // $this->call(InvoiceDetailSeeder::class);\r\n+        $this->call(UserSeeder::class);\r\n+        $this->call(productseeder::class);\r\n+        $this->call(supplierseeder::class);\r\n+        $this->call(supplierproductseeder::class);\r\n+        $this->call(InvoiceSeeder::class);\r\n+        $this->call(InvoiceDetailSeeder::class);\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1634183146496,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n      * @return void\r\n      */\r\n     public function run()\r\n     {\r\n-        $this->call(UserSeeder::class);\r\n+        // $this->call(UserSeeder::class);\r\n         $this->call(productseeder::class);\r\n         $this->call(supplierseeder::class);\r\n         $this->call(supplierproductseeder::class);\r\n         $this->call(InvoiceSeeder::class);\r\n"
                 }
             ],
             "date": 1630205948428,

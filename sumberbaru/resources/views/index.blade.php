@@ -39,7 +39,7 @@
                                     <p class="text-muted">NOTA TRANSAKSI</p>
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="counter text-primary">23</h2>
+                                    <h2 class="counter text-primary">{{$invoice->count()}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                     <p class="text-muted">BARANG TERJUAL</p>
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="counter text-cyan">169</h2>
+                                    <h2 class="counter text-cyan">{{$qty}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -84,10 +84,11 @@
                             <div class="d-flex no-block align-items-center">
                                 <div>
                                     <h3><i class="ti-money"></i></h3>
-                                    <p class="text-muted">PENDAPATAN</p>
+                               
+                                    <p class="text-muted">IDR{{$mytotal}}<br>PENDAPATAN</p>
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="counter text-purple">IDR 1.587.000</h2>
+                                    <h2 class="counter text-purple"></h2>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +136,7 @@
                 <div class="row">
                     <!-- column -->
                     <div class="col-md-6">
-                        <a href="kasir.php" class="text-muted">
+                        <a href="{{url('/cashier')}}" class="text-muted">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">KASIR</h4>
@@ -149,7 +150,7 @@
                     </div>
                     <!-- column -->
                     <div class="col-md-6">
-                        <a href="stok.php" class="text-muted">
+                        <a href="{{url('/stok')}}" class="text-muted">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">STOK BARANG</h4>
@@ -163,7 +164,7 @@
                     </div>
                     <!-- column -->
                     <div class="col-md-6">
-                        <a href="retur.php" class="text-muted">
+                        <a href="{{url('/transactionreturn')}}" class="text-muted">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">RETUR BARANG</h4>
@@ -177,7 +178,7 @@
                     </div>
                     <!-- column -->
                     <div class="col-md-6">
-                        <a href="nota.php" class="text-muted">
+                        <a href="{{url('/invoice')}}" class="text-muted">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">NOTA</h4>
