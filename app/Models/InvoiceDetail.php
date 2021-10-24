@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $qty
  * @property int $selling_price
  * @property int $subtotal
+ * @property int|null $buyingprice
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
@@ -35,7 +36,8 @@ class InvoiceDetail extends Model
 		'idtransaction' => 'int',
 		'qty' => 'int',
 		'selling_price' => 'int',
-		'subtotal' => 'int'
+		'subtotal' => 'int',
+		'buyingprice' => 'int'
 	];
 
 	protected $fillable = [
@@ -43,7 +45,8 @@ class InvoiceDetail extends Model
 		'idtransaction',
 		'qty',
 		'selling_price',
-		'subtotal'
+		'subtotal',
+		'buyingprice'
 	];
 
 	public function product()

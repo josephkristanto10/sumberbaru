@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1630834716939,
@@ -32,6 +32,10 @@
                 {
                     "date": 1630834759432,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,8 @@\n         include base_path().'/database/seeds/sumberbaru.php';\n         $supplier_product_logs = $supplier_product_log;\n         DB::table('supplier_product_log')->delete();\n         foreach($supplier_product_logs as $spl){\n-            StokLog::create($sl);\n+            SupplierProductLog::create($spl);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1635005691445,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,22 +1,22 @@\n-<?php\n-\n-use Illuminate\\Database\\Seeder;\n-use App\\Models\\SupplierProductLog;\n-\n-class supplierproductlogseeder extends Seeder\n-{\n-    /**\n-     * Run the database seeds.\n-     *\n-     * @return void\n-     */\n-    public function run()\n-    {\n-        include base_path().'/database/seeds/sumberbaru.php';\n-        $supplier_product_logs = $supplier_product_log;\n-        DB::table('supplier_product_log')->delete();\n-        foreach($supplier_product_logs as $spl){\n-            SupplierProductLog::create($spl);\n-        }\n-    }\n-}\n+<?php\r\n+\r\n+use Illuminate\\Database\\Seeder;\r\n+use App\\Models\\SupplierProductLog;\r\n+\r\n+class supplierproductlogseeder extends Seeder\r\n+{\r\n+    /**\r\n+     * Run the database seeds.\r\n+     *\r\n+     * @return void\r\n+     */\r\n+    public function run()\r\n+    {\r\n+        include base_path().'/database/seeds/sumberbaru.php';\r\n+        $supplier_product_logs = $supplier_product_log;\r\n+        DB::table('supplier_product_log')->delete();\r\n+        foreach($supplier_product_logs as $spl){\r\n+            SupplierProductLog::create($spl);\r\n+        }\r\n+    }\r\n+}\r\n"
                 }
             ],
             "date": 1630834716939,

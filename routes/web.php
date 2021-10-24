@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('index');
-// });
+Route::get('/', "IndexController@index");
+Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name("setstatusproduct");
 Route::get('/getdatatable', 'ProductController@getjsons')->name("getdatatable");
 Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name("getdatatableproductsupplier");
 Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name("getdatatablesupplierpricelist");
@@ -44,6 +43,7 @@ Route::post('/transactionreturn/cancelretur', "ReturController@cancelretur")->na
 Route::get('/transactionreturn/gettablereturfinish', 'ReturController@getdatafinish')->name("gettablereturfinish");
 Route::get('/transactionreturn/gettablereturprocess', 'ReturController@getdatainprogress')->name("gettablereturprocess");
 Route::get('/invoice/getmydata', 'NotaController@getmydata')->name("gettableinvoice");
+Route::get('/invoice/getdatedata', 'NotaController@getdateinvoice')->name("getdateinvoice");
 Route::get('invoice/detail/{id}', 'NotaController@getmydetaildata')->name("getinvoicedetail");
 Route::resource('/dashboard', 'IndexController');
 Route::resource('/product', 'ProductController');

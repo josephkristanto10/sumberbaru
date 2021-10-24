@@ -1,0 +1,42 @@
+{
+    "sourceFile": "database/seeds/transactionreturnseed.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1635046252725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1635046265350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $mysupplier = $supplier;\n+        $mysupplier = $transaction_return;\n         DB::table('supplier')->delete();\n         foreach($mysupplier as $ms){\n             Supplier::create($ms);\n         }\n"
+                },
+                {
+                    "date": 1635046270392,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $mysupplier = $transaction_return;\n+        $transaction_returns = $transaction_return;\n         DB::table('supplier')->delete();\n         foreach($mysupplier as $ms){\n             Supplier::create($ms);\n         }\n"
+                },
+                {
+                    "date": 1635046279182,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,10 @@\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $transaction_returns = $transaction_return;\n-        DB::table('supplier')->delete();\n-        foreach($mysupplier as $ms){\n+        DB::table('transaction_return')->delete();\n+        foreach($transaction_returns as $ms){\n             Supplier::create($ms);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1635046290373,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n <?php\n \n+use App\\Models\\\n use Illuminate\\Database\\Seeder;\n \n class transactionreturnseed extends Seeder\n {\n@@ -13,9 +14,9 @@\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $transaction_returns = $transaction_return;\n         DB::table('transaction_return')->delete();\n-        foreach($transaction_returns as $ms){\n+        foreach($transaction_returns as $tr){\n             Supplier::create($ms);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1635046300542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-use App\\Models\\\n+use App\\Models\\TransactionReturn\n use Illuminate\\Database\\Seeder;\n \n class transactionreturnseed extends Seeder\n {\n"
+                },
+                {
+                    "date": 1635046306313,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <?php\n \n-use App\\Models\\TransactionReturn\n+use App\\Models\\TransactionReturn;\n use Illuminate\\Database\\Seeder;\n \n class transactionreturnseed extends Seeder\n {\n@@ -15,8 +15,8 @@\n         include base_path().'/database/seeds/sumberbaru.php';\n         $transaction_returns = $transaction_return;\n         DB::table('transaction_return')->delete();\n         foreach($transaction_returns as $tr){\n-            Supplier::create($ms);\n+            TransactionReturn::create($tr);\n         }\n     }\n }\n"
+                }
+            ],
+            "date": 1635046252725,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass transactionreturnseed extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        include base_path().'/database/seeds/sumberbaru.php';\n        $mysupplier = $supplier;\n        DB::table('supplier')->delete();\n        foreach($mysupplier as $ms){\n            Supplier::create($ms);\n        }\n    }\n}\n"
+        }
+    ]
+}

@@ -73,7 +73,7 @@ class PriceListController extends Controller
         return '<label id = "name'.$query->idproduct.'"> '.$query->name.'</label>';
         })
         ->editColumn('price', function($query) {
-            return '<label id = "price'.$query->idproduct.'"> '.$query->hargasupplier.'</label>';
+            return '<label id = "price'.$query->idproduct.'"> '.number_format($query->hargasupplier).'</label>';
             })
         ->editColumn('updatedat', function($query) {
             // $format = 'jS F Y  H:i:s"';

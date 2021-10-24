@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 228,
+            "activePatchIndex": 251,
             "patches": [
                 {
                     "date": 1630203664033,
@@ -920,6 +920,98 @@
                 {
                     "date": 1634475974046,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -337,9 +337,9 @@\n         // Session::forget('subtotalcart');\r\n         // Session::forget('totalqty');\r\n         // $mystring = \"\";\r\n         // return $mystring;\r\n-        \r\n+        Cart::truncate();\r\n     }\r\n \r\n     /**\r\n      * Show the form for creating a new resource.\r\n"
+                },
+                {
+                    "date": 1634999595685,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -191,8 +191,9 @@\n \r\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n+            $buyingprice = DB::select(\"\");\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n"
+                },
+                {
+                    "date": 1634999602047,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -191,9 +191,9 @@\n \r\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n-            $buyingprice = DB::select(\"\");\r\n+            $buyingprice = DB::select(\"select * from product\");\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n"
+                },
+                {
+                    "date": 1634999666539,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -191,9 +191,9 @@\n \r\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n-            $buyingprice = DB::select(\"select * from product\");\r\n+            $buyingprice = DB::select(\"SELECT avg(price) FROM `supplier_product` where idproduct = '1'\");\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n"
+                },
+                {
+                    "date": 1634999677356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -191,9 +191,9 @@\n \r\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n-            $buyingprice = DB::select(\"SELECT avg(price) FROM `supplier_product` where idproduct = '1'\");\r\n+            $buyingprice = DB::select(\"SELECT avg(price) FROM `supplier_product` where idproduct = '\"..\"'\");\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n"
+                },
+                {
+                    "date": 1634999688036,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -191,9 +191,9 @@\n \r\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n-            $buyingprice = DB::select(\"SELECT avg(price) FROM `supplier_product` where idproduct = '\"..\"'\");\r\n+            $buyingprice = DB::select(\"SELECT avg(price) FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n"
+                },
+                {
+                    "date": 1634999721860,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -191,9 +191,10 @@\n \r\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n-            $buyingprice = DB::select(\"SELECT avg(price) FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n+            $buyingprice = DB::select(\"SELECT avg(price) as rata FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n+            \r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n"
+                },
+                {
+                    "date": 1634999739811,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -192,9 +192,9 @@\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n             $buyingprice = DB::select(\"SELECT avg(price) as rata FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n-            \r\n+            $buyingpricefix = \"\";\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n"
+                },
+                {
+                    "date": 1634999752032,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -192,9 +192,9 @@\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n             $buyingprice = DB::select(\"SELECT avg(price) as rata FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n-            $buyingpricefix = \"\";\r\n+            $buyingpricefix = $buyingprice[0]->;\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n"
+                },
+                {
+                    "date": 1634999775227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -192,9 +192,9 @@\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n             $buyingprice = DB::select(\"SELECT avg(price) as rata FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n-            $buyingpricefix = $buyingprice[0]->;\r\n+            $buyingpricefix = $buyingprice[0]->rata;\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n"
+                },
+                {
+                    "date": 1634999789581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -199,8 +199,9 @@\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n             $invoice_detail->selling_price = $mycart[$i]['selling_price'];\r\n             $invoice_detail->subtotal = $mycart[$i]['subtotal'];\r\n+            $invoice_detail->buyingprice\r\n             $invoice_detail->save();\r\n         }\r\n         Cart::truncate();\r\n        \r\n"
+                },
+                {
+                    "date": 1634999819021,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -199,9 +199,9 @@\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n             $invoice_detail->selling_price = $mycart[$i]['selling_price'];\r\n             $invoice_detail->subtotal = $mycart[$i]['subtotal'];\r\n-            $invoice_detail->buyingprice\r\n+            $invoice_detail->buyingprice = $buyingpricefix;\r\n             $invoice_detail->save();\r\n         }\r\n         Cart::truncate();\r\n        \r\n"
+                },
+                {
+                    "date": 1634999972553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -199,9 +199,9 @@\n             $invoice_detail->idtransaction = $myinvoiceid;\r\n             $invoice_detail->qty = $mycart[$i]['qty'];\r\n             $invoice_detail->selling_price = $mycart[$i]['selling_price'];\r\n             $invoice_detail->subtotal = $mycart[$i]['subtotal'];\r\n-            $invoice_detail->buyingprice = $buyingpricefix;\r\n+            $invoice_detail->buyingprice = $buyingpricefix * $mycart[$i]['qty'];\r\n             $invoice_detail->save();\r\n         }\r\n         Cart::truncate();\r\n        \r\n"
+                },
+                {
+                    "date": 1635004516312,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = Product::where('stok', '>','0')->get();\r\n+        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')where('stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004524978,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')where('stok', '>','0')->get();\r\n+        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('prodcut.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004541825,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('prodcut.stok', '>','0')->get();\r\n+        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004559262,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n+        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->select(\"supplier_product.*\")->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004637763,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->select(\"supplier_product.*\")->get();\r\n+        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004667077,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,10 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n+        $mycart = ;\r\n+        Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004673350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = ;\r\n+        $mycart = DB::select)_;\r\n         Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n"
+                },
+                {
+                    "date": 1635004701608,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = DB::select)_;\r\n+        $mycart = DB::select(\"select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0\");\r\n         Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n"
+                },
+                {
+                    "date": 1635004714315,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = DB::select(\"select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0\");\r\n+        $mycart = DB::select(\"select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0 group by product.id\");\r\n         Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n"
+                },
+                {
+                    "date": 1635004762426,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,10 +89,10 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = DB::select(\"select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0 group by product.id\");\r\n-        Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n+        $mycart = DB::select(\"select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0  group by product.id\");\r\n+        // Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004950780,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = DB::select(\"select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0  group by product.id\");\r\n+        $mycart = DB::select(\"select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0 and product.status = 'Active' group by product.id\");\r\n         // Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n"
                 }
             ],
             "date": 1630203664033,

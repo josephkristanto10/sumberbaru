@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 16,
+            "activePatchIndex": 76,
             "patches": [
                 {
                     "date": 1630204235417,
@@ -72,6 +72,246 @@
                 {
                     "date": 1634181451739,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,9 +59,9 @@\n         $mystring = \"\";\r\n         $mycountnumber = count($getdatadetail);\r\n         $mydate = $getdatadetail[0]['tanggaldibuat'];\r\n         $mydateconvert = date_create($mydate);\r\n-        $mydateconvertfix = date_format($mydateconvert, 'jS F Y -  H:i');\r\n+        $mydateconvertfix = date_format($mydateconvert, 'j F Y -  H:i');\r\n         $total = $getdatadetail[0]['total'];\r\n         $deliverycost = $getdatadetail[0]['delivery_cost'];\r\n         $customer = $getdatadetail[0]['transaction_customer'];\r\n         $note = $getdatadetail[0]['transaction_note'];\r\n"
+                },
+                {
+                    "date": 1635001971204,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,8 +80,11 @@\n             'mytable' => $mystring\r\n           ]);\r\n       \r\n     }\r\n+    public function getdateinvoice(){\r\n+        \r\n+    }\r\n \r\n     /**\r\n      * Show the form for creating a new resource.\r\n      *\r\n"
+                },
+                {
+                    "date": 1635001983622,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,10 +80,10 @@\n             'mytable' => $mystring\r\n           ]);\r\n       \r\n     }\r\n-    public function getdateinvoice(){\r\n-        \r\n+    public function getdateinvoice(Request $request){\r\n+        $mydate = \r\n     }\r\n \r\n     /**\r\n      * Show the form for creating a new resource.\r\n"
+                },
+                {
+                    "date": 1635001994057,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,9 @@\n           ]);\r\n       \r\n     }\r\n     public function getdateinvoice(Request $request){\r\n-        $mydate = \r\n+        $mydate = $request->datevalue;\r\n     }\r\n \r\n     /**\r\n      * Show the form for creating a new resource.\r\n"
+                },
+                {
+                    "date": 1635002001183,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,8 +82,9 @@\n       \r\n     }\r\n     public function getdateinvoice(Request $request){\r\n         $mydate = $request->datevalue;\r\n+        return $mydate;\r\n     }\r\n \r\n     /**\r\n      * Show the form for creating a new resource.\r\n"
+                },
+                {
+                    "date": 1635002250402,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,8 +82,9 @@\n       \r\n     }\r\n     public function getdateinvoice(Request $request){\r\n         $mydate = $request->datevalue;\r\n+        $spliiter = explode(\" - \")\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002265477,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,9 +82,10 @@\n       \r\n     }\r\n     public function getdateinvoice(Request $request){\r\n         $mydate = $request->datevalue;\r\n-        $spliiter = explode(\" - \")\r\n+        $spliiter = explode(\" - \", $mydate);\r\n+        $startdate = $spliiter\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002278024,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,9 +83,10 @@\n     }\r\n     public function getdateinvoice(Request $request){\r\n         $mydate = $request->datevalue;\r\n         $spliiter = explode(\" - \", $mydate);\r\n-        $startdate = $spliiter\r\n+        $startdate = $spliiter[0];\r\n+        $enddate = $spliiter[1];\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002307303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -85,8 +85,9 @@\n         $mydate = $request->datevalue;\r\n         $spliiter = explode(\" - \", $mydate);\r\n         $startdate = $spliiter[0];\r\n         $enddate = $spliiter[1];\r\n+        $date=date_create(\"2013-03-15\");\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002313694,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -85,9 +85,9 @@\n         $mydate = $request->datevalue;\r\n         $spliiter = explode(\" - \", $mydate);\r\n         $startdate = $spliiter[0];\r\n         $enddate = $spliiter[1];\r\n-        $date=date_create(\"2013-03-15\");\r\n+        $date=date_create(startdate);\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002335455,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -83,11 +83,12 @@\n     }\r\n     public function getdateinvoice(Request $request){\r\n         $mydate = $request->datevalue;\r\n         $spliiter = explode(\" - \", $mydate);\r\n-        $startdate = $spliiter[0];\r\n-        $enddate = $spliiter[1];\r\n-        $date=date_create(startdate);\r\n+        $startdate = date_create($spliiter[0]);\r\n+        $enddate = date_create($spliiter[0]);\r\n+        $mystartdate=date_create($startdate);\r\n+        \r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002341120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,11 +84,9 @@\n     public function getdateinvoice(Request $request){\r\n         $mydate = $request->datevalue;\r\n         $spliiter = explode(\" - \", $mydate);\r\n         $startdate = date_create($spliiter[0]);\r\n-        $enddate = date_create($spliiter[0]);\r\n-        $mystartdate=date_create($startdate);\r\n-        \r\n+        $enddate = date_create($spliiter[1]);\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002352391,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -85,8 +85,9 @@\n         $mydate = $request->datevalue;\r\n         $spliiter = explode(\" - \", $mydate);\r\n         $startdate = date_create($spliiter[0]);\r\n         $enddate = date_create($spliiter[1]);\r\n+        $formatstart = date_format($date,\"Y/m/d H:i:s\");\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002363547,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -85,9 +85,9 @@\n         $mydate = $request->datevalue;\r\n         $spliiter = explode(\" - \", $mydate);\r\n         $startdate = date_create($spliiter[0]);\r\n         $enddate = date_create($spliiter[1]);\r\n-        $formatstart = date_format($date,\"Y/m/d H:i:s\");\r\n+        $formatstart = date_format($date,\"Y-m-d\");\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002371536,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -86,8 +86,9 @@\n         $spliiter = explode(\" - \", $mydate);\r\n         $startdate = date_create($spliiter[0]);\r\n         $enddate = date_create($spliiter[1]);\r\n         $formatstart = date_format($date,\"Y-m-d\");\r\n+        $formatstart = date_format($date,\"Y-m-d\");\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002378372,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -85,10 +85,10 @@\n         $mydate = $request->datevalue;\r\n         $spliiter = explode(\" - \", $mydate);\r\n         $startdate = date_create($spliiter[0]);\r\n         $enddate = date_create($spliiter[1]);\r\n-        $formatstart = date_format($date,\"Y-m-d\");\r\n-        $formatstart = date_format($date,\"Y-m-d\");\r\n+        $formatstart = date_format($startdate,\"Y-m-d\");\r\n+        $formatend = date_format($date,\"Y-m-d\");\r\n         return $mydate;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002386021,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -86,10 +86,10 @@\n         $spliiter = explode(\" - \", $mydate);\r\n         $startdate = date_create($spliiter[0]);\r\n         $enddate = date_create($spliiter[1]);\r\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n-        $formatend = date_format($date,\"Y-m-d\");\r\n-        return $mydate;\r\n+        $formatend = date_format($enddate,\"Y-m-d\");\r\n+        return $formatstart;\r\n     }\r\n \r\n     /**\r\n      * Show the form for creating a new resource.\r\n"
+                },
+                {
+                    "date": 1635002394572,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -87,9 +87,9 @@\n         $startdate = date_create($spliiter[0]);\r\n         $enddate = date_create($spliiter[1]);\r\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n-        return $formatstart;\r\n+        return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n \r\n     /**\r\n      * Show the form for creating a new resource.\r\n"
+                },
+                {
+                    "date": 1635002452523,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -87,8 +87,27 @@\n         $startdate = date_create($spliiter[0]);\r\n         $enddate = date_create($spliiter[1]);\r\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n+\r\n+\r\n+        $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n+        $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\r\n+        $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n+        $tanggal = date('Y-m-d');\r\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\r\n+        $mytotal = 0;\r\n+        for($i = 0 ; $i< count($total);$i++){\r\n+            $subtotal = $total[$i]['total'];\r\n+            if($total[$i]['transaction_shipment_delivery'] == \"true\")\r\n+            {\r\n+                $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\r\n+            }\r\n+            $mytotal += $subtotal;\r\n+        }\r\n+        return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\r\n+\r\n+\r\n         return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002467000,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,9 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\r\n             }\r\n             $mytotal += $subtotal;\r\n         }\r\n-        return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\r\n+      \r\n \r\n \r\n         return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n"
+                },
+                {
+                    "date": 1635002490072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,10 +104,14 @@\n             }\r\n             $mytotal += $subtotal;\r\n         }\r\n       \r\n+        return response()->json([\r\n+            'myproducttype' => $mydata[0]->producttype,\r\n+            'myproductqty' => $mydata[0]->productqty,\r\n+            'myproductgrantotal' => $mydata[0]->grandtotal\r\n+                 ]);\r\n \r\n-\r\n         return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n \r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002501937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,14 +105,14 @@\n             $mytotal += $subtotal;\r\n         }\r\n       \r\n         return response()->json([\r\n-            'myproducttype' => $mydata[0]->producttype,\r\n+            'invoice' => $mydata[0]->producttype,\r\n             'myproductqty' => $mydata[0]->productqty,\r\n             'myproductgrantotal' => $mydata[0]->grandtotal\r\n                  ]);\r\n \r\n-        return $formatstart. \"  ==  \".$formatend;\r\n+        // return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n \r\n     /**\r\n      * Show the form for creating a new resource.\r\n"
+                },
+                {
+                    "date": 1635002516079,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,10 +106,11 @@\n         }\r\n       \r\n         return response()->json([\r\n             'invoice' => $mydata[0]->producttype,\r\n-            'myproductqty' => $mydata[0]->productqty,\r\n-            'myproductgrantotal' => $mydata[0]->grandtotal\r\n+            'qty' => $mydata[0]->productqty,\r\n+            'pendapatan' => $mydata[0]->grandtotal,\r\n+            'pendapatan' => $mydata[0]->grandtotal\r\n                  ]);\r\n \r\n         // return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n"
+                },
+                {
+                    "date": 1635002521649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,9 @@\n         return response()->json([\r\n             'invoice' => $mydata[0]->producttype,\r\n             'qty' => $mydata[0]->productqty,\r\n             'pendapatan' => $mydata[0]->grandtotal,\r\n-            'pendapatan' => $mydata[0]->grandtotal\r\n+            'keuntungan' => $mydata[0]->grandtotal\r\n                  ]);\r\n \r\n         // return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n"
+                },
+                {
+                    "date": 1635002561010,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,9 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\r\n             }\r\n             $mytotal += $subtotal;\r\n         }\r\n-      \r\n+       $jumlahinvoice =  $invoice->count()\r\n         return response()->json([\r\n             'invoice' => $mydata[0]->producttype,\r\n             'qty' => $mydata[0]->productqty,\r\n             'pendapatan' => $mydata[0]->grandtotal,\r\n"
+                },
+                {
+                    "date": 1635002568541,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,11 +103,11 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\r\n             }\r\n             $mytotal += $subtotal;\r\n         }\r\n-       $jumlahinvoice =  $invoice->count()\r\n+       $jumlahinvoice =  $invoice->count();\r\n         return response()->json([\r\n-            'invoice' => $mydata[0]->producttype,\r\n+            'invoice' => $jumlahinvoice,\r\n             'qty' => $mydata[0]->productqty,\r\n             'pendapatan' => $mydata[0]->grandtotal,\r\n             'keuntungan' => $mydata[0]->grandtotal\r\n                  ]);\r\n"
+                },
+                {
+                    "date": 1635002577478,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,11 +104,12 @@\n             }\r\n             $mytotal += $subtotal;\r\n         }\r\n        $jumlahinvoice =  $invoice->count();\r\n+\r\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n-            'qty' => $mydata[0]->productqty,\r\n+            'qty' => $qty,\r\n             'pendapatan' => $mydata[0]->grandtotal,\r\n             'keuntungan' => $mydata[0]->grandtotal\r\n                  ]);\r\n \r\n"
+                },
+                {
+                    "date": 1635002584368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -107,9 +107,9 @@\n        $jumlahinvoice =  $invoice->count();\r\n \r\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n-            'qty' => $qty,\r\n+            'qty' => $qty[0]->q,\r\n             'pendapatan' => $mydata[0]->grandtotal,\r\n             'keuntungan' => $mydata[0]->grandtotal\r\n                  ]);\r\n \r\n"
+                },
+                {
+                    "date": 1635002596276,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -107,9 +107,9 @@\n        $jumlahinvoice =  $invoice->count();\r\n \r\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n-            'qty' => $qty[0]->q,\r\n+            'qty' => $qty,\r\n             'pendapatan' => $mydata[0]->grandtotal,\r\n             'keuntungan' => $mydata[0]->grandtotal\r\n                  ]);\r\n \r\n"
+                },
+                {
+                    "date": 1635002615862,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,9 @@\n \r\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n             'qty' => $qty,\r\n-            'pendapatan' => $mydata[0]->grandtotal,\r\n+            'pendapatan' => $mytotal,\r\n             'keuntungan' => $mydata[0]->grandtotal\r\n                  ]);\r\n \r\n         // return $formatstart. \"  ==  \".$formatend;\r\n"
+                },
+                {
+                    "date": 1635002624895,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n             'qty' => $qty,\r\n             'pendapatan' => $mytotal,\r\n-            'keuntungan' => $mydata[0]->grandtotal\r\n+            'keuntungan' => $bersih\r\n                  ]);\r\n \r\n         // return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n"
+                },
+                {
+                    "date": 1635002637506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n             'qty' => $qty,\r\n             'pendapatan' => $mytotal,\r\n-            'keuntungan' => $bersih\r\n+            'keuntungan' => $bersih[0]->keuntungan\r\n                  ]);\r\n \r\n         // return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n"
+                },
+                {
+                    "date": 1635002700053,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n use App\\Models\\Invoice;\r\n use App\\Models\\InvoiceDetail;\r\n use Illuminate\\Http\\Request;\r\n use DataTables;\r\n+use DB;\r\n \r\n class NotaController extends Controller\r\n {\r\n     /**\r\n"
+                },
+                {
+                    "date": 1635002777257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -90,9 +90,9 @@\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n-        $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n+        $invoice =  Invoice::whereBetween('created_at', '=', date('Y-m-d'))->get();\r\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\r\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\r\n"
+                },
+                {
+                    "date": 1635002788351,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -90,9 +90,9 @@\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n-        $invoice =  Invoice::whereBetween('created_at', '=', date('Y-m-d'))->get();\r\n+        $invoice =  Invoice::whereBetween('created_at', '=', [$from, $to])->get();\r\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\r\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\r\n"
+                },
+                {
+                    "date": 1635002798275,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -90,9 +90,9 @@\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n-        $invoice =  Invoice::whereBetween('created_at', '=', [$from, $to])->get();\r\n+        $invoice =  Invoice::whereBetween('created_at', '=', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\r\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\r\n"
+                },
+                {
+                    "date": 1635002858108,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -90,9 +90,9 @@\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n-        $invoice =  Invoice::whereBetween('created_at', '=', [$startdate, $enddate])->get();\r\n+        $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\r\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\r\n"
+                },
+                {
+                    "date": 1635002885421,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,9 +91,9 @@\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n         $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n-        $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\r\n+        $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\r\n         $mytotal = 0;\r\n"
+                },
+                {
+                    "date": 1635002890584,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -92,9 +92,9 @@\n \r\n \r\n         $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n-        $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n+        $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\r\n         $mytotal = 0;\r\n         for($i = 0 ; $i< count($total);$i++){\r\n"
+                },
+                {
+                    "date": 1635002896191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,9 @@\n         $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\r\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$tanggal'\");\r\n         $mytotal = 0;\r\n         for($i = 0 ; $i< count($total);$i++){\r\n             $subtotal = $total[$i]['total'];\r\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\r\n"
+                },
+                {
+                    "date": 1635002911265,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,9 @@\n         $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$tanggal'\");\r\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$tanggal' and date(created_at) <=  \");\r\n         $mytotal = 0;\r\n         for($i = 0 ; $i< count($total);$i++){\r\n             $subtotal = $total[$i]['total'];\r\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\r\n"
+                },
+                {
+                    "date": 1635002949075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,9 @@\n         $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$tanggal' and date(created_at) <=  \");\r\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' \");\r\n         $mytotal = 0;\r\n         for($i = 0 ; $i< count($total);$i++){\r\n             $subtotal = $total[$i]['total'];\r\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\r\n"
+                },
+                {
+                    "date": 1635003370460,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,8 +105,9 @@\n             }\r\n             $mytotal += $subtotal;\r\n         }\r\n        $jumlahinvoice =  $invoice->count();\r\n+    //    if($bersih[0]->keuntungan == \"\")\r\n \r\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n             'qty' => $qty,\r\n"
+                },
+                {
+                    "date": 1635003440857,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n             }\r\n             $mytotal += $subtotal;\r\n         }\r\n        $jumlahinvoice =  $invoice->count();\r\n-    //    if($bersih[0]->keuntungan == \"\")\r\n+       if($bersih[0]->keuntungan == \"null\")\r\n \r\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n             'qty' => $qty,\r\n"
+                },
+                {
+                    "date": 1635003454236,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,10 +105,14 @@\n             }\r\n             $mytotal += $subtotal;\r\n         }\r\n        $jumlahinvoice =  $invoice->count();\r\n+       $keuntungan = $bersih[0]->keuntungan;\r\n        if($bersih[0]->keuntungan == \"null\")\r\n+       {\r\n \r\n+       }\r\n+\r\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n             'qty' => $qty,\r\n             'pendapatan' => $mytotal,\r\n"
+                },
+                {
+                    "date": 1635003460841,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,9 @@\n        $jumlahinvoice =  $invoice->count();\r\n        $keuntungan = $bersih[0]->keuntungan;\r\n        if($bersih[0]->keuntungan == \"null\")\r\n        {\r\n-\r\n+            $keuntungan = 0;\r\n        }\r\n \r\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n"
+                },
+                {
+                    "date": 1635003468233,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -115,9 +115,9 @@\n         return response()->json([\r\n             'invoice' => $jumlahinvoice,\r\n             'qty' => $qty,\r\n             'pendapatan' => $mytotal,\r\n-            'keuntungan' => $bersih[0]->keuntungan\r\n+            'keuntungan' => $keuntungan\r\n                  ]);\r\n \r\n         // return $formatstart. \"  ==  \".$formatend;\r\n     }\r\n"
+                },
+                {
+                    "date": 1635003483227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,9 +106,9 @@\n             $mytotal += $subtotal;\r\n         }\r\n        $jumlahinvoice =  $invoice->count();\r\n        $keuntungan = $bersih[0]->keuntungan;\r\n-       if($bersih[0]->keuntungan == \"null\")\r\n+       if($bersih[0]->keuntungan === \"null\")\r\n        {\r\n             $keuntungan = 0;\r\n        }\r\n \r\n"
+                },
+                {
+                    "date": 1635003504478,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -106,9 +106,9 @@\n             $mytotal += $subtotal;\r\n         }\r\n        $jumlahinvoice =  $invoice->count();\r\n        $keuntungan = $bersih[0]->keuntungan;\r\n-       if($bersih[0]->keuntungan === \"null\")\r\n+       if(is_null($bersih[0]->keuntungan))\r\n        {\r\n             $keuntungan = 0;\r\n        }\r\n \r\n"
+                },
+                {
+                    "date": 1635004048809,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     {\r\n         return view('nota');\r\n     }\r\n     public function getmydata(){\r\n-     \r\n+        tanggalku\r\n         return DataTables::of(Invoice::query())\r\n         ->editColumn('testdate', function($query) {\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004064780,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     public function index()\r\n     {\r\n         return view('nota');\r\n     }\r\n-    public function getmydata(){\r\n+    public function getmydata(Request $request){\r\n         tanggalku\r\n         return DataTables::of(Invoice::query())\r\n         ->editColumn('testdate', function($query) {\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n"
+                },
+                {
+                    "date": 1635004073277,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     {\r\n         return view('nota');\r\n     }\r\n     public function getmydata(Request $request){\r\n-        tanggalku\r\n+        $mytanggal = $request->tanggalku\r\n         return DataTables::of(Invoice::query())\r\n         ->editColumn('testdate', function($query) {\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004086950,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,10 @@\n     {\r\n         return view('nota');\r\n     }\r\n     public function getmydata(Request $request){\r\n-        $mytanggal = $request->tanggalku\r\n+        $mytanggal = $request->tanggalku;\r\n+        \r\n         return DataTables::of(Invoice::query())\r\n         ->editColumn('testdate', function($query) {\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004096403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n         return view('nota');\r\n     }\r\n     public function getmydata(Request $request){\r\n         $mytanggal = $request->tanggalku;\r\n-        \r\n+        Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         return DataTables::of(Invoice::query())\r\n         ->editColumn('testdate', function($query) {\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004106760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n         return view('nota');\r\n     }\r\n     public function getmydata(Request $request){\r\n         $mytanggal = $request->tanggalku;\r\n-        Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n+        $myinv = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         return DataTables::of(Invoice::query())\r\n         ->editColumn('testdate', function($query) {\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635004133064,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,10 +20,15 @@\n         return view('nota');\r\n     }\r\n     public function getmydata(Request $request){\r\n         $mytanggal = $request->tanggalku;\r\n+        $spliiter = explode(\" - \", $mydate);\r\n+        $startdate = date_create($spliiter[0]);\r\n+        $enddate = date_create($spliiter[1]);\r\n+        $formatstart = date_format($startdate,\"Y-m-d\");\r\n+        $formatend = date_format($enddate,\"Y-m-d\");\r\n         $myinv = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n-        return DataTables::of(Invoice::query())\r\n+        return DataTables::of($myinv)\r\n         ->editColumn('testdate', function($query) {\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n         ->editColumn('transactionno', function($query) {\r\n"
+                },
+                {
+                    "date": 1635045408540,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n         return view('nota');\r\n     }\r\n     public function getmydata(Request $request){\r\n         $mytanggal = $request->tanggalku;\r\n-        $spliiter = explode(\" - \", $mydate);\r\n+        $spliiter = explode(\" - \", $mytanggal);\r\n         $startdate = date_create($spliiter[0]);\r\n         $enddate = date_create($spliiter[1]);\r\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n@@ -40,9 +40,9 @@\n         ->editColumn('quantity', function($query) {\r\n             return '<label id = \"quantity_'.$query->id.'\"> '.$query->qty_item.'</label>';\r\n         })\r\n         ->editColumn('total', function($query) {\r\n-            return '<label id = \"total_'.$query->id.'\"> '.$query->total.'</label>';\r\n+            return '<label id = \"total_'.$query->id.'\"> '.number_format($$query->total).'</label>';\r\n         })\r\n         ->editColumn('method', function($query) {\r\n             return '<label id = \"method_'.$query->id.'\"> '.$query->transaction_method.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635045434112,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n         ->editColumn('quantity', function($query) {\r\n             return '<label id = \"quantity_'.$query->id.'\"> '.$query->qty_item.'</label>';\r\n         })\r\n         ->editColumn('total', function($query) {\r\n-            return '<label id = \"total_'.$query->id.'\"> '.number_format($$query->total).'</label>';\r\n+            return '<label id = \"total_'.$query->id.'\"> '.$query->total.'</label>';\r\n         })\r\n         ->editColumn('method', function($query) {\r\n             return '<label id = \"method_'.$query->id.'\"> '.$query->transaction_method.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635045486384,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -73,9 +73,9 @@\n         $customer = $getdatadetail[0]['transaction_customer'];\r\n         $note = $getdatadetail[0]['transaction_note'];\r\n         $transactionno = $getdatadetail[0]['transaction_no'];\r\n         for($i = 0 ; $i < count($getdatadetail); $i++){\r\n-            $mystring .= \"<tr><td>\".$getdatadetail[$i]['productcode'].\"</td><td>\".$getdatadetail[$i]['productname'].\"</td><td>\".$getdatadetail[$i]['qty'].\"</td><td>\".$getdatadetail[$i]['selling_price'].\"</td><td>\".$getdatadetail[$i]['subtotal'].\"</td></tr>\";\r\n+            $mystring .= \"<tr><td>\".$getdatadetail[$i]['productcode'].\"</td><td>\".$getdatadetail[$i]['productname'].\"</td><td>\".$getdatadetail[$i]['qty'].\"</td><td>\".$getdatadetail[$i]['selling_price'].\"</td><td>\".number_format($getdatadetail[$i]['subtotal']).\"</td></tr>\";\r\n         }\r\n         return response()->json([\r\n             'notransaction' => $transactionno,\r\n             'transactiondate' => $mydateconvertfix,\r\n"
+                },
+                {
+                    "date": 1635045514794,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -73,9 +73,9 @@\n         $customer = $getdatadetail[0]['transaction_customer'];\r\n         $note = $getdatadetail[0]['transaction_note'];\r\n         $transactionno = $getdatadetail[0]['transaction_no'];\r\n         for($i = 0 ; $i < count($getdatadetail); $i++){\r\n-            $mystring .= \"<tr><td>\".$getdatadetail[$i]['productcode'].\"</td><td>\".$getdatadetail[$i]['productname'].\"</td><td>\".$getdatadetail[$i]['qty'].\"</td><td>\".$getdatadetail[$i]['selling_price'].\"</td><td>\".number_format($getdatadetail[$i]['subtotal']).\"</td></tr>\";\r\n+            $mystring .= \"<tr><td>\".$getdatadetail[$i]['productcode'].\"</td><td>\".$getdatadetail[$i]['productname'].\"</td><td>\".$getdatadetail[$i]['qty'].\"</td><td>\".number_format($getdatadetail[$i]['selling_price']).\"</td><td>\".number_format($getdatadetail[$i]['subtotal']).\"</td></tr>\";\r\n         }\r\n         return response()->json([\r\n             'notransaction' => $transactionno,\r\n             'transactiondate' => $mydateconvertfix,\r\n"
+                },
+                {
+                    "date": 1635045576649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n         ->editColumn('quantity', function($query) {\r\n             return '<label id = \"quantity_'.$query->id.'\"> '.$query->qty_item.'</label>';\r\n         })\r\n         ->editColumn('total', function($query) {\r\n-            return '<label id = \"total_'.$query->id.'\"> '.$query->total.'</label>';\r\n+            return '<label id = \"total_'.$query->id.'\"> '.number_format($query->total).'</label>';\r\n         })\r\n         ->editColumn('method', function($query) {\r\n             return '<label id = \"method_'.$query->id.'\"> '.$query->transaction_method.'</label>';\r\n         })\r\n"
                 }
             ],
             "date": 1630204235417,

@@ -6,6 +6,7 @@ use App\Models\Invoice;
 use App\Models\InvoiceDetail;
 use Illuminate\Http\Request;
 use DataTables;
+use DB;
 
 class NotaController extends Controller
 {
@@ -18,9 +19,15 @@ class NotaController extends Controller
     {
         return view('nota');
     }
-    public function getmydata(){
-     
-        return DataTables::of(Invoice::query())
+    public function getmydata(Request $request){
+        $mytanggal = $request->tanggalku;
+        $spliiter = explode(" - ", $mytanggal);
+        $startdate = date_create($spliiter[0]);
+        $enddate = date_create($spliiter[1]);
+        $formatstart = date_format($startdate,"Y-m-d");
+        $formatend = date_format($enddate,"Y-m-d");
+        $myinv = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();
+        return DataTables::of($myinv)
         ->editColumn('testdate', function($query) {
             return '<label id = "createdat_'.$query->id.'"> '.$query->created_at.'</label>';
         })
@@ -34,7 +41,7 @@ class NotaController extends Controller
             return '<label id = "quantity_'.$query->id.'"> '.$query->qty_item.'</label>';
         })
         ->editColumn('total', function($query) {
-            return '<label id = "total_'.$query->id.'"> '.$query->total.'</label>';
+            return '<label id = "total_'.$query->id.'"> '.number_format($query->total).'</label>';
         })
         ->editColumn('method', function($query) {
             return '<label id = "method_'.$query->id.'"> '.$query->transaction_method.'</label>';
@@ -67,7 +74,7 @@ class NotaController extends Controller
         $note = $getdatadetail[0]['transaction_note'];
         $transactionno = $getdatadetail[0]['transaction_no'];
         for($i = 0 ; $i < count($getdatadetail); $i++){
-            $mystring .= "<tr><td>".$getdatadetail[$i]['productcode']."</td><td>".$getdatadetail[$i]['productname']."</td><td>".$getdatadetail[$i]['qty']."</td><td>".$getdatadetail[$i]['selling_price']."</td><td>".$getdatadetail[$i]['subtotal']."</td></tr>";
+            $mystring .= "<tr><td>".$getdatadetail[$i]['productcode']."</td><td>".$getdatadetail[$i]['productname']."</td><td>".$getdatadetail[$i]['qty']."</td><td>".number_format($getdatadetail[$i]['selling_price'])."</td><td>".number_format($getdatadetail[$i]['subtotal'])."</td></tr>";
         }
         return response()->json([
             'notransaction' => $transactionno,
@@ -80,6 +87,45 @@ class NotaController extends Controller
             'mytable' => $mystring
           ]);
       
+    }
+    public function getdateinvoice(Request $request){
+        $mydate = $request->datevalue;
+        $spliiter = explode(" - ", $mydate);
+        $startdate = date_create($spliiter[0]);
+        $enddate = date_create($spliiter[1]);
+        $formatstart = date_format($startdate,"Y-m-d");
+        $formatend = date_format($enddate,"Y-m-d");
+
+
+        $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();
+        $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');
+        $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();
+        $tanggal = date('Y-m-d');
+        $bersih = DB::select("SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' ");
+        $mytotal = 0;
+        for($i = 0 ; $i< count($total);$i++){
+            $subtotal = $total[$i]['total'];
+            if($total[$i]['transaction_shipment_delivery'] == "true")
+            {
+                $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];
+            }
+            $mytotal += $subtotal;
+        }
+       $jumlahinvoice =  $invoice->count();
+       $keuntungan = $bersih[0]->keuntungan;
+       if(is_null($bersih[0]->keuntungan))
+       {
+            $keuntungan = 0;
+       }
+
+        return response()->json([
+            'invoice' => $jumlahinvoice,
+            'qty' => $qty,
+            'pendapatan' => $mytotal,
+            'keuntungan' => $keuntungan
+                 ]);
+
+        // return $formatstart. "  ==  ".$formatend;
     }
 
     /**

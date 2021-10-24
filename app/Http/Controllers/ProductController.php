@@ -28,21 +28,40 @@ class ProductController extends Controller
             return '<label id = "name'.$query->id.'"> '.$query->name.'</label>';
         })
         ->editColumn('harga1', function($query) {
-            return '<label id = "hargapertama'.$query->id.'"> '.$query->harga1.'</label>';
+            return '<label id = "hargapertama'.$query->id.'"> '.number_format($query->harga1).'</label>';
         })
         ->editColumn('harga2', function($query) {
-            return '<label id = "hargakedua'.$query->id.'"> '.$query->harga2.'</label>';
+            return '<label id = "hargakedua'.$query->id.'"> '.number_format($query->harga2).'</label>';
         })
         ->editColumn('harga3', function($query) {
-            return '<label id = "hargaketiga'.$query->id.'"> '.$query->harga3.'</label>';
+            return '<label id = "hargaketiga'.$query->id.'"> '.number_format($query->harga3).'</label>';
+        })
+        ->editColumn('status', function($query) {
+            $mystatus = "";
+            if($query->status == "Active"){
+                $mtstatus = '<b><label id = "status'.$query->id.'" class = "text-success"> '.$query->status.'</label></b>';
+            }
+            else
+            {
+                $mtstatus = '<b><label id = "status'.$query->id.'" class = "text-danger"> '.$query->status.'</label></b';
+            }
+            return $mtstatus;
         })
                ->addColumn('intro', 
                function ($query) {
-                return '<button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#modaledit" id = "'.$query->id.'" onclick = "filldatachange(this)"><i class="fas fa-edit pr-2"></i>Ubah</button>
-                <button type="button" class="btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2" alt="alert" class="img-fluid model_img" id="sa-confirm"><i class="fas fa-trash"></i></button>
+                $mystatus = "";
+                if($query->status == "Active"){
+                    $mystring = "inActive";
+                    $mystatus = '<button type="button" style = "margin-top:10px;" style = "margin-top:10px;" onclick="setstatusproduct(\''.$mystring.'\',\''.$query->id.'\')" class="btn waves-effect waves-light btn-sm btn-danger pr-2"  id = "'.$query->id.'" ><i class="fas fa-edit pr-2"></i>Set Inactive</button>';
+                }
+                else{
+                    $mystring = "Active";
+                    $mystatus = '<button type="button" style = "margin-top:10px;" style = "margin-top:10px;" onclick="setstatusproduct(\''.$mystring.'\',\''.$query->id.'\')"  class="btn waves-effect waves-light btn-sm btn-success pr-2"  id = "'.$query->id.'" ><i class="fas fa-edit pr-2"></i>Set Active</button>';
+                }
+                return '<button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#modaledit" id = "'.$query->id.'" onclick = "filldatachange(this)"><i class="fas fa-edit pr-2"></i>Ubah</button> '.$mystatus.'
  ';})
               
-               ->rawColumns(['intro', 'kode', 'name', 'harga1', 'harga2', 'harga3'])
+               ->rawColumns(['intro', 'kode', 'status', 'name', 'harga1', 'harga2', 'harga3'])
                ->make(true);
     }
     /**
@@ -50,6 +69,21 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function setstatusproduct(Request $request){
+      
+            $stats = $request->stats;
+            $ids = $request->ids;
+           
+            $findproduct = Product::find($ids);
+            $findproduct->status = $stats;
+            $findproduct->save();
+            
+            return $findproduct;
+        
+    
+
+
+    }
     public function create()
     {
      

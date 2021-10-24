@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use DB;
 
 class IndexController extends Controller
 {
@@ -14,9 +15,11 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $invoice =  Invoice::all();
-        $qty = Invoice::sum('qty_item');
-        $total = Invoice::all();
+        $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();
+        $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');
+        $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();
+        $tanggal = date('Y-m-d');
+        $bersih = DB::select("SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'");
         $mytotal = 0;
         for($i = 0 ; $i< count($total);$i++){
             $subtotal = $total[$i]['total'];
@@ -26,9 +29,9 @@ class IndexController extends Controller
             }
             $mytotal += $subtotal;
         }
-
-        // dd($invoice);
-        return view('index', compact('invoice', 'qty', 'mytotal'));
+        $bersih[0]->keuntungan = number_format($bersih[0]->keuntungan);
+        $mytotal = number_format($mytotal);
+        return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));
     }
 
     /**

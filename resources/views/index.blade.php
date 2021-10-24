@@ -112,7 +112,7 @@
                                     <p class="text-muted">KEUNTUNGAN</p>
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="counter text-info">IDR 500.000</h2>
+                                    <h2 class="counter text-info">IDR {{$bersih[0]->keuntungan}}</h2>
                                 </div>
                             </div>
                         </div>

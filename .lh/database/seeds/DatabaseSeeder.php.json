@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1630205948428,
@@ -40,6 +40,18 @@
                 {
                     "date": 1634183146496,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n      * @return void\r\n      */\r\n     public function run()\r\n     {\r\n-        $this->call(UserSeeder::class);\r\n+        // $this->call(UserSeeder::class);\r\n         $this->call(productseeder::class);\r\n         $this->call(supplierseeder::class);\r\n         $this->call(supplierproductseeder::class);\r\n         $this->call(InvoiceSeeder::class);\r\n"
+                },
+                {
+                    "date": 1635046209658,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n         // $this->call(UserSeeder::class);\r\n         $this->call(productseeder::class);\r\n         $this->call(supplierseeder::class);\r\n         $this->call(supplierproductseeder::class);\r\n+        $this->call(supplierproductseeder::class);\r\n         $this->call(InvoiceSeeder::class);\r\n         $this->call(InvoiceDetailSeeder::class);\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1635046316634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,11 @@\n         // $this->call(UserSeeder::class);\r\n         $this->call(productseeder::class);\r\n         $this->call(supplierseeder::class);\r\n         $this->call(supplierproductseeder::class);\r\n-        $this->call(supplierproductseeder::class);\r\n+        $this->call(supplierproductlogseeder::class);\r\n         $this->call(InvoiceSeeder::class);\r\n         $this->call(InvoiceDetailSeeder::class);\r\n+        $this->call(supplierproductlogseeder::class);\r\n+        transactionreturnseed\r\n     }\r\n }\r\n"
+                },
+                {
+                    "date": 1635046422430,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,8 @@\n         $this->call(supplierproductseeder::class);\r\n         $this->call(supplierproductlogseeder::class);\r\n         $this->call(InvoiceSeeder::class);\r\n         $this->call(InvoiceDetailSeeder::class);\r\n-        $this->call(supplierproductlogseeder::class);\r\n-        transactionreturnseed\r\n+        $this->call(transactionreturnseed::class);\r\n+        $this->call(transactionreturnseed::class);\r\n     }\r\n }\r\n"
                 }
             ],
             "date": 1630205948428,

@@ -24,6 +24,7 @@ class InvoiceDetailMigration extends Migration
             $table->integer('qty');
             $table->integer('selling_price');
             $table->integer('subtotal');
+            $table->integer('buyingprice');
             $table->timestamps();
         });
     }

@@ -21,6 +21,7 @@ class ProductMigration extends Migration
             $table->Integer('harga1')->nullable();
             $table->Integer('harga2')->nullable();
             $table->Integer('harga3')->nullable();
+            $table->String('status')->nullable();
             $table->timestamps();
         });
     }

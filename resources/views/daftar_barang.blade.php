@@ -46,9 +46,10 @@
                                     <th width="2%">Kode</th>
                                     <th width="30%">Nama Barang</th>
                                     <th width="13%">Harga 1</th>
-                                    <th width="13%">Harga 2</th>
-                                    <th width="13%">Harga 3</th>
-                                    <th width="11%">Aksi</th>
+                                    <th width="10%">Harga 2</th>
+                                    <th width="10%">Harga 3</th>
+                                    <th width="10%">Status</th>
+                                    <th width="15%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -226,6 +227,7 @@
             { data: 'harga1', name: 'harga1' },
             { data: 'harga2', name: 'harga2' },
             { data: 'harga3', name: 'harga3' },
+            { data: 'status', name: 'status' },
             { data: 'intro', name: 'harga3' }
         ]
     });
@@ -379,5 +381,38 @@
             });
             }
           
+        };
+
+        function setstatusproduct(mystat, id){
+         
+            // alert(id);
+                    $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    }
+                    });
+                    $.ajax({
+                        url: "{{route('setstatusproduct')}}",
+                        method: 'post',
+                        data: {
+                            stats : mystat,
+                            ids : id
+                            
+                        },
+                        success: function (result) {
+                         
+                            Swal.fire({
+                                title: 'Status Changed',
+                                text: 'Status Changed Successfully',
+                                type: 'success',
+                                confirmButtonColor: '#53d408',
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                                success();
+                            });
+                           
+                         }
+
+                     });
         };
 </script>

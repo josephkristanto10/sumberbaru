@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="input-group col-12 float-right">
-                            <input type="text" class="form-control shawCalRanges" />
+                            <input type="text" id = "changedatedata" onchange="changedate(this)" class="form-control shawCalRanges" />
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <span class="ti-calendar"></span>
@@ -58,7 +58,7 @@
                                     <p class="text-muted">NOTA TRANSAKSI</p>
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="counter text-primary">23</h2>
+                                    <h2 class="counter text-primary"><span id = "jumlahspan">-</span></h2>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                     <p class="text-muted">BARANG TERJUAL</p>
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="counter text-cyan">169</h2>
+                                    <h2 class="counter text-cyan"><span id = "qtyspan">-</span></h2>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                     <p class="text-muted">PENDAPATAN</p>
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="counter text-purple">IDR 1.587.000</h2>
+                                    <h2 class="counter text-purple">IDR <span id = "pendapatanspan">-</span></h2>
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                                     <p class="text-muted">KEUNTUNGAN</p>
                                 </div>
                                 <div class="ml-auto">
-                                    <h2 class="counter text-info">IDR 500.000</h2>
+                                    <h2 class="counter text-info">IDR <span id = "keuntunganspan">-</span></h2>
                                 </div>
                             </div>
                         </div>
@@ -225,8 +225,14 @@
                                 <input type="text" class="form-control" id = "transaction_note"  placeholder="Isi Note" disabled>
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                           
+
+                    <div class="col-lg-3">
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    <label class="form-check-label" for="checkbox00">Ongkir</label>
+                                </div>
+                                <input type="text" id = "ongkir" class="form-control" aria-label="Text input with checkbox" placeholder="Rp. -" disabled>
+                            </div>
                         </div>
                         <button type="button" class="btn btn-info waves-effect col-3" data-dismiss="modal">Tutup</button>
                     </div>
@@ -287,7 +293,7 @@
                                 <div class="input-group-text">
                                     <label class="form-check-label" for="checkbox00">Ongkir</label>
                                 </div>
-                                <input type="number" class="form-control" aria-label="Text input with checkbox" placeholder="Rp. 10.000" disabled>
+                                <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Rp. 10.000" disabled>
                             </div>
                         </div>
                         <button type="button" class="btn btn-info waves-effect col-3" data-dismiss="modal">Tutup</button>
@@ -304,24 +310,7 @@
 <!-- ============================================================== -->
 @include("layout.footer")
 <script>
-    loadInvoice();
-    function loadInvoice(){
-        
-        $('#mydatatable').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{route('gettableinvoice')}}",
-        columns: [
-            { data: 'testdate', name: 'created_at' },
-            { data: 'transaction_no', name: 'transaction_no' },
-            { data: 'customer', name: 'transaction_customer' },
-            { data: 'quantity', name: 'qty_item'},
-            { data: 'total', name: 'total' },
-            { data: 'method', name: 'transaction_method' },
-            { data: 'action', name: 'action' }
-        ]
-    });
-    };
+
     function success() {
       $('#mydatatable').DataTable().ajax.reload(null, false);
    };
@@ -346,13 +335,78 @@
                 $("#nomortransaksi").text(result['notransaction'])
                 $("#transaction_date").text(result['transactiondate']);
                  $("#qty_barang_detail").text(result['counts']);
-                 $("#totalall").text(result['total']);
+                 $("#totalall").text(numberWithCommas(result['total']));
                  $("#transaction_customer").val(result['customer']);
+                 $("#ongkir").val(numberWithCommas(result['delivery_cost']));
                  $("#transaction_note").val(result['note']);
                     $('#detailtable').html("");
                     $('#detailtable').html(result['mytable']);
                 }
             });
+   }
+   function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+   var mytanggal = "";
+   $(document).ready(function() {
+    $("#changedatedata").trigger("change");
+    mytanggal = $("#changedatedata").val();
+    loadInvoice($("#changedatedata").val());
+        });
+
+      
+    function loadInvoice(mydates){
+        
+        $('#mydatatable').DataTable({
+        processing: true,
+        serverSide: true,
+        destroy:true,
+        ajax: {
+            url:"{{route('gettableinvoice')}}",
+            data:{
+                    tanggalku : mydates
+            }
+        },
+        columns: [
+            { data: 'testdate', name: 'created_at' },
+            { data: 'transaction_no', name: 'transaction_no' },
+            { data: 'customer', name: 'transaction_customer' },
+            { data: 'quantity', name: 'qty_item'},
+            { data: 'total', name: 'total' },
+            { data: 'method', name: 'transaction_method' },
+            { data: 'action', name: 'action' }
+        ]
+    });
+    };
+
+   function changedate(element){
+       var myvalue = element.value;
+            $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+             });
+                    $.ajax({
+                        url: "{{route('getdateinvoice')}}",
+                        method: 'get',
+                        data: {
+                            datevalue : myvalue
+                            
+                        },
+                        success: function (result) {
+                        
+                            $("#jumlahspan").text(result.invoice);
+                            $("#qtyspan").text(result.qty);
+                            $("#pendapatanspan").text(numberWithCommas(result.pendapatan));
+                            $("#keuntunganspan").text(numberWithCommas(result.keuntungan));
+                            if(mytanggal != $("#changedatedata").val()){
+                                loadInvoice($("#changedatedata").val());
+                            }
+                           
+                         }
+
+                     });
+         
    }
 </script>
 

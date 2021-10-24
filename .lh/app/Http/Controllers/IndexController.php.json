@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 40,
+            "activePatchIndex": 96,
             "patches": [
                 {
                     "date": 1634477141974,
@@ -168,6 +168,230 @@
                 {
                     "date": 1634482420159,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n             $mytotal += $subtotal;\n         }\n \n         // dd($invoice);\n-        return view('index', compact('invoice', 'qty', 'subtotal'));\n+        return view('index', compact('invoice', 'qty', 'mytotal'));\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1635000271490,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) FROM `invoice_detail`\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635000331487,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) FROM `invoice_detail`\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) FROM `invoice_detail` where date(created_at) = date(now())\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635000339992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) FROM `invoice_detail` where date(created_at) = date(now())\");\n+        \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635000348033,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,9 @@\n             $mytotal += $subtotal;\n         }\n \n         // dd($invoice);\n-        return view('index', compact('invoice', 'qty', 'mytotal'));\n+        return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\n     }\n \n     /**\n      * Show the form for creating a new resource.\n"
+                },
+                {
+                    "date": 1635000382969,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::all();\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) FROM `invoice_detail` where date(created_at) = date(now())\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635000392478,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n namespace App\\Http\\Controllers;\n \n use App\\Models\\Invoice;\n use Illuminate\\Http\\Request;\n+use DB;\n \n class IndexController extends Controller\n {\n     /**\n"
+                },
+                {
+                    "date": 1635000482593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::all();\n+        $total = Invoice::where('date(created_at)','=','date(now())');\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635000489688,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::where('date(created_at)','=','date(now())');\n+        $total = Invoice::where('date(created_at)','=','date(now())')->get();\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635000643472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::where('date(created_at)','=','date(now())')->get();\n+        $total = Invoice::whereDate('created_at','=','date(now())')->get();\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635000670795,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::whereDate('created_at','=','date(now())')->get();\n+        $total = Invoice::where(DB::raw(\"DATE(created_at) = '\".date('Y-m-d').\"'\"));;\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635000684771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::where(DB::raw(\"DATE(created_at) = '\".date('Y-m-d').\"'\"));;\n+        $total = Invoice::where(DB::raw(\"DATE(created_at) = date(now())\"));;\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635000692480,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::where(DB::raw(\"DATE(created_at) = date(now())\"));;\n+        $total = Invoice::where(DB::raw(\"DATE(created_at) = date(now())\"))->get(0);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635000763767,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,10 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::where(DB::raw(\"DATE(created_at) = date(now())\"))->get(0);\n+        $total = Invoice::where(DB::raw(\"DATE(created_at) = date(now())\"))->get();\n+        dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635000783556,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::where(DB::raw(\"DATE(created_at) = date(now())\"))->get();\n+        $total = Invoice::where(DB::raw(\"DATE(created_at) = 'date(now())'\"))->get();\n         dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n"
+                },
+                {
+                    "date": 1635000794771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::where(DB::raw(\"DATE(created_at) = 'date(now())'\"))->get();\n+        $total = Invoice::where(DB::raw(\"DATE(created_at) = 2021-10-23\"))->get();\n         dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n"
+                },
+                {
+                    "date": 1635000801333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::where(DB::raw(\"DATE(created_at) = 2021-10-23\"))->get();\n+        $total = Invoice::where(DB::raw(\"DATE(created_at) = '2021-10-23'\"))->get();\n         dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n"
+                },
+                {
+                    "date": 1635000833375,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::where(DB::raw(\"DATE(created_at) = '2021-10-23'\"))->get();\n+        $total = Invoice::whereDate('created_at', '=', date('Y-m-d'));\n         dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n"
+                },
+                {
+                    "date": 1635000840603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n-        $total = Invoice::whereDate('created_at', '=', date('Y-m-d'));\n+        $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n"
+                },
+                {
+                    "date": 1635000856579,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     {\n         $invoice =  Invoice::all();\n         $qty = Invoice::sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n-        dd($total);\n+        // dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635000906755,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::sum('qty_item');\n+        $qty = Invoice::sum('qty_item')->where();\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n"
+                },
+                {
+                    "date": 1635000916604,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::sum('qty_item')->where();\n+        $qty = Invoice::sum('qty_item')whereDate('created_at', '=', date('Y-m-d'))->get();\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n"
+                },
+                {
+                    "date": 1635000923333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::sum('qty_item')whereDate('created_at', '=', date('Y-m-d'))->get();\n+        $qty = Invoice::sum('qty_item')->whereDate('created_at', '=', date('Y-m-d'));\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n"
+                },
+                {
+                    "date": 1635000963918,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n      */\n     public function index()\n     {\n         $invoice =  Invoice::all();\n-        $qty = Invoice::sum('qty_item')->whereDate('created_at', '=', date('Y-m-d'));\n+        $qty = Invoice::->whereDate('created_at', '=', date('Y-m-d'))sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n"
+                },
+                {
+                    "date": 1635001006295,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,10 @@\n      * @return \\Illuminate\\Http\\Response\n      */\n     public function index()\n     {\n-        $invoice =  Invoice::all();\n-        $qty = Invoice::->whereDate('created_at', '=', date('Y-m-d'))sum('qty_item');\n+        $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n+        $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n         \n"
+                },
+                {
+                    "date": 1635001044002,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date(now())\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date('Y-m-d')\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001054621,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,8 +18,9 @@\n         $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n+        $tanggal = date('Y-m-d');\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date('Y-m-d')\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635001060688,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date('Y-m-d')\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001075610,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '2021-02-02'\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001083675,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '2021-02-02'\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '2021-10-23'\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001095232,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '2021-10-23'\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = 'date(now())'\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001121752,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = 'date(now())'\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001221961,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date('$tanggal')\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001245520,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date('$tanggal')\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date($tanggal)\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001285088,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = date($tanggal)\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = $tanggal\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001292964,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = $tanggal\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         \n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001338822,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n-        \n+        dd($bersih);\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635001351065,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,8 +19,9 @@\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         // dd($total);\n         $tanggal = date('Y-m-d');\n+        \n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         dd($bersih);\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635001357719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,9 @@\n         // dd($total);\n         $tanggal = date('Y-m-d');\n         \n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n+        $keuntungan = $bersih[0]->\n         dd($bersih);\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635001365187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,10 +21,10 @@\n         // dd($total);\n         $tanggal = date('Y-m-d');\n         \n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n-        $keuntungan = $bersih[0]->\n-        dd($bersih);\n+        $keuntungan = $bersih[0]->keuntungan;\n+        dd($keuntungan);\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635001415872,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n         $tanggal = date('Y-m-d');\n         \n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $keuntungan = $bersih[0]->keuntungan;\n-        dd($keuntungan);\n+        dd($\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635001422728,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n         $tanggal = date('Y-m-d');\n         \n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $keuntungan = $bersih[0]->keuntungan;\n-        dd($\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n+        dd('SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'');\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635001427843,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n         $tanggal = date('Y-m-d');\n         \n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $keuntungan = $bersih[0]->keuntungan;\n-        dd('SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'');\n+        dd(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635001486280,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n         $tanggal = date('Y-m-d');\n         \n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $keuntungan = $bersih[0]->keuntungan;\n-        dd(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n+        // dd(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635001524786,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,10 @@\n         // dd($total);\n         $tanggal = date('Y-m-d');\n         \n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n-        $keuntungan = $bersih[0]->keuntungan;\n+        // $keuntungan = $bersih[0]->keuntungan;\n+        // if($keuntungan == \"\")\n         // dd(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n"
+                },
+                {
+                    "date": 1635002443805,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,15 +17,10 @@\n     {\n         $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n-        // dd($total);\n         $tanggal = date('Y-m-d');\n-        \n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n-        // $keuntungan = $bersih[0]->keuntungan;\n-        // if($keuntungan == \"\")\n-        // dd(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n@@ -33,10 +28,8 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\n             }\n             $mytotal += $subtotal;\n         }\n-\n-        // dd($invoice);\n         return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1635045732191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,8 +28,9 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\n             }\n             $mytotal += $subtotal;\n         }\n+        $mytotal = number_format($mytotal);\n         return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1635045742353,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,8 +29,9 @@\n             }\n             $mytotal += $subtotal;\n         }\n         $mytotal = number_format($mytotal);\n+        $mytotal = number_format($mytotal);\n         return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1635045747799,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,10 +28,10 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\n             }\n             $mytotal += $subtotal;\n         }\n+        $bersih = number_format($mytotal);\n         $mytotal = number_format($mytotal);\n-        $mytotal = number_format($mytotal);\n         return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1635045756141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     {\n         $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n-        $tanggal = date('Y-m-d');\n+        $tanggal = date('Y-m-d')-1;\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n@@ -28,9 +28,9 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\n             }\n             $mytotal += $subtotal;\n         }\n-        $bersih = number_format($mytotal);\n+        $bersih = number_format($bersih);\n         $mytotal = number_format($mytotal);\n         return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\n     }\n \n"
+                },
+                {
+                    "date": 1635045775254,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     {\n         $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n-        $tanggal = date('Y-m-d')-1;\n+        $tanggal = date('Y-m-d');\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n@@ -28,9 +28,9 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\n             }\n             $mytotal += $subtotal;\n         }\n-        $bersih = number_format($bersih);\n+        $bersih = number_format($bersih[0]->keuntungan);\n         $mytotal = number_format($mytotal);\n         return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\n     }\n \n"
+                },
+                {
+                    "date": 1635045793781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\n             }\n             $mytotal += $subtotal;\n         }\n-        $bersih = number_format($bersih[0]->keuntungan);\n+        $test = number_format($bersih[0]->keuntungan);\n         $mytotal = number_format($mytotal);\n         return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\n     }\n \n"
+                },
+                {
+                    "date": 1635045803875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n                 $subtotal -= $total[$i]['transaction_shipment_delivery_cost'];\n             }\n             $mytotal += $subtotal;\n         }\n-        $test = number_format($bersih[0]->keuntungan);\n+        $bersih[0]->keuntungan = number_format($bersih[0]->keuntungan);\n         $mytotal = number_format($mytotal);\n         return view('index', compact('invoice', 'qty', 'mytotal', 'bersih'));\n     }\n \n"
+                },
+                {
+                    "date": 1635045825982,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '2021-10-24'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635045833354,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n         $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n         $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '2021-10-24'\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '2021-10-23'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
+                },
+                {
+                    "date": 1635045868473,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n     public function index()\n     {\n         $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n-        $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n+        $total = Invoice::whereDate('created_at', '=', '2021-10-23')->get();\n         $tanggal = date('Y-m-d');\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '2021-10-23'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n"
+                },
+                {
+                    "date": 1635045878024,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,11 +16,11 @@\n     public function index()\n     {\n         $invoice =  Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $qty = Invoice::whereDate('created_at', '=', date('Y-m-d'))->sum('qty_item');\n-        $total = Invoice::whereDate('created_at', '=', '2021-10-23')->get();\n+        $total = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\n         $tanggal = date('Y-m-d');\n-        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '2021-10-23'\");\n+        $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) = '$tanggal'\");\n         $mytotal = 0;\n         for($i = 0 ; $i< count($total);$i++){\n             $subtotal = $total[$i]['total'];\n             if($total[$i]['transaction_shipment_delivery'] == \"true\")\n"
                 }
             ],
             "date": 1634477141974,

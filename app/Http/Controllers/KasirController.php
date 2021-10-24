@@ -90,7 +90,8 @@ class KasirController extends Controller
     }
     public function gettableproduct(){
       
-        $mycart = Product::where('stok', '>','0')->get();
+        $mycart = DB::select("select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0 and product.status = 'Active' group by product.id");
+        // Product::join("supplier_product",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();
         return DataTables::of($mycart)
         ->editColumn('kode', function($query) {
             return '<label id = "kode_'.$query->id.'"> '.$query->kode.'</label>';
@@ -192,12 +193,15 @@ class KasirController extends Controller
         // Invoice Detail
         for($i = 0 ; $i < count($mycart) ; $i++)
         {
+            $buyingprice = DB::select("SELECT avg(price) as rata FROM `supplier_product` where idproduct = '".$mycart[$i]['idproduct']."'");
+            $buyingpricefix = $buyingprice[0]->rata;
             $invoice_detail = new InvoiceDetail;
             $invoice_detail->idproduct = $mycart[$i]['idproduct'];
             $invoice_detail->idtransaction = $myinvoiceid;
             $invoice_detail->qty = $mycart[$i]['qty'];
             $invoice_detail->selling_price = $mycart[$i]['selling_price'];
             $invoice_detail->subtotal = $mycart[$i]['subtotal'];
+            $invoice_detail->buyingprice = $buyingpricefix * $mycart[$i]['qty'];
             $invoice_detail->save();
         }
         Cart::truncate();
