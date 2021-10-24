@@ -1,0 +1,30 @@
+{
+    "sourceFile": "database/seeds/admin_seed.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1635055088312,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1635055094095,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,10 +11,10 @@\n      */\n     public function run()\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n-        $invoices = $invoice;\n-        DB::table('invoice')->delete();\n+        $admins = $admin;\n+        DB::table('admin')->delete();\n         foreach($invoices as $i){\n             Invoice::create($i);\n         }\n     }\n"
+                },
+                {
+                    "date": 1635055105792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n <?php\n \n+use App\\Models\\Admin;\n use Illuminate\\Database\\Seeder;\n \n class admin_seed extends Seeder\n {\n"
+                },
+                {
+                    "date": 1635055112166,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     {\n         include base_path().'/database/seeds/sumberbaru.php';\n         $admins = $admin;\n         DB::table('admin')->delete();\n-        foreach($invoices as $i){\n-            Invoice::create($i);\n+        foreach($admins as $i){\n+            Admin::create($a);\n         }\n     }\n }\n"
+                }
+            ],
+            "date": 1635055088312,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Seeder;\n\nclass admin_seed extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        include base_path().'/database/seeds/sumberbaru.php';\n        $invoices = $invoice;\n        DB::table('invoice')->delete();\n        foreach($invoices as $i){\n            Invoice::create($i);\n        }\n    }\n}\n"
+        }
+    ]
+}

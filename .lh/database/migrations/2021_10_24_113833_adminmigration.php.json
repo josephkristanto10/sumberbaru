@@ -1,0 +1,42 @@
+{
+    "sourceFile": "database/migrations/2021_10_24_113833_adminmigration.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1635050324455,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1635050333157,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n      * @return void\n      */\n     public function up()\n     {\n-        Schema::create('cart', function (Blueprint $table) {\n+        Schema::create('admin', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->integer('idproduct')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer(\"qty\");\n@@ -29,7 +29,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        //\n+        Schema::dropIfExists('cart');\n     }\n }\n"
+                },
+                {
+                    "date": 1635050342104,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     public function up()\n     {\n         Schema::create('admin', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->integer('idproduct')->unsigned();\n+            $table->integer('username')->unsigned();\n             $table->foreign('idproduct')->references('id')->on('product');\n             $table->integer(\"qty\");\n             $table->integer(\"selling_price\");\n             $table->integer(\"subtotal\");\n@@ -29,7 +29,7 @@\n      * @return void\n      */\n     public function down()\n     {\n-        Schema::dropIfExists('cart');\n+        Schema::dropIfExists('admin');\n     }\n }\n"
+                },
+                {
+                    "date": 1635050350942,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,11 @@\n     public function up()\n     {\n         Schema::create('admin', function (Blueprint $table) {\n             $table->increments(\"id\");\n+            $table->string()\n             $table->integer('username')->unsigned();\n-            $table->foreign('idproduct')->references('id')->on('product');\n+            $table->foreign('password')->references('id')->on('product');\n             $table->integer(\"qty\");\n             $table->integer(\"selling_price\");\n             $table->integer(\"subtotal\");\n         });\n"
+                },
+                {
+                    "date": 1635050358017,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,14 +14,11 @@\n     public function up()\n     {\n         Schema::create('admin', function (Blueprint $table) {\n             $table->increments(\"id\");\n-            $table->string()\n+            $table->string(\"name\");\n             $table->integer('username')->unsigned();\n             $table->foreign('password')->references('id')->on('product');\n-            $table->integer(\"qty\");\n-            $table->integer(\"selling_price\");\n-            $table->integer(\"subtotal\");\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1635050368386,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,8 @@\n         Schema::create('admin', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->string(\"name\");\n             $table->integer('username')->unsigned();\n-            $table->foreign('password')->references('id')->on('product');\n         });\n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1635050387511,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,11 @@\n     {\n         Schema::create('admin', function (Blueprint $table) {\n             $table->increments(\"id\");\n             $table->string(\"name\");\n-            $table->integer('username')->unsigned();\n+            $table->string('username');\n+            $table->string(\"password\");\n+\n         });\n     }\n \n     /**\n"
+                }
+            ],
+            "date": 1635050324455,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nclass Adminmigration extends Migration\n{\n    /**\n     * Run the migrations.\n     *\n     * @return void\n     */\n    public function up()\n    {\n        Schema::create('cart', function (Blueprint $table) {\n            $table->increments(\"id\");\n            $table->integer('idproduct')->unsigned();\n            $table->foreign('idproduct')->references('id')->on('product');\n            $table->integer(\"qty\");\n            $table->integer(\"selling_price\");\n            $table->integer(\"subtotal\");\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     *\n     * @return void\n     */\n    public function down()\n    {\n        //\n    }\n}\n"
+        }
+    ]
+}

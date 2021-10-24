@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $qty
  * @property int $selling_price
  * @property int $subtotal
- * @property int|null $buyingprice
+ * @property int $buyingprice
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 

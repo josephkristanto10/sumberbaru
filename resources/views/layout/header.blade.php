@@ -2,6 +2,38 @@
 <html lang="en">
 
 <head>
+<?php
+session_start();
+$user = Session::get('user');
+if(!isset($user))
+{
+	?>
+	<style>
+		body{
+			background-color:#115591;
+		}
+	</style>
+	<?php
+	echo " ";
+	echo"<div style = 'position:absolute;width:100%;height:100%;background-color:#115591;z-index:700'></div>";
+	echo "
+	<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+	<script>
+	Swal.fire({
+		icon: 'info',
+		title: 'Admin Area',
+		text: 'Please Sign In First',
+		allowOutsideClick: false,
+		confirmButtonColor: '#3495eb',
+	}).then((result) => {
+        window.location.href= '/sumberbaru/public/';
+	});;
+	</script>
+	";
+	die;
+}
+
+?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -100,9 +132,9 @@
                     <!-- User Profile -->
                     <!-- ============================================================== -->
                     <li class="nav-item dropdown u-pro">
-                        <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="hidden-md-down pl-1 pr-2">SuperAdmin &nbsp;<i class="fa fa-angle-down"></i></span> </a>
+                        <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="hidden-md-down pl-1 pr-2">{{ Session::get('user')}} &nbsp;<i class="fa fa-angle-down"></i></span> </a>
                         <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                            <a href="../index.html" class="dropdown-item"><i class="fa fa-power-off"></i> Keluar</a>
+                            <a href="{{route('logout')}}" class="dropdown-item"><i class="fa fa-power-off"></i> Keluar</a>
                             <!-- text-->
                         </div>
                     </li>

@@ -8,6 +8,11 @@
  * Database `sumberbaru`
  */
 
+/* `sumberbaru`.`admin` */
+$admin = array(
+  array('id' => '1','name' => 'joseph','username' => 'superuser','password' => 'superuser')
+);
+
 /* `sumberbaru`.`cart` */
 $cart = array(
 );
@@ -40,7 +45,8 @@ $migrations = array(
   array('id' => '9','migration' => '2021_10_10_185823_invoice_migration','batch' => '1'),
   array('id' => '10','migration' => '2021_10_10_185832_invoice_detail_migration','batch' => '1'),
   array('id' => '11','migration' => '2021_10_14_102322_retur_mgration','batch' => '1'),
-  array('id' => '12','migration' => '2021_10_17_152215_temp_cart_migration','batch' => '1')
+  array('id' => '12','migration' => '2021_10_17_152215_temp_cart_migration','batch' => '1'),
+  array('id' => '13','migration' => '2021_10_24_113833_adminmigration','batch' => '1')
 );
 
 /* `sumberbaru`.`password_resets` */

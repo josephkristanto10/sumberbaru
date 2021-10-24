@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $harga1
  * @property int|null $harga2
  * @property int|null $harga3
- * @property string $status
+ * @property string|null $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 

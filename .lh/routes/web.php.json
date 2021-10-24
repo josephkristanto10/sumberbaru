@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 142,
+            "activePatchIndex": 153,
             "patches": [
                 {
                     "date": 1630202749383,
@@ -576,6 +576,50 @@
                 {
                     "date": 1635042518394,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n |\r\n */\r\n \r\n Route::get('/', \"IndexController@index\");\r\n-Route::post('/setstatusproduct')\r\n+Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name();\r\n Route::get('/getdatatable', 'ProductController@getjsons')->name(\"getdatatable\");\r\n Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name(\"getdatatableproductsupplier\");\r\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n Route::get('/getdatatablepersupplier/{id}', 'PriceListController@getdatatablepersupplier')->name(\"getdatatablepersupplier\");\r\n"
+                },
+                {
+                    "date": 1635051027475,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,10 @@\n | contains the \"web\" middleware group. Now create something great!\r\n |\r\n */\r\n \r\n-Route::get('/', \"IndexController@index\");\r\n-Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name();\r\n+Route::get('/', \"AdminController@index\");\r\n+Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n Route::get('/getdatatable', 'ProductController@getjsons')->name(\"getdatatable\");\r\n Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name(\"getdatatableproductsupplier\");\r\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n Route::get('/getdatatablepersupplier/{id}', 'PriceListController@getdatatablepersupplier')->name(\"getdatatablepersupplier\");\r\n"
+                },
+                {
+                    "date": 1635051035132,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,8 +45,9 @@\n Route::get('/invoice/getmydata', 'NotaController@getmydata')->name(\"gettableinvoice\");\r\n Route::get('/invoice/getdatedata', 'NotaController@getdateinvoice')->name(\"getdateinvoice\");\r\n Route::get('invoice/detail/{id}', 'NotaController@getmydetaildata')->name(\"getinvoicedetail\");\r\n Route::resource('/dashboard', 'IndexController');\r\n+Route::get('/', \"AdminController@index\");\r\n Route::resource('/product', 'ProductController');\r\n Route::resource('/supplier', 'SupplierController');\r\n Route::resource('/invoice', 'NotaController');\r\n Route::resource('/cashier', 'KasirController');\r\n"
+                },
+                {
+                    "date": 1635051040329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,10 +44,10 @@\n Route::get('/transactionreturn/gettablereturprocess', 'ReturController@getdatainprogress')->name(\"gettablereturprocess\");\r\n Route::get('/invoice/getmydata', 'NotaController@getmydata')->name(\"gettableinvoice\");\r\n Route::get('/invoice/getdatedata', 'NotaController@getdateinvoice')->name(\"getdateinvoice\");\r\n Route::get('invoice/detail/{id}', 'NotaController@getmydetaildata')->name(\"getinvoicedetail\");\r\n+Route::get('/admin', \"AdminController@index\");\r\n Route::resource('/dashboard', 'IndexController');\r\n-Route::get('/', \"AdminController@index\");\r\n Route::resource('/product', 'ProductController');\r\n Route::resource('/supplier', 'SupplierController');\r\n Route::resource('/invoice', 'NotaController');\r\n Route::resource('/cashier', 'KasirController');\r\n"
+                },
+                {
+                    "date": 1635051052108,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n Route::get('/transactionreturn/gettablereturprocess', 'ReturController@getdatainprogress')->name(\"gettablereturprocess\");\r\n Route::get('/invoice/getmydata', 'NotaController@getmydata')->name(\"gettableinvoice\");\r\n Route::get('/invoice/getdatedata', 'NotaController@getdateinvoice')->name(\"getdateinvoice\");\r\n Route::get('invoice/detail/{id}', 'NotaController@getmydetaildata')->name(\"getinvoicedetail\");\r\n-Route::get('/admin', \"AdminController@index\");\r\n+// Route::get('/admin', \"AdminController@index\");\r\n Route::resource('/dashboard', 'IndexController');\r\n Route::resource('/product', 'ProductController');\r\n Route::resource('/supplier', 'SupplierController');\r\n Route::resource('/invoice', 'NotaController');\r\n"
+                },
+                {
+                    "date": 1635051092448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n | contains the \"web\" middleware group. Now create something great!\r\n |\r\n */\r\n \r\n-Route::get('/', \"AdminController@index\");\r\n+Route::get('/', \"AdminController\");\r\n Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n Route::get('/getdatatable', 'ProductController@getjsons')->name(\"getdatatable\");\r\n Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name(\"getdatatableproductsupplier\");\r\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n"
+                },
+                {
+                    "date": 1635051097926,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n | contains the \"web\" middleware group. Now create something great!\r\n |\r\n */\r\n \r\n-Route::get('/', \"AdminController\");\r\n+Route::get('/', \"AdminController@index\");\r\n Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n Route::get('/getdatatable', 'ProductController@getjsons')->name(\"getdatatable\");\r\n Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name(\"getdatatableproductsupplier\");\r\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n"
+                },
+                {
+                    "date": 1635051144658,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n */\r\n \r\n Route::get('/', \"AdminController@index\");\r\n Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n+Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n Route::get('/getdatatable', 'ProductController@getjsons')->name(\"getdatatable\");\r\n Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name(\"getdatatableproductsupplier\");\r\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n Route::get('/getdatatablepersupplier/{id}', 'PriceListController@getdatatablepersupplier')->name(\"getdatatablepersupplier\");\r\n"
+                },
+                {
+                    "date": 1635051150546,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,10 @@\n |\r\n */\r\n \r\n Route::get('/', \"AdminController@index\");\r\n+Route::post('/login', 'AdminController@login')->name(\"setstatusproduct\");\r\n Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n-Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n Route::get('/getdatatable', 'ProductController@getjsons')->name(\"getdatatable\");\r\n Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name(\"getdatatableproductsupplier\");\r\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n Route::get('/getdatatablepersupplier/{id}', 'PriceListController@getdatatablepersupplier')->name(\"getdatatablepersupplier\");\r\n"
+                },
+                {
+                    "date": 1635054019797,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,10 @@\n |\r\n */\r\n \r\n Route::get('/', \"AdminController@index\");\r\n-Route::post('/login', 'AdminController@login')->name(\"setstatusproduct\");\r\n+Route::post('/login', 'AdminController@login')->name(\"login\");\r\n+Route::post('/login', 'AdminController@login')->name(\"login\");\r\n Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n Route::get('/getdatatable', 'ProductController@getjsons')->name(\"getdatatable\");\r\n Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name(\"getdatatableproductsupplier\");\r\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n"
+                },
+                {
+                    "date": 1635054024871,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n */\r\n \r\n Route::get('/', \"AdminController@index\");\r\n Route::post('/login', 'AdminController@login')->name(\"login\");\r\n-Route::post('/login', 'AdminController@login')->name(\"login\");\r\n+Route::post('/logout', 'AdminController@logout')->name(\"logout\");\r\n Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n Route::get('/getdatatable', 'ProductController@getjsons')->name(\"getdatatable\");\r\n Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name(\"getdatatableproductsupplier\");\r\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n"
+                },
+                {
+                    "date": 1635054097619,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n */\r\n \r\n Route::get('/', \"AdminController@index\");\r\n Route::post('/login', 'AdminController@login')->name(\"login\");\r\n-Route::post('/logout', 'AdminController@logout')->name(\"logout\");\r\n+Route::get('/logout', 'AdminController@logout')->name(\"logout\");\r\n Route::post('/setstatusproduct', 'ProductController@setstatusproduct')->name(\"setstatusproduct\");\r\n Route::get('/getdatatable', 'ProductController@getjsons')->name(\"getdatatable\");\r\n Route::get('/getdatatableproductsupplier', 'SupplierController@getdatatableproductsupplier')->name(\"getdatatableproductsupplier\");\r\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n"
                 }
             ],
             "date": 1630202749383,

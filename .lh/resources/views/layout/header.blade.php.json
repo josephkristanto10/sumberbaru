@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 24,
+            "activePatchIndex": 54,
             "patches": [
                 {
                     "date": 1630203303064,
@@ -104,6 +104,126 @@
                 {
                     "date": 1634477426738,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -123,9 +123,9 @@\n                 <!-- Sidebar navigation-->\r\n                 <nav class=\"sidebar-nav\">\r\n                     <ul id=\"sidebarnav\">\r\n                         <li>\r\n-                            <a class=\"waves-effect waves-dark\" href=\"{{url('/')}}\" aria-expanded=\"false\"><i class=\"ti-layout-grid2\"></i><span class=\"hide-menu\">Beranda</span></a>\r\n+                            <a class=\"waves-effect waves-dark\" href=\"{{url('/dashboard')}}\" aria-expanded=\"false\"><i class=\"ti-layout-grid2\"></i><span class=\"hide-menu\">Beranda</span></a>\r\n                         </li>\r\n                         <li>\r\n                             <a class=\"waves-effect waves-dark\" href=\"{{url('/cashier')}}\" aria-expanded=\"false\"><i class=\"ti-money\"></i><span class=\"hide-menu\">Kasir</span></a>\r\n                         </li>\r\n"
+                },
+                {
+                    "date": 1635053361285,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,9 +99,9 @@\n                     <!-- ============================================================== -->\r\n                     <!-- User Profile -->\r\n                     <!-- ============================================================== -->\r\n                     <li class=\"nav-item dropdown u-pro\">\r\n-                        <a class=\"nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"hidden-md-down pl-1 pr-2\">SuperAdmin &nbsp;<i class=\"fa fa-angle-down\"></i></span> </a>\r\n+                        <a class=\"nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"hidden-md-down pl-1 pr-2\">{{ session()->}}SuperAdmin &nbsp;<i class=\"fa fa-angle-down\"></i></span> </a>\r\n                         <div class=\"dropdown-menu dropdown-menu-right animated flipInY\">\r\n                             <a href=\"../index.html\" class=\"dropdown-item\"><i class=\"fa fa-power-off\"></i> Keluar</a>\r\n                             <!-- text-->\r\n                         </div>\r\n"
+                },
+                {
+                    "date": 1635053384543,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,9 +99,9 @@\n                     <!-- ============================================================== -->\r\n                     <!-- User Profile -->\r\n                     <!-- ============================================================== -->\r\n                     <li class=\"nav-item dropdown u-pro\">\r\n-                        <a class=\"nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"hidden-md-down pl-1 pr-2\">{{ session()->}}SuperAdmin &nbsp;<i class=\"fa fa-angle-down\"></i></span> </a>\r\n+                        <a class=\"nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"hidden-md-down pl-1 pr-2\">{{ Session::get('error')}} &nbsp;<i class=\"fa fa-angle-down\"></i></span> </a>\r\n                         <div class=\"dropdown-menu dropdown-menu-right animated flipInY\">\r\n                             <a href=\"../index.html\" class=\"dropdown-item\"><i class=\"fa fa-power-off\"></i> Keluar</a>\r\n                             <!-- text-->\r\n                         </div>\r\n"
+                },
+                {
+                    "date": 1635053470847,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,38 @@\n <!DOCTYPE html>\r\n <html lang=\"en\">\r\n \r\n <head>\r\n+<?php\r\n+if(!isset($_SESSION['iduser']))\r\n+{\r\n+\t?>\r\n+\t<style>\r\n+\t\tbody{\r\n+\t\t\tbackground-color:#115591;\r\n+\t\t}\r\n+\t</style>\r\n+\t<?php\r\n+\techo \" \";\r\n+\techo\"<div style = 'position:absolute;width:100%;height:100%;background-color:#115591;z-index:700'></div>\";\r\n+\techo \"\r\n+\t<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>\r\n+\t<script>\r\n+\tSwal.fire({\r\n+\t\ticon: 'info',\r\n+\t\ttitle: 'Nexus Admin Area',\r\n+\t\ttext: 'Please Sign In First',\r\n+\t\tallowOutsideClick: false,\r\n+\t\tconfirmButtonColor: '#3495eb',\r\n+\t}).then((result) => {\r\n+\t\twindow.location.replace('index.php');\r\n+\t});;\r\n+\t</script>\r\n+\t\";\r\n+\tdie;\r\n+}\r\n+\r\n+?>\r\n     <meta charset=\"utf-8\">\r\n     <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n     <!-- Tell the browser to be responsive to screen width -->\r\n     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n@@ -99,9 +129,9 @@\n                     <!-- ============================================================== -->\r\n                     <!-- User Profile -->\r\n                     <!-- ============================================================== -->\r\n                     <li class=\"nav-item dropdown u-pro\">\r\n-                        <a class=\"nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"hidden-md-down pl-1 pr-2\">{{ Session::get('error')}} &nbsp;<i class=\"fa fa-angle-down\"></i></span> </a>\r\n+                        <a class=\"nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"hidden-md-down pl-1 pr-2\">{{ Session::get('user')}} &nbsp;<i class=\"fa fa-angle-down\"></i></span> </a>\r\n                         <div class=\"dropdown-menu dropdown-menu-right animated flipInY\">\r\n                             <a href=\"../index.html\" class=\"dropdown-item\"><i class=\"fa fa-power-off\"></i> Keluar</a>\r\n                             <!-- text-->\r\n                         </div>\r\n"
+                },
+                {
+                    "date": 1635053480406,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,10 @@\n <html lang=\"en\">\r\n \r\n <head>\r\n <?php\r\n-if(!isset($_SESSION['iduser']))\r\n+session_start();\r\n+if(!isset($_SESSION['user']))\r\n {\r\n \t?>\r\n \t<style>\r\n \t\tbody{\r\n"
+                },
+                {
+                    "date": 1635053487597,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \t<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>\r\n \t<script>\r\n \tSwal.fire({\r\n \t\ticon: 'info',\r\n-\t\ttitle: 'Nexus Admin Area',\r\n+\t\ttitle: ' Admin Area',\r\n \t\ttext: 'Please Sign In First',\r\n \t\tallowOutsideClick: false,\r\n \t\tconfirmButtonColor: '#3495eb',\r\n \t}).then((result) => {\r\n"
+                },
+                {
+                    "date": 1635053495837,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n \t<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>\r\n \t<script>\r\n \tSwal.fire({\r\n \t\ticon: 'info',\r\n-\t\ttitle: ' Admin Area',\r\n+\t\ttitle: Admin Area',\r\n \t\ttext: 'Please Sign In First',\r\n \t\tallowOutsideClick: false,\r\n \t\tconfirmButtonColor: '#3495eb',\r\n \t}).then((result) => {\r\n"
+                },
+                {
+                    "date": 1635053553569,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,14 +19,14 @@\n \t<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>\r\n \t<script>\r\n \tSwal.fire({\r\n \t\ticon: 'info',\r\n-\t\ttitle: Admin Area',\r\n+\t\ttitle: 'Admin Area',\r\n \t\ttext: 'Please Sign In First',\r\n \t\tallowOutsideClick: false,\r\n \t\tconfirmButtonColor: '#3495eb',\r\n \t}).then((result) => {\r\n-\t\twindow.location.replace('index.php');\r\n+\t\twindow.location.replace('/');\r\n \t});;\r\n \t</script>\r\n \t\";\r\n \tdie;\r\n"
+                },
+                {
+                    "date": 1635053600198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n \t\ttext: 'Please Sign In First',\r\n \t\tallowOutsideClick: false,\r\n \t\tconfirmButtonColor: '#3495eb',\r\n \t}).then((result) => {\r\n-\t\twindow.location.replace('/');\r\n+\t\twindow.location.replace();\r\n \t});;\r\n \t</script>\r\n \t\";\r\n \tdie;\r\n"
+                },
+                {
+                    "date": 1635053614743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n \t\ttext: 'Please Sign In First',\r\n \t\tallowOutsideClick: false,\r\n \t\tconfirmButtonColor: '#3495eb',\r\n \t}).then((result) => {\r\n-\t\twindow.location.replace();\r\n+        window.location.href=\"{{url('/dashboard')}}\";\r\n \t});;\r\n \t</script>\r\n \t\";\r\n \tdie;\r\n"
+                },
+                {
+                    "date": 1635053637329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n \t\ttext: 'Please Sign In First',\r\n \t\tallowOutsideClick: false,\r\n \t\tconfirmButtonColor: '#3495eb',\r\n \t}).then((result) => {\r\n-        window.location.href=\"{{url('/dashboard')}}\";\r\n+        window.location.href= '/dashboard')}};\r\n \t});;\r\n \t</script>\r\n \t\";\r\n \tdie;\r\n"
+                },
+                {
+                    "date": 1635053658291,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n \t\ttext: 'Please Sign In First',\r\n \t\tallowOutsideClick: false,\r\n \t\tconfirmButtonColor: '#3495eb',\r\n \t}).then((result) => {\r\n-        window.location.href= '/dashboard')}};\r\n+        window.location.href= '/sumberbaru/dashboard';\r\n \t});;\r\n \t</script>\r\n \t\";\r\n \tdie;\r\n"
+                },
+                {
+                    "date": 1635053671581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n \t\ttext: 'Please Sign In First',\r\n \t\tallowOutsideClick: false,\r\n \t\tconfirmButtonColor: '#3495eb',\r\n \t}).then((result) => {\r\n-        window.location.href= '/sumberbaru/dashboard';\r\n+        window.location.href= '/sumberbaru/public/';\r\n \t});;\r\n \t</script>\r\n \t\";\r\n \tdie;\r\n"
+                },
+                {
+                    "date": 1635053816057,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n \r\n <head>\r\n <?php\r\n session_start();\r\n+echo \"<h1></h1>\";\r\n if(!isset($_SESSION['user']))\r\n {\r\n \t?>\r\n \t<style>\r\n"
+                },
+                {
+                    "date": 1635053840272,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n <head>\r\n <?php\r\n session_start();\r\n-echo \"<h1></h1>\";\r\n+echo \"<h1>\".S.\"</h1>\";\r\n if(!isset($_SESSION['user']))\r\n {\r\n \t?>\r\n \t<style>\r\n"
+                },
+                {
+                    "date": 1635053875607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n <head>\r\n <?php\r\n session_start();\r\n-echo \"<h1>\".S.\"</h1>\";\r\n+echo \"<h1>\".{{ Session::get('user')}}.\"</h1>\";\r\n if(!isset($_SESSION['user']))\r\n {\r\n \t?>\r\n \t<style>\r\n"
+                },
+                {
+                    "date": 1635053885093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n \r\n <head>\r\n <?php\r\n session_start();\r\n-echo \"<h1>\".{{ Session::get('user')}}.\"</h1>\";\r\n+echo \"<h1>\".Session::get('user').\"</h1>\";\r\n if(!isset($_SESSION['user']))\r\n {\r\n \t?>\r\n \t<style>\r\n"
+                },
+                {
+                    "date": 1635053893701,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n <head>\r\n <?php\r\n session_start();\r\n echo \"<h1>\".Session::get('user').\"</h1>\";\r\n-if(!isset($_SESSION['user']))\r\n+if(!isset(Session::get('user')))\r\n {\r\n \t?>\r\n \t<style>\r\n \t\tbody{\r\n"
+                },
+                {
+                    "date": 1635053900910,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n <head>\r\n <?php\r\n session_start();\r\n echo \"<h1>\".Session::get('user').\"</h1>\";\r\n-if(!isset(Session::get('user')))\r\n+if(!isset(Session::get('user'))\r\n {\r\n \t?>\r\n \t<style>\r\n \t\tbody{\r\n"
+                },
+                {
+                    "date": 1635053916803,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,10 @@\n <head>\r\n <?php\r\n session_start();\r\n echo \"<h1>\".Session::get('user').\"</h1>\";\r\n-if(!isset(Session::get('user'))\r\n+$user = \r\n+if(!isset(Session::get('user')))\r\n {\r\n \t?>\r\n \t<style>\r\n \t\tbody{\r\n"
+                },
+                {
+                    "date": 1635053922132,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,10 @@\n <head>\r\n <?php\r\n session_start();\r\n echo \"<h1>\".Session::get('user').\"</h1>\";\r\n-$user = \r\n-if(!isset(Session::get('user')))\r\n+$user = Session::get('user');\r\n+if(!isset())\r\n {\r\n \t?>\r\n \t<style>\r\n \t\tbody{\r\n"
+                },
+                {
+                    "date": 1635053927585,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n <?php\r\n session_start();\r\n echo \"<h1>\".Session::get('user').\"</h1>\";\r\n $user = Session::get('user');\r\n-if(!isset())\r\n+if(!isset($user))\r\n {\r\n \t?>\r\n \t<style>\r\n \t\tbody{\r\n"
+                },
+                {
+                    "date": 1635053966070,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,8 @@\n \r\n <head>\r\n <?php\r\n session_start();\r\n-echo \"<h1>\".Session::get('user').\"</h1>\";\r\n $user = Session::get('user');\r\n if(!isset($user))\r\n {\r\n \t?>\r\n"
+                },
+                {
+                    "date": 1635053993904,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n                     <!-- ============================================================== -->\r\n                     <li class=\"nav-item dropdown u-pro\">\r\n                         <a class=\"nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"hidden-md-down pl-1 pr-2\">{{ Session::get('user')}} &nbsp;<i class=\"fa fa-angle-down\"></i></span> </a>\r\n                         <div class=\"dropdown-menu dropdown-menu-right animated flipInY\">\r\n-                            <a href=\"../index.html\" class=\"dropdown-item\"><i class=\"fa fa-power-off\"></i> Keluar</a>\r\n+                            <a href=\"{{route('logout)}}\" class=\"dropdown-item\"><i class=\"fa fa-power-off\"></i> Keluar</a>\r\n                             <!-- text-->\r\n                         </div>\r\n                     </li>\r\n                     <!-- ============================================================== -->\r\n"
+                },
+                {
+                    "date": 1635054001109,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n                     <!-- ============================================================== -->\r\n                     <li class=\"nav-item dropdown u-pro\">\r\n                         <a class=\"nav-link dropdown-toggle waves-effect waves-dark profile-pic text-white\" href=\"\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"hidden-md-down pl-1 pr-2\">{{ Session::get('user')}} &nbsp;<i class=\"fa fa-angle-down\"></i></span> </a>\r\n                         <div class=\"dropdown-menu dropdown-menu-right animated flipInY\">\r\n-                            <a href=\"{{route('logout)}}\" class=\"dropdown-item\"><i class=\"fa fa-power-off\"></i> Keluar</a>\r\n+                            <a href=\"{{route('logout')}}\" class=\"dropdown-item\"><i class=\"fa fa-power-off\"></i> Keluar</a>\r\n                             <!-- text-->\r\n                         </div>\r\n                     </li>\r\n                     <!-- ============================================================== -->\r\n"
+                },
+                {
+                    "date": 1635054200726,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n {\r\n \t?>\r\n \t<style>\r\n \t\tbody{\r\n-\t\t\tbackground-color:#115591;\r\n+            background-image:url(assets/images/background/login-register.jpg);\r\n \t\t}\r\n \t</style>\r\n \t<?php\r\n \techo \" \";\r\n"
+                },
+                {
+                    "date": 1635054215731,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \t\t}\r\n \t</style>\r\n \t<?php\r\n \techo \" \";\r\n-\techo\"<div style = 'position:absolute;width:100%;height:100%;background-color:#115591;z-index:700'></div>\";\r\n+\techo\"<div style = 'position:absolute;width:100%;height:100%;z-index:700'></div>\";\r\n \techo \"\r\n \t<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>\r\n \t<script>\r\n \tSwal.fire({\r\n"
+                },
+                {
+                    "date": 1635054221848,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \t\t}\r\n \t</style>\r\n \t<?php\r\n \techo \" \";\r\n-\techo\"<div style = 'position:absolute;width:100%;height:100%;z-index:700'></div>\";\r\n+\techo\"<div style = 'position:absolute;width:100%;height:100%;background-color:#115591;z-index:700'></div>\";\r\n \techo \"\r\n \t<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>\r\n \t<script>\r\n \tSwal.fire({\r\n"
+                },
+                {
+                    "date": 1635054228916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \t\t}\r\n \t</style>\r\n \t<?php\r\n \techo \" \";\r\n-\techo\"<div style = 'position:absolute;width:100%;height:100%;background-color:#115591;z-index:700'></div>\";\r\n+\techo\"<div style = 'position:absolute;width:100%;height:100%;background-image:url(assets/images/background/login-register.jpg);1;z-index:700'></div>\";\r\n \techo \"\r\n \t<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>\r\n \t<script>\r\n \tSwal.fire({\r\n"
+                },
+                {
+                    "date": 1635054235464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n \t\t}\r\n \t</style>\r\n \t<?php\r\n \techo \" \";\r\n-\techo\"<div style = 'position:absolute;width:100%;height:100%;background-image:url(assets/images/background/login-register.jpg);1;z-index:700'></div>\";\r\n+\techo\"<div style = 'position:absolute;width:100%;height:100%;background-image:url(assets/images/background/login-register.jpg);;z-index:700'></div>\";\r\n \techo \"\r\n \t<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>\r\n \t<script>\r\n \tSwal.fire({\r\n"
+                },
+                {
+                    "date": 1635054255410,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,14 +9,14 @@\n {\r\n \t?>\r\n \t<style>\r\n \t\tbody{\r\n-            background-image:url(assets/images/background/login-register.jpg);\r\n+\t\t\tbackground-color:#115591;\r\n \t\t}\r\n \t</style>\r\n \t<?php\r\n \techo \" \";\r\n-\techo\"<div style = 'position:absolute;width:100%;height:100%;background-image:url(assets/images/background/login-register.jpg);;z-index:700'></div>\";\r\n+\techo\"<div style = 'position:absolute;width:100%;height:100%;background-color:#115591;z-index:700'></div>\";\r\n \techo \"\r\n \t<script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>\r\n \t<script>\r\n \tSwal.fire({\r\n"
                 }
             ],
             "date": 1630203303064,
