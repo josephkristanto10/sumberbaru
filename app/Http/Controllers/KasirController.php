@@ -144,7 +144,7 @@ class KasirController extends Controller
             return '<label id = "qty_'.$query->id.'"> '.$query->qty.'</label>'.'<input type = "hidden" value = "'.$query->selling_price.'" id = "seliingprice_'.$query->id.'">';
         })
         ->editColumn('subtotal', function($query) {
-            return '<label id = "subtotal_'.$query->id.'"> '.$query->subtotal.'</label>';
+            return '<label id = "subtotal_'.$query->id.'"> '.number_format($query->subtotal).'</label>';
         })
         
         ->editColumn('action', function($query) {

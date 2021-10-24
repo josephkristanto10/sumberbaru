@@ -690,9 +690,10 @@
 
         //listener
         $("#buttonbantuanharga1").on("click", function(){
+           
             var qty = $("#qtyinputinterface").val();
          
-            $("#priceinputinterface").val(spliiterharga1[1]);
+            $("#priceinputinterface").val(harga1);
             var price =  $("#priceinputinterface").val();
             if(qty == null || qty == 0 )
             {
@@ -705,7 +706,7 @@
         });
         $("#buttonbantuanharga2").on("click", function(){
             var qty = $("#qtyinputinterface").val();
-            $("#priceinputinterface").val(spliiterharga2[1]);
+            $("#priceinputinterface").val(harga2);
             var price =  $("#priceinputinterface").val();
             if(qty == null || qty == 0 )
             {
@@ -718,7 +719,7 @@
         });
         $("#buttonbantuanharga3").on("click", function(){
             var qty = $("#qtyinputinterface").val();
-            $("#priceinputinterface").val(spliiterharga3[1]);
+            $("#priceinputinterface").val(harga3);
             var price =  $("#priceinputinterface").val();
             if(qty == null || qty == 0 )
             {
@@ -896,5 +897,8 @@
                 }
             });
         }
+        function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 </script>
 

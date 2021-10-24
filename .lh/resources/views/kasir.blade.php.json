@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 330,
+            "activePatchIndex": 338,
             "patches": [
                 {
                     "date": 1630204452337,
@@ -1328,6 +1328,38 @@
                 {
                     "date": 1634476957616,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n     #mycart_wrapper{\r\n         padding:0px;\r\n     }\r\n     #mycart_info, #mycart_paginate{\r\n-\r\n+        display:none;\r\n     }\r\n </style>\r\n <!-- Page wrapper  -->\r\n <!-- ============================================================== -->\r\n"
+                },
+                {
+                    "date": 1635047204197,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -689,8 +689,9 @@\n \r\n \r\n         //listener\r\n         $(\"#buttonbantuanharga1\").on(\"click\", function(){\r\n+            alert(\"test\");\r\n             var qty = $(\"#qtyinputinterface\").val();\r\n          \r\n             $(\"#priceinputinterface\").val(spliiterharga1[1]);\r\n             var price =  $(\"#priceinputinterface\").val();\r\n"
+                },
+                {
+                    "date": 1635047214721,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -689,9 +689,9 @@\n \r\n \r\n         //listener\r\n         $(\"#buttonbantuanharga1\").on(\"click\", function(){\r\n-            alert(\"test\");\r\n+           \r\n             var qty = $(\"#qtyinputinterface\").val();\r\n          \r\n             $(\"#priceinputinterface\").val(spliiterharga1[1]);\r\n             var price =  $(\"#priceinputinterface\").val();\r\n"
+                },
+                {
+                    "date": 1635047227180,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -692,9 +692,9 @@\n         $(\"#buttonbantuanharga1\").on(\"click\", function(){\r\n            \r\n             var qty = $(\"#qtyinputinterface\").val();\r\n          \r\n-            $(\"#priceinputinterface\").val(spliiterharga1[1]);\r\n+            $(\"#priceinputinterface\").val(harga[1]);\r\n             var price =  $(\"#priceinputinterface\").val();\r\n             if(qty == null || qty == 0 )\r\n             {\r\n                 qty = 1;\r\n"
+                },
+                {
+                    "date": 1635047249093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -692,9 +692,9 @@\n         $(\"#buttonbantuanharga1\").on(\"click\", function(){\r\n            \r\n             var qty = $(\"#qtyinputinterface\").val();\r\n          \r\n-            $(\"#priceinputinterface\").val(harga[1]);\r\n+            $(\"#priceinputinterface\").val(harga1[1]);\r\n             var price =  $(\"#priceinputinterface\").val();\r\n             if(qty == null || qty == 0 )\r\n             {\r\n                 qty = 1;\r\n@@ -705,9 +705,9 @@\n             $(\"#subtotalinputinterface\").text(calculate);\r\n         });\r\n         $(\"#buttonbantuanharga2\").on(\"click\", function(){\r\n             var qty = $(\"#qtyinputinterface\").val();\r\n-            $(\"#priceinputinterface\").val(spliiterharga2[1]);\r\n+            $(\"#priceinputinterface\").val(harga2[1]);\r\n             var price =  $(\"#priceinputinterface\").val();\r\n             if(qty == null || qty == 0 )\r\n             {\r\n                 qty = 1;\r\n@@ -718,9 +718,9 @@\n             $(\"#subtotalinputinterface\").text(calculate);\r\n         });\r\n         $(\"#buttonbantuanharga3\").on(\"click\", function(){\r\n             var qty = $(\"#qtyinputinterface\").val();\r\n-            $(\"#priceinputinterface\").val(spliiterharga3[1]);\r\n+            $(\"#priceinputinterface\").val(harga3[1]);\r\n             var price =  $(\"#priceinputinterface\").val();\r\n             if(qty == null || qty == 0 )\r\n             {\r\n                 qty = 1;\r\n"
+                },
+                {
+                    "date": 1635047264815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -692,9 +692,9 @@\n         $(\"#buttonbantuanharga1\").on(\"click\", function(){\r\n            \r\n             var qty = $(\"#qtyinputinterface\").val();\r\n          \r\n-            $(\"#priceinputinterface\").val(harga1[1]);\r\n+            $(\"#priceinputinterface\").val(harga1);\r\n             var price =  $(\"#priceinputinterface\").val();\r\n             if(qty == null || qty == 0 )\r\n             {\r\n                 qty = 1;\r\n@@ -705,9 +705,9 @@\n             $(\"#subtotalinputinterface\").text(calculate);\r\n         });\r\n         $(\"#buttonbantuanharga2\").on(\"click\", function(){\r\n             var qty = $(\"#qtyinputinterface\").val();\r\n-            $(\"#priceinputinterface\").val(harga2[1]);\r\n+            $(\"#priceinputinterface\").val(harga2);\r\n             var price =  $(\"#priceinputinterface\").val();\r\n             if(qty == null || qty == 0 )\r\n             {\r\n                 qty = 1;\r\n@@ -718,9 +718,9 @@\n             $(\"#subtotalinputinterface\").text(calculate);\r\n         });\r\n         $(\"#buttonbantuanharga3\").on(\"click\", function(){\r\n             var qty = $(\"#qtyinputinterface\").val();\r\n-            $(\"#priceinputinterface\").val(harga3[1]);\r\n+            $(\"#priceinputinterface\").val(harga3);\r\n             var price =  $(\"#priceinputinterface\").val();\r\n             if(qty == null || qty == 0 )\r\n             {\r\n                 qty = 1;\r\n"
+                },
+                {
+                    "date": 1635047448603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -897,5 +897,7 @@\n                 }\r\n             });\r\n         }\r\n </script>\r\n-\r\n+function numberWithCommas(x) {\r\n+    return x.toString().replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\");\r\n+}\r\n"
+                },
+                {
+                    "date": 1635047487719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -522,9 +522,9 @@\n                             }).then((result) => {\r\n                                 // $(\"#myformedit\").trigger(\"reset\");\r\n                                 // $(\"#canceledit\").click();\r\n                                 $(\"#tutupmodaltambah\").click();\r\n-                                $(\"#allitemtotal\").text(myresult.myproductgrantotal);\r\n+                                $(\"#allitemtotal\").text(numberWithCommas(myresult.myproductgrantotal));\r\n                                 $(\"#qtyitemtotal\").text(myresult.myproductqty);\r\n                                     if(checkedshipment)\r\n                                     {\r\n                                         var subtotal = $(\"#allitemtotal\").text();\r\n@@ -896,8 +896,9 @@\n                    \r\n                 }\r\n             });\r\n         }\r\n-</script>\r\n-function numberWithCommas(x) {\r\n+        function numberWithCommas(x) {\r\n     return x.toString().replace(/\\B(?=(\\d{3})+(?!\\d))/g, \",\");\r\n }\r\n+</script>\r\n+\r\n"
+                },
+                {
+                    "date": 1635047496397,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -522,9 +522,9 @@\n                             }).then((result) => {\r\n                                 // $(\"#myformedit\").trigger(\"reset\");\r\n                                 // $(\"#canceledit\").click();\r\n                                 $(\"#tutupmodaltambah\").click();\r\n-                                $(\"#allitemtotal\").text(numberWithCommas(myresult.myproductgrantotal));\r\n+                                $(\"#allitemtotal\").text(myresult.myproductgrantotal);\r\n                                 $(\"#qtyitemtotal\").text(myresult.myproductqty);\r\n                                     if(checkedshipment)\r\n                                     {\r\n                                         var subtotal = $(\"#allitemtotal\").text();\r\n"
                 }
             ],
             "date": 1630204452337,

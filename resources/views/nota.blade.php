@@ -351,12 +351,13 @@
    $(document).ready(function() {
     $("#changedatedata").trigger("change");
     mytanggal = $("#changedatedata").val();
-    loadInvoice($("#changedatedata").val());
+
+    loadInvoice(mytanggal);
         });
 
       
     function loadInvoice(mydates){
-        
+       
         $('#mydatatable').DataTable({
         processing: true,
         serverSide: true,
@@ -394,7 +395,7 @@
                             
                         },
                         success: function (result) {
-                        
+                         console.log(result);
                             $("#jumlahspan").text(result.invoice);
                             $("#qtyspan").text(result.qty);
                             $("#pendapatanspan").text(numberWithCommas(result.pendapatan));

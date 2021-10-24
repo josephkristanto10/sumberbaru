@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 251,
+            "activePatchIndex": 259,
             "patches": [
                 {
                     "date": 1630203664033,
@@ -1012,6 +1012,38 @@
                 {
                     "date": 1635004950780,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n         \r\n     }\r\n     public function gettableproduct(){\r\n       \r\n-        $mycart = DB::select(\"select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0  group by product.id\");\r\n+        $mycart = DB::select(\"select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0 and product.status = 'Active' group by product.id\");\r\n         // Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n             return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n"
+                },
+                {
+                    "date": 1635047041594,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,12 +99,12 @@\n         ->editColumn('name', function($query) {\r\n             return '<label id = \"name_'.$query->id.'\"> '.$query->name.'</label>';\r\n         })\r\n         ->editColumn('harga1', function($query) {\r\n-            return '<label id = \"hargapertama_'.$query->id.'\"> '.$query->harga1.'</label>';\r\n+            return '<label id = \"hargapertama_'.$query->id.'\"> '.number_format($query->harga1).'</label>';\r\n         })\r\n         ->editColumn('harga2', function($query) {\r\n-            return '<label id = \"hargakedua_'.$query->id.'\"> '.$query->harga2.'</label>';\r\n+            return '<label id = \"hargakedua_'.$query->id.'\"> '.number_format($query->harga2).'</label>';\r\n         })\r\n         ->editColumn('harga3', function($query) {\r\n             return '<label id = \"hargaketiga_'.$query->id.'\"> '.$query->harga3.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635047048667,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         ->editColumn('harga2', function($query) {\r\n             return '<label id = \"hargakedua_'.$query->id.'\"> '.number_format($query->harga2).'</label>';\r\n         })\r\n         ->editColumn('harga3', function($query) {\r\n-            return '<label id = \"hargaketiga_'.$query->id.'\"> '.$query->harga3.'</label>';\r\n+            return '<label id = \"hargaketiga_'.$query->id.'\"> '.number_format($query->harga3).'</label>';\r\n         })\r\n         \r\n         ->editColumn('action', function($query) {\r\n             $mybutton = '<button type=\"button\" id = \"add_'.$query->id.'\" onclick = \"inputinterface(this)\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pl-2 pr-2\"></i></button>';\r\n"
+                },
+                {
+                    "date": 1635047143991,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,15 +99,15 @@\n         ->editColumn('name', function($query) {\r\n             return '<label id = \"name_'.$query->id.'\"> '.$query->name.'</label>';\r\n         })\r\n         ->editColumn('harga1', function($query) {\r\n-            return '<label id = \"hargapertama_'.$query->id.'\"> '.number_format($query->harga1).'</label>';\r\n+            return '<label id = \"hargapertama_'.$query->id.'\"> '.$query->harga1.'</label>';\r\n         })\r\n         ->editColumn('harga2', function($query) {\r\n-            return '<label id = \"hargakedua_'.$query->id.'\"> '.number_format($query->harga2).'</label>';\r\n+            return '<label id = \"hargakedua_'.$query->id.'\"> '.$query->harga2.'</label>';\r\n         })\r\n         ->editColumn('harga3', function($query) {\r\n-            return '<label id = \"hargaketiga_'.$query->id.'\"> '.number_format($query->harga3).'</label>';\r\n+            return '<label id = \"hargaketiga_'.$query->id.'\"> '.$query->harga3.'</label>';\r\n         })\r\n         \r\n         ->editColumn('action', function($query) {\r\n             $mybutton = '<button type=\"button\" id = \"add_'.$query->id.'\" onclick = \"inputinterface(this)\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pl-2 pr-2\"></i></button>';\r\n"
+                },
+                {
+                    "date": 1635047304428,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -143,9 +143,9 @@\n         ->editColumn('qty', function($query) {\r\n             return '<label id = \"qty_'.$query->id.'\"> '.$query->qty.'</label>'.'<input type = \"hidden\" value = \"'.$query->selling_price.'\" id = \"seliingprice_'.$query->id.'\">';\r\n         })\r\n         ->editColumn('subtotal', function($query) {\r\n-            return '<label id = \"subtotal_'.$query->id.'\"> '.$query->subtotal.'</label>';\r\n+            return '<label id = \"subtotal_'.$query->id.'\"> '.number_format($query->subtotal).'</label>';\r\n         })\r\n         \r\n         ->editColumn('action', function($query) {\r\n             $mybutton = '\r\n"
+                },
+                {
+                    "date": 1635047331580,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -274,9 +274,9 @@\n    \r\n             return response()->json([\r\n          'myproducttype' => $mydata[0]->producttype,\r\n          'myproductqty' => $mydata[0]->productqty,\r\n-         'myproductgrantotal' => $mydata[0]->grandtotal\r\n+         'myproductgrantotal' => number_format($mydata[0]->grandtotal)\r\n               ]);\r\n         }\r\n         else{\r\n             // $priceproduct = $cart[0]['selling_price'];\r\n"
+                },
+                {
+                    "date": 1635047341339,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -274,9 +274,9 @@\n    \r\n             return response()->json([\r\n          'myproducttype' => $mydata[0]->producttype,\r\n          'myproductqty' => $mydata[0]->productqty,\r\n-         'myproductgrantotal' => number_format($mydata[0]->grandtotal)\r\n+         'myproductgrantotal' => $mydata[0]->grandtotal\r\n               ]);\r\n         }\r\n         else{\r\n             // $priceproduct = $cart[0]['selling_price'];\r\n"
+                },
+                {
+                    "date": 1635047555728,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,9 @@\n    \r\n         return response()->json([\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n-     'myproductgrantotal' => $mydata[0]->grandtotal\r\n+     'myproductgrantotal' => number_format($mydata[0]->grandtotal);\r\n    ]);\r\n \r\n     }\r\n     public function getcart(){\r\n"
+                },
+                {
+                    "date": 1635047566660,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,9 @@\n    \r\n         return response()->json([\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n-     'myproductgrantotal' => number_format($mydata[0]->grandtotal);\r\n+     'myproductgrantotal' => $mydata[0]->grandtotal\r\n    ]);\r\n \r\n     }\r\n     public function getcart(){\r\n"
                 }
             ],
             "date": 1630203664033,

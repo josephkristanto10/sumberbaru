@@ -26,7 +26,7 @@ class NotaController extends Controller
         $enddate = date_create($spliiter[1]);
         $formatstart = date_format($startdate,"Y-m-d");
         $formatend = date_format($enddate,"Y-m-d");
-        $myinv = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();
+        $myinv = Invoice::whereDate('created_at', [$startdate, $enddate])->get();
         return DataTables::of($myinv)
         ->editColumn('testdate', function($query) {
             return '<label id = "createdat_'.$query->id.'"> '.$query->created_at.'</label>';
@@ -97,9 +97,9 @@ class NotaController extends Controller
         $formatend = date_format($enddate,"Y-m-d");
 
 
-        $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();
-        $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');
-        $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();
+        $invoice =  Invoice::whereDate('created_at', [$formatstart, $formatend])->get();
+        $qty = Invoice::whereDate('created_at', [$formatstart, $formatend])->sum('qty_item');
+        $total = Invoice::whereDate('created_at', [$formatstart, $formatend])->get();
         $tanggal = date('Y-m-d');
         $bersih = DB::select("SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' ");
         $mytotal = 0;

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 76,
+            "activePatchIndex": 85,
             "patches": [
                 {
                     "date": 1630204235417,
@@ -312,6 +312,42 @@
                 {
                     "date": 1635045576649,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n         ->editColumn('quantity', function($query) {\r\n             return '<label id = \"quantity_'.$query->id.'\"> '.$query->qty_item.'</label>';\r\n         })\r\n         ->editColumn('total', function($query) {\r\n-            return '<label id = \"total_'.$query->id.'\"> '.$query->total.'</label>';\r\n+            return '<label id = \"total_'.$query->id.'\"> '.number_format($query->total).'</label>';\r\n         })\r\n         ->editColumn('method', function($query) {\r\n             return '<label id = \"method_'.$query->id.'\"> '.$query->transaction_method.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635048615939,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,9 +95,9 @@\n         $enddate = date_create($spliiter[1]);\r\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n-\r\n+        echo $formatstart.\" == \".$formatend;\r\n         $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n"
+                },
+                {
+                    "date": 1635048928654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,9 +95,9 @@\n         $enddate = date_create($spliiter[1]);\r\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n-        echo $formatstart.\" == \".$formatend;\r\n+\r\n         $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n"
+                },
+                {
+                    "date": 1635048940454,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,9 +96,9 @@\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n-        $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n+        $invoice =  Invoice::whereDate('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' \");\r\n"
+                },
+                {
+                    "date": 1635048946369,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,9 +96,9 @@\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n-        $invoice =  Invoice::whereDate('created_at', [$startdate, $enddate])->get();\r\n+        $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' \");\r\n"
+                },
+                {
+                    "date": 1635049032192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,9 +96,9 @@\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n-        $invoice =  Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n+        $invoice =  Invoice::whereDate('created_at', [$startdate, $enddate])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' \");\r\n"
+                },
+                {
+                    "date": 1635049061164,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,9 +96,9 @@\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n-        $invoice =  Invoice::whereDate('created_at', [$startdate, $enddate])->get();\r\n+        $invoice =  Invoice::whereDate('created_at', [$formatstart, $formatend])->get();\r\n         $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n         $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' \");\r\n"
+                },
+                {
+                    "date": 1635049073280,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -97,10 +97,10 @@\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n         $invoice =  Invoice::whereDate('created_at', [$formatstart, $formatend])->get();\r\n-        $qty = Invoice::whereBetween('created_at', [$startdate, $enddate])->sum('qty_item');\r\n-        $total = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n+        $qty = Invoice::whereBetween('created_at', [$formatstart, $formatend])->sum('qty_item');\r\n+        $total = Invoice::whereBetween('created_at', [$formatstart, $formatend])->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' \");\r\n         $mytotal = 0;\r\n         for($i = 0 ; $i< count($total);$i++){\r\n"
+                },
+                {
+                    "date": 1635049112547,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -97,10 +97,10 @@\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n \r\n \r\n         $invoice =  Invoice::whereDate('created_at', [$formatstart, $formatend])->get();\r\n-        $qty = Invoice::whereBetween('created_at', [$formatstart, $formatend])->sum('qty_item');\r\n-        $total = Invoice::whereBetween('created_at', [$formatstart, $formatend])->get();\r\n+        $qty = Invoice::whereDate('created_at', [$formatstart, $formatend])->sum('qty_item');\r\n+        $total = Invoice::whereDate('created_at', [$formatstart, $formatend])->get();\r\n         $tanggal = date('Y-m-d');\r\n         $bersih = DB::select(\"SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' \");\r\n         $mytotal = 0;\r\n         for($i = 0 ; $i< count($total);$i++){\r\n"
+                },
+                {
+                    "date": 1635049169656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,9 +25,9 @@\n         $startdate = date_create($spliiter[0]);\r\n         $enddate = date_create($spliiter[1]);\r\n         $formatstart = date_format($startdate,\"Y-m-d\");\r\n         $formatend = date_format($enddate,\"Y-m-d\");\r\n-        $myinv = Invoice::whereBetween('created_at', [$startdate, $enddate])->get();\r\n+        $myinv = Invoice::whereDate('created_at', [$startdate, $enddate])->get();\r\n         return DataTables::of($myinv)\r\n         ->editColumn('testdate', function($query) {\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n"
                 }
             ],
             "date": 1630204235417,

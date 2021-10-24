@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 91,
+            "activePatchIndex": 101,
             "patches": [
                 {
                     "date": 1630204458967,
@@ -372,6 +372,46 @@
                 {
                     "date": 1635045641946,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -396,10 +396,10 @@\n                         success: function (result) {\r\n                         \r\n                             $(\"#jumlahspan\").text(result.invoice);\r\n                             $(\"#qtyspan\").text(result.qty);\r\n-                            $(\"#pendapatanspan\").text(result.pendapatan);\r\n-                            $(\"#keuntunganspan\").text(result.keuntungan);\r\n+                            $(\"#pendapatanspan\").text(numberWithCommas(result.pendapatan));\r\n+                            $(\"#keuntunganspan\").text(numberWithCommas(result.keuntungan));\r\n                             if(mytanggal != $(\"#changedatedata\").val()){\r\n                                 loadInvoice($(\"#changedatedata\").val());\r\n                             }\r\n                            \r\n"
+                },
+                {
+                    "date": 1635047760777,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -350,8 +350,9 @@\n    var mytanggal = \"\";\r\n    $(document).ready(function() {\r\n     $(\"#changedatedata\").trigger(\"change\");\r\n     mytanggal = $(\"#changedatedata\").val();\r\n+    alert(mytanggal);\r\n     loadInvoice($(\"#changedatedata\").val());\r\n         });\r\n \r\n       \r\n"
+                },
+                {
+                    "date": 1635047772408,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -350,10 +350,10 @@\n    var mytanggal = \"\";\r\n    $(document).ready(function() {\r\n     $(\"#changedatedata\").trigger(\"change\");\r\n     mytanggal = $(\"#changedatedata\").val();\r\n-    alert(mytanggal);\r\n-    loadInvoice($(\"#changedatedata\").val());\r\n+    alert();\r\n+    loadInvoice(mytanggal);\r\n         });\r\n \r\n       \r\n     function loadInvoice(mydates){\r\n"
+                },
+                {
+                    "date": 1635047780003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -350,9 +350,9 @@\n    var mytanggal = \"\";\r\n    $(document).ready(function() {\r\n     $(\"#changedatedata\").trigger(\"change\");\r\n     mytanggal = $(\"#changedatedata\").val();\r\n-    alert();\r\n+\r\n     loadInvoice(mytanggal);\r\n         });\r\n \r\n       \r\n"
+                },
+                {
+                    "date": 1635048634268,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -394,9 +394,9 @@\n                             datevalue : myvalue\r\n                             \r\n                         },\r\n                         success: function (result) {\r\n-                        \r\n+                            alert(0)\r\n                             $(\"#jumlahspan\").text(result.invoice);\r\n                             $(\"#qtyspan\").text(result.qty);\r\n                             $(\"#pendapatanspan\").text(numberWithCommas(result.pendapatan));\r\n                             $(\"#keuntunganspan\").text(numberWithCommas(result.keuntungan));\r\n"
+                },
+                {
+                    "date": 1635048672986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -394,9 +394,9 @@\n                             datevalue : myvalue\r\n                             \r\n                         },\r\n                         success: function (result) {\r\n-                            alert(0)\r\n+                            console.log(result);\r\n                             $(\"#jumlahspan\").text(result.invoice);\r\n                             $(\"#qtyspan\").text(result.qty);\r\n                             $(\"#pendapatanspan\").text(numberWithCommas(result.pendapatan));\r\n                             $(\"#keuntunganspan\").text(numberWithCommas(result.keuntungan));\r\n"
+                },
+                {
+                    "date": 1635048809329,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -356,9 +356,9 @@\n         });\r\n \r\n       \r\n     function loadInvoice(mydates){\r\n-        \r\n+        alert(mydates);\r\n         $('#mydatatable').DataTable({\r\n         processing: true,\r\n         serverSide: true,\r\n         destroy:true,\r\n"
+                },
+                {
+                    "date": 1635048909346,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -356,9 +356,9 @@\n         });\r\n \r\n       \r\n     function loadInvoice(mydates){\r\n-        alert(mydates);\r\n+       \r\n         $('#mydatatable').DataTable({\r\n         processing: true,\r\n         serverSide: true,\r\n         destroy:true,\r\n"
+                },
+                {
+                    "date": 1635048967886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -394,9 +394,9 @@\n                             datevalue : myvalue\r\n                             \r\n                         },\r\n                         success: function (result) {\r\n-                            console.log(result);\r\n+                         alert(:\"test\");\r\n                             $(\"#jumlahspan\").text(result.invoice);\r\n                             $(\"#qtyspan\").text(result.qty);\r\n                             $(\"#pendapatanspan\").text(numberWithCommas(result.pendapatan));\r\n                             $(\"#keuntunganspan\").text(numberWithCommas(result.keuntungan));\r\n"
+                },
+                {
+                    "date": 1635048977453,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -394,9 +394,9 @@\n                             datevalue : myvalue\r\n                             \r\n                         },\r\n                         success: function (result) {\r\n-                         alert(:\"test\");\r\n+                         alert(result);\r\n                             $(\"#jumlahspan\").text(result.invoice);\r\n                             $(\"#qtyspan\").text(result.qty);\r\n                             $(\"#pendapatanspan\").text(numberWithCommas(result.pendapatan));\r\n                             $(\"#keuntunganspan\").text(numberWithCommas(result.keuntungan));\r\n"
+                },
+                {
+                    "date": 1635049007501,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -394,9 +394,9 @@\n                             datevalue : myvalue\r\n                             \r\n                         },\r\n                         success: function (result) {\r\n-                         alert(result);\r\n+                         console.log(result);\r\n                             $(\"#jumlahspan\").text(result.invoice);\r\n                             $(\"#qtyspan\").text(result.qty);\r\n                             $(\"#pendapatanspan\").text(numberWithCommas(result.pendapatan));\r\n                             $(\"#keuntunganspan\").text(numberWithCommas(result.keuntungan));\r\n"
                 }
             ],
             "date": 1630204458967,
