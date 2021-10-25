@@ -170,6 +170,15 @@ class KasirController extends Controller
        $mydate = date("Y-m-d");
        $custname = $request->mycustomername;
        $invoicenote = $request->myinvoicenote;
+       if($custname == "none")
+       {
+           $custname = "-";
+       }
+       if($invoicenote == "none")
+       {
+            $invoicenote = "-";
+       }
+       
        $checked = $request->mychecked;
        $cost = $request->mycost;
        $myqty = $request->myqty;

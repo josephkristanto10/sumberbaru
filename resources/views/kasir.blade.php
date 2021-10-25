@@ -301,9 +301,19 @@
         else{
             var customername = $("#customer_name").val();
             var invoicenote = $("#invoicenote").val();
+        
             var myqtyitemtotal = $("#qtyitemtotal").text();
-            // var checkedchekbox = $("#checkboxkirim").checked;
             var cost = 0;
+
+            if(customername === "")
+            {
+                customername = "none";
+            }
+            if(invoicenote === "")
+            {
+                invoicenote = "none";
+            }
+           
             if(checkedshipment)
             {
                 cost = $("#deliverycost").val();

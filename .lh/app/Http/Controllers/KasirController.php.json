@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 272,
+            "activePatchIndex": 277,
             "patches": [
                 {
                     "date": 1630203664033,
@@ -1096,6 +1096,26 @@
                 {
                     "date": 1635172342187,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -93,25 +93,25 @@\n         $mycart = DB::select(\"select *, product.id as idproduct from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0 and product.status = 'Active' group by product.id\");\r\n         // Product::join(\"supplier_product\",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();\r\n         return DataTables::of($mycart)\r\n         ->editColumn('kode', function($query) {\r\n-            return '<label id = \"kode_'.$query->id.'\"> '.$query->kode.'</label>';\r\n+            return '<label id = \"kode_'.$query->idproduct.'\"> '.$query->kode.'</label>';\r\n         })\r\n         ->editColumn('name', function($query) {\r\n-            return '<label id = \"name_'.$query->id.'\"> '.$query->name.'</label>';\r\n+            return '<label id = \"name_'.$query->idproduct.'\"> '.$query->name.'</label>';\r\n         })\r\n         ->editColumn('harga1', function($query) {\r\n-            return '<label id = \"hargapertama_'.$query->id.'\"> '.$query->harga1.'</label>';\r\n+            return '<label id = \"hargapertama_'.$query->idproduct.'\"> '.$query->harga1.'</label>';\r\n         })\r\n         ->editColumn('harga2', function($query) {\r\n-            return '<label id = \"hargakedua_'.$query->id.'\"> '.$query->harga2.'</label>';\r\n+            return '<label id = \"hargakedua_'.$query->idproduct.'\"> '.$query->harga2.'</label>';\r\n         })\r\n         ->editColumn('harga3', function($query) {\r\n-            return '<label id = \"hargaketiga_'.$query->id.'\"> '.$query->harga3.'</label>';\r\n+            return '<label id = \"hargaketiga_'.$query->idproduct.'\"> '.$query->harga3.'</label>';\r\n         })\r\n         \r\n         ->editColumn('action', function($query) {\r\n-            $mybutton = '<button type=\"button\" id = \"add_'.$query->id.'\" onclick = \"inputinterface(this)\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pl-2 pr-2\"></i></button>';\r\n+            $mybutton = '<button type=\"button\" id = \"add_'.$query->idproduct.'\" onclick = \"inputinterface(this)\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pl-2 pr-2\"></i></button>';\r\n           \r\n             return $mybutton;\r\n         })\r\n //         ->addColumn('action', \r\n"
+                },
+                {
+                    "date": 1635173208491,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -169,8 +169,12 @@\n         date_default_timezone_set('Asia/Jakarta');\r\n        $mydate = date(\"Y-m-d\");\r\n        $custname = $request->mycustomername;\r\n        $invoicenote = $request->myinvoicenote;\r\n+       if($custname == \"none\")\r\n+       {\r\n+           \r\n+       }\r\n        $checked = $request->mychecked;\r\n        $cost = $request->mycost;\r\n        $myqty = $request->myqty;\r\n        $paymentmethod = $request->mymethod;\r\n"
+                },
+                {
+                    "date": 1635173218503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -171,9 +171,9 @@\n        $custname = $request->mycustomername;\r\n        $invoicenote = $request->myinvoicenote;\r\n        if($custname == \"none\")\r\n        {\r\n-           \r\n+           $custname = \"-\";\r\n        }\r\n        $checked = $request->mychecked;\r\n        $cost = $request->mycost;\r\n        $myqty = $request->myqty;\r\n"
+                },
+                {
+                    "date": 1635173226654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -173,8 +173,9 @@\n        if($custname == \"none\")\r\n        {\r\n            $custname = \"-\";\r\n        }\r\n+       \r\n        $checked = $request->mychecked;\r\n        $cost = $request->mycost;\r\n        $myqty = $request->myqty;\r\n        $paymentmethod = $request->mymethod;\r\n"
+                },
+                {
+                    "date": 1635173235479,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -173,8 +173,12 @@\n        if($custname == \"none\")\r\n        {\r\n            $custname = \"-\";\r\n        }\r\n+       if($invoicenote == \"none\")\r\n+       {\r\n+           \r\n+       }\r\n        \r\n        $checked = $request->mychecked;\r\n        $cost = $request->mycost;\r\n        $myqty = $request->myqty;\r\n"
+                },
+                {
+                    "date": 1635173242438,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -175,9 +175,9 @@\n            $custname = \"-\";\r\n        }\r\n        if($invoicenote == \"none\")\r\n        {\r\n-           \r\n+            $invoicenote = \"-\";\r\n        }\r\n        \r\n        $checked = $request->mychecked;\r\n        $cost = $request->mycost;\r\n"
                 }
             ],
             "date": 1630203664033,
