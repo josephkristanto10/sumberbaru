@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 277,
+            "activePatchIndex": 281,
             "patches": [
                 {
                     "date": 1630203664033,
@@ -1116,6 +1116,22 @@
                 {
                     "date": 1635173242438,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -175,9 +175,9 @@\n            $custname = \"-\";\r\n        }\r\n        if($invoicenote == \"none\")\r\n        {\r\n-           \r\n+            $invoicenote = \"-\";\r\n        }\r\n        \r\n        $checked = $request->mychecked;\r\n        $cost = $request->mycost;\r\n"
+                },
+                {
+                    "date": 1635173496945,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -204,8 +204,9 @@\n \r\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n+            $product = Product::find();\r\n             $buyingprice = DB::select(\"SELECT avg(price) as rata FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n             $buyingpricefix = $buyingprice[0]->rata;\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n"
+                },
+                {
+                    "date": 1635173567340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -204,9 +204,10 @@\n \r\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n-            $product = Product::find();\r\n+            $product = Product::find($mycart[$i]['idproduct']);\r\n+            $product->stok -= \r\n             $buyingprice = DB::select(\"SELECT avg(price) as rata FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n             $buyingpricefix = $buyingprice[0]->rata;\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n"
+                },
+                {
+                    "date": 1635173578793,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -205,9 +205,9 @@\n         // Invoice Detail\r\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n             $product = Product::find($mycart[$i]['idproduct']);\r\n-            $product->stok -= \r\n+            $product->stok -= $mycart[$i]['qty'];\r\n             $buyingprice = DB::select(\"SELECT avg(price) as rata FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n             $buyingpricefix = $buyingprice[0]->rata;\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n"
+                },
+                {
+                    "date": 1635173587211,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -206,8 +206,9 @@\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n             $product = Product::find($mycart[$i]['idproduct']);\r\n             $product->stok -= $mycart[$i]['qty'];\r\n+            $product->save();\r\n             $buyingprice = DB::select(\"SELECT avg(price) as rata FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n             $buyingpricefix = $buyingprice[0]->rata;\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n"
                 }
             ],
             "date": 1630203664033,

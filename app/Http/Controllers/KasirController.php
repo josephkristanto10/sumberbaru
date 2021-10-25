@@ -205,6 +205,9 @@ class KasirController extends Controller
         // Invoice Detail
         for($i = 0 ; $i < count($mycart) ; $i++)
         {
+            $product = Product::find($mycart[$i]['idproduct']);
+            $product->stok -= $mycart[$i]['qty'];
+            $product->save();
             $buyingprice = DB::select("SELECT avg(price) as rata FROM `supplier_product` where idproduct = '".$mycart[$i]['idproduct']."'");
             $buyingpricefix = $buyingprice[0]->rata;
             $invoice_detail = new InvoiceDetail;
