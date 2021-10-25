@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 14,
+            "activePatchIndex": 15,
             "patches": [
                 {
                     "date": 1630203274375,
@@ -64,6 +64,10 @@
                 {
                     "date": 1630597019741,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,15 +41,15 @@\n \r\n \r\n <script src=\"{{ asset('assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}\"></script>\r\n <!-- start - This is for export functionality only -->\r\n-<script src=\"{{ asset('assets/dist/js/dataTables.buttons.min.js')}}\"></script>\r\n-<script src=\"{{ asset('assets/dist/js/buttons.flash.min.js')}}\"></script>\r\n-<script src=\"{{ asset('assets/dist/js/jszip.min.js')}}\"></script>\r\n-<script src=\"{{ asset('assets/dist/js/pdfmake.min.js')}}\"></script>\r\n-<script src=\"{{ asset('assets/dist/js/vfs_fonts.js')}}\"></script>\r\n-<script src=\"{{ asset('assets/dist/js/buttons.html5.min.js')}}\"></script>\r\n-<script src=\"{{ asset('assets/dist/js/buttons.print.min.js')}}\"></script> <!-- Sweet-Alert  -->\r\n+<script src=\"{{ asset('dist/js/dataTables.buttons.min.js')}}\"></script>\r\n+<script src=\"{{ asset('dist/js/buttons.flash.min.js')}}\"></script>\r\n+<script src=\"{{ asset('dist/js/jszip.min.js')}}\"></script>\r\n+<script src=\"{{ asset('dist/js/pdfmake.min.js')}}\"></script>\r\n+<script src=\"{{ asset('dist/js/vfs_fonts.js')}}\"></script>\r\n+<script src=\"{{ asset('dist/js/buttons.html5.min.js')}}\"></script>\r\n+<script src=\"{{ asset('dist/js/buttons.print.min.js')}}\"></script> <!-- Sweet-Alert  -->\r\n <script src=\"{{ asset('assets/node_modules/sweetalert2/dist/sweetalert2.all.min.js')}}\"></script>\r\n <script src=\"{{ asset('assets/node_modules/sweetalert2/sweet-alert.init.js')}}\"></script> <!-- wysuhtml5 Plugin JavaScript -->\r\n <script src=\"{{ asset('assets/node_modules/summernote/dist/summernote-bs4.min.js')}}\"></script>\r\n <script src=\"{{ asset('assets/node_modules/switchery/dist/switchery.min.js')}}\"></script>\r\n"
+                },
+                {
+                    "date": 1635178638001,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <!-- footer -->\r\n <!-- ============================================================== -->\r\n <footer class=\"footer\">\r\n-    © Designed By Joseph\r\n+    © Designed By Xinvan Technology \r\n </footer>\r\n <!-- ============================================================== -->\r\n <!-- End footer -->\r\n <!-- ============================================================== -->\r\n"
                 }
             ],
             "date": 1630203274375,

@@ -1,7 +1,7 @@
 <!-- footer -->
 <!-- ============================================================== -->
 <footer class="footer">
-    © Designed By Joseph
+    © Designed By Xinvan Technology 
 </footer>
 <!-- ============================================================== -->
 <!-- End footer -->
