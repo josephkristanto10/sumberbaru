@@ -104,6 +104,8 @@ class ProductController extends Controller
                     $products->harga1 = $request->myprice1;
                     $products->harga2 = $request->myprice2;
                     $products->harga3 = $request->myprice3;
+                    $products->stok = 0;
+                    $products->status = "Active";
                     $products->save(); // returns false
                  }
                  catch(\Exception $e){

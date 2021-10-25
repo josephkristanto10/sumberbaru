@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 295,
+            "activePatchIndex": 299,
             "patches": [
                 {
                     "date": 1630203560740,
@@ -1188,6 +1188,22 @@
                 {
                     "date": 1635165899168,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,13 +38,13 @@\n         })\r\n         ->editColumn('status', function($query) {\r\n             $mystatus = \"\";\r\n             if($query->status == \"Active\"){\r\n-                $mtstatus = '<b><label id = \"status'.$query->id.'\" class = \"text-success\"> '.$query->status.'</label></b>';\r\n+                $mystatus = '<b><label id = \"status'.$query->id.'\" class = \"text-success\"> '.$query->status.'</label></b>';\r\n             }\r\n             else\r\n             {\r\n-                $mtstatus = '<b><label id = \"status'.$query->id.'\" class = \"text-danger\"> '.$query->status.'</label></b';\r\n+                $mystatus = '<b><label id = \"status'.$query->id.'\" class = \"text-danger\"> '.$query->status.'</label></b';\r\n             }\r\n             return $mystatus;\r\n         })\r\n                ->addColumn('intro', \r\n"
+                },
+                {
+                    "date": 1635170256233,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,8 +103,9 @@\n                     $products->kode = $request->mycode;\r\n                     $products->harga1 = $request->myprice1;\r\n                     $products->harga2 = $request->myprice2;\r\n                     $products->harga3 = $request->myprice3;\r\n+                    $products->harga3 = $request->myprice3;\r\n                     $products->save(); // returns false\r\n                  }\r\n                  catch(\\Exception $e){\r\n                     return $e->getMessage();\r\n"
+                },
+                {
+                    "date": 1635170303156,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,9 @@\n                     $products->kode = $request->mycode;\r\n                     $products->harga1 = $request->myprice1;\r\n                     $products->harga2 = $request->myprice2;\r\n                     $products->harga3 = $request->myprice3;\r\n-                    $products->harga3 = $request->myprice3;\r\n+                    $products->harga3 = \"Active\";\r\n                     $products->save(); // returns false\r\n                  }\r\n                  catch(\\Exception $e){\r\n                     return $e->getMessage();\r\n"
+                },
+                {
+                    "date": 1635170509152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,10 @@\n                     $products->kode = $request->mycode;\r\n                     $products->harga1 = $request->myprice1;\r\n                     $products->harga2 = $request->myprice2;\r\n                     $products->harga3 = $request->myprice3;\r\n-                    $products->harga3 = \"Active\";\r\n+                    $products->harga3 = $request->myprice3;\r\n+                    $products->status = \"Active\";\r\n                     $products->save(); // returns false\r\n                  }\r\n                  catch(\\Exception $e){\r\n                     return $e->getMessage();\r\n"
+                },
+                {
+                    "date": 1635170519445,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,9 @@\n                     $products->kode = $request->mycode;\r\n                     $products->harga1 = $request->myprice1;\r\n                     $products->harga2 = $request->myprice2;\r\n                     $products->harga3 = $request->myprice3;\r\n-                    $products->harga3 = $request->myprice3;\r\n+                    $products->stok = 0;\r\n                     $products->status = \"Active\";\r\n                     $products->save(); // returns false\r\n                  }\r\n                  catch(\\Exception $e){\r\n"
                 }
             ],
             "date": 1630203560740,
