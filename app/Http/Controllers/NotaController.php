@@ -21,12 +21,20 @@ class NotaController extends Controller
     }
     public function getmydata(Request $request){
         $mytanggal = $request->tanggalku;
+        // $spliiter = explode(" - ", $mytanggal);
+        // $startdate = date_create($spliiter[0]);
+        // $enddate = date_create($spliiter[1]);
+        // $formatstart = date_format($startdate,"Y-m-d");
+        // $formatend = date_format($enddate,"Y-m-d");
         $spliiter = explode(" - ", $mytanggal);
-        $startdate = date_create($spliiter[0]);
-        $enddate = date_create($spliiter[1]);
-        $formatstart = date_format($startdate,"Y-m-d");
-        $formatend = date_format($enddate,"Y-m-d");
-        $myinv = Invoice::whereDate('created_at', [$startdate, $enddate])->get();
+        $startdate = $spliiter[0];
+        $splitterstartdate = explode('/',$startdate);
+        $formatstart =  $splitterstartdate[2]."-".$splitterstartdate[0]."-".$splitterstartdate[1];
+
+        $enddate = $spliiter[1];
+        $splitterenddate = explode('/',$enddate);
+        $formatend = $splitterenddate[2]."-".$splitterenddate[0]."-".$splitterenddate[1];
+        $myinv = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();
         return DataTables::of($myinv)
         ->editColumn('testdate', function($query) {
             return '<label id = "createdat_'.$query->id.'"> '.$query->created_at.'</label>';
@@ -91,15 +99,23 @@ class NotaController extends Controller
     public function getdateinvoice(Request $request){
         $mydate = $request->datevalue;
         $spliiter = explode(" - ", $mydate);
-        $startdate = date_create($spliiter[0]);
-        $enddate = date_create($spliiter[1]);
-        $formatstart = date_format($startdate,"Y-m-d");
-        $formatend = date_format($enddate,"Y-m-d");
+        $startdate = $spliiter[0];
+        $splitterstartdate = explode('/',$startdate);
+        $formatstart =  $splitterstartdate[2]."-".$splitterstartdate[0]."-".$splitterstartdate[1];
+
+        $enddate = $spliiter[1];
+        $splitterenddate = explode('/',$enddate);
+        $formatend = $splitterenddate[2]."-".$splitterenddate[0]."-".$splitterenddate[1];
+
+        // $enddate = date_create($spliiter[1]);
+        // // $formatstart = date_format($startdate,"Y-m-d");
+        // $formatstartfix = date_format($formatstart,"Y-m-d");
+        // $formatendfix = date_format($formatend,"Y-m-d");
 
 
-        $invoice =  Invoice::whereDate('created_at', [$formatstart, $formatend])->get();
-        $qty = Invoice::whereDate('created_at', [$formatstart, $formatend])->sum('qty_item');
-        $total = Invoice::whereDate('created_at', [$formatstart, $formatend])->get();
+        $invoice =  Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();
+        $qty = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->sum('qty_item');
+        $total = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();
         $tanggal = date('Y-m-d');
         $bersih = DB::select("SELECT sum(subtotal-buyingprice) as keuntungan FROM `invoice_detail` where date(created_at) >= '$formatstart' and date(created_at) <= '$formatend' ");
         $mytotal = 0;
@@ -122,7 +138,9 @@ class NotaController extends Controller
             'invoice' => $jumlahinvoice,
             'qty' => $qty,
             'pendapatan' => $mytotal,
-            'keuntungan' => $keuntungan
+            'keuntungan' => $keuntungan,
+            'start' => $formatstart,
+            'end' => $formatend
                  ]);
 
         // return $formatstart. "  ==  ".$formatend;

@@ -400,9 +400,9 @@
                             $("#qtyspan").text(result.qty);
                             $("#pendapatanspan").text(numberWithCommas(result.pendapatan));
                             $("#keuntunganspan").text(numberWithCommas(result.keuntungan));
-                            if(mytanggal != $("#changedatedata").val()){
+                           
                                 loadInvoice($("#changedatedata").val());
-                            }
+                           
                            
                          }
 
