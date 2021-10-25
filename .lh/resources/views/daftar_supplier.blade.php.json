@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 83,
+            "activePatchIndex": 86,
             "patches": [
                 {
                     "date": 1630203838239,
@@ -340,6 +340,18 @@
                 {
                     "date": 1635168304381,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,8 @@\n                                     <th width=\"15%\">Nama Supplier</th>\r\n                                     <th width=\"8%\">Nomor Telepon</th>\r\n                                     <th width=\"13%\">Alamat</th>\r\n                                     <th width=\"4%\">Daftar</th>\r\n-                                    <th width=\"6%\">Aksi</th>\r\n                                 </tr>\r\n                             </thead>\r\n                             <tbody>\r\n                                 <!-- <tr>\r\n@@ -190,10 +189,9 @@\n             { data: 'name', name: 'name' },\r\n             { data: 'phone', name: 'phone' },\r\n             { data: 'address', name: 'address' },\r\n             // { data: 'status', name: 'status' },\r\n-            { data: 'list', name: 'list', searchable:false},\r\n-            { data: 'action', name: 'action' }\r\n+            { data: 'list', name: 'list', searchable:false}\r\n         ]\r\n     });\r\n     function success() {\r\n       $('#mytable').DataTable().ajax.reload(null, false);\r\n@@ -297,9 +295,9 @@\n             $.ajax({\r\n                 url: \"{{ route('supplier.store') }}\",\r\n                 method: 'POST',\r\n                 data: {\r\n-                    mytipe : \"addsupplierproduct\",\r\n+                    mytipe : \"addsupplier\",\r\n                     myname : name,\r\n                     myphone : phone,\r\n                     myaddress : address\r\n                     \r\n"
+                },
+                {
+                    "date": 1635169819221,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -189,8 +189,9 @@\n             { data: 'name', name: 'name' },\r\n             { data: 'phone', name: 'phone' },\r\n             { data: 'address', name: 'address' },\r\n             // { data: 'status', name: 'status' },\r\n+            { data: 'list', name: 'list', searchable:false},\r\n             { data: 'list', name: 'list', searchable:false}\r\n         ]\r\n     });\r\n     function success() {\r\n"
+                },
+                {
+                    "date": 1635169826622,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -190,9 +190,9 @@\n             { data: 'phone', name: 'phone' },\r\n             { data: 'address', name: 'address' },\r\n             // { data: 'status', name: 'status' },\r\n             { data: 'list', name: 'list', searchable:false},\r\n-            { data: 'list', name: 'list', searchable:false}\r\n+            { data: 'action', name: 'action', searchable:false}\r\n         ]\r\n     });\r\n     function success() {\r\n       $('#mytable').DataTable().ajax.reload(null, false);\r\n"
+                },
+                {
+                    "date": 1635169836341,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,8 +44,9 @@\n                                     <th width=\"15%\">Nama Supplier</th>\r\n                                     <th width=\"8%\">Nomor Telepon</th>\r\n                                     <th width=\"13%\">Alamat</th>\r\n                                     <th width=\"4%\">Daftar</th>\r\n+                                    <th width=\"4%\">Daftar</th>\r\n                                 </tr>\r\n                             </thead>\r\n                             <tbody>\r\n                                 <!-- <tr>\r\n"
                 }
             ],
             "date": 1630203838239,
