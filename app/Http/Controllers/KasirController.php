@@ -135,7 +135,7 @@ class KasirController extends Controller
     }
     public function getcart(){
       
-        $mycart = Cart::join("product", 'product.id','=','cart.idproduct')->select("cart.*",'product.name')->get();
+        $mycart = Cart::join("product", 'product.id','=','cart.idproduct')->select("cart.*",'product.name', 'product.harga1', 'product.harga2', 'product.harga3')->get();
         return DataTables::of($mycart)
         ->editColumn('name', function($query) {
             return '<label id = "name_'.$query->id.'"> '.$query->name.'</label>';
@@ -144,7 +144,10 @@ class KasirController extends Controller
             return '<label id = "qty_'.$query->id.'"> '.$query->qty.'</label>'.'<input type = "hidden" value = "'.$query->selling_price.'" id = "seliingprice_'.$query->id.'">';
         })
         ->editColumn('subtotal', function($query) {
-            return '<label id = "subtotal_'.$query->id.'"> '.number_format($query->subtotal).'</label>';
+            return '<label id = "subtotal_'.$query->id.'"> '.number_format($query->subtotal).'</label>'.
+            '<input type = "hidden"  id = "hargapertamaedit_'.$query->id.'" value = "'.$query->harga1.'"> '
+            .'<input type = "hidden"  id = "hargakeduaedit_'.$query->id.'" value = "'.$query->harga2.'"> '
+            .'<input type = "hidden"  id = "hargaketigaedit_'.$query->id.'" value = "'.$query->harga3.'"> ';
         })
         
         ->editColumn('action', function($query) {

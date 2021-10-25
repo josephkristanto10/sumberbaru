@@ -855,7 +855,42 @@
             $("#qtyinputinterfaceedit").val(qty);
             $("#priceinputinterfaceedit").val(selliingprice);
             $("#subtotalinputinterfaceedit").text(subtotal);
+            var hargapertamaedit = $("#hargapertamaedit_"+myid).val();
+            var hargakeduaedit = $("#hargakeduaedit_"+myid).val();
+            var hargaketigaedit = $("#hargaketigaedit_"+myid).val();
+            $("#buttonbantuanharga1edit").text(hargapertamaedit);
+            $("#buttonbantuanharga2edit").text(hargakeduaedit);
+            $("#buttonbantuanharga3edit").text(hargaketigaedit);
+           
+            $("#buttonbantuanharga1edit").on("click",function(){
+                    var jumlah =   $("#qtyinputinterfaceedit").val();
+                    $("#priceinputinterfaceedit").val(hargapertamaedit);
+                var subtotal = jumlah * parseInt(hargapertamaedit);
+                $("#subtotalinputinterfaceedit").text(subtotal);
+                
+               
+            });
+            $("#buttonbantuanharga2edit").on("click",function(){
+               
+                   
+                var jumlah =   $("#qtyinputinterfaceedit").val();
+                $("#priceinputinterfaceedit").val(hargakeduaedit);
+                var subtotal = jumlah * parseInt(hargakeduaedit);
+                $("#subtotalinputinterfaceedit").text(subtotal);
+                
+             
+            });
+            $("#buttonbantuanharga3edit").on("click",function(){
+                
+                var jumlah = $("#qtyinputinterfaceedit").val();
+              
+                  
+                    $("#priceinputinterfaceedit").val(hargaketigaedit);
+                var subtotal = jumlah * parseInt(hargaketigaedit);
+                $("#subtotalinputinterfaceedit").text(subtotal);
+                
             
+            });
         }
         function editcart(){
             var myid = globalidcart;
