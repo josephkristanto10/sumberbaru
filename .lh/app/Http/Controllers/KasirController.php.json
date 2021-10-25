@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 281,
+            "activePatchIndex": 285,
             "patches": [
                 {
                     "date": 1630203664033,
@@ -1132,6 +1132,22 @@
                 {
                     "date": 1635173587211,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -206,8 +206,9 @@\n         for($i = 0 ; $i < count($mycart) ; $i++)\r\n         {\r\n             $product = Product::find($mycart[$i]['idproduct']);\r\n             $product->stok -= $mycart[$i]['qty'];\r\n+            $product->save();\r\n             $buyingprice = DB::select(\"SELECT avg(price) as rata FROM `supplier_product` where idproduct = '\".$mycart[$i]['idproduct'].\"'\");\r\n             $buyingpricefix = $buyingprice[0]->rata;\r\n             $invoice_detail = new InvoiceDetail;\r\n             $invoice_detail->idproduct = $mycart[$i]['idproduct'];\r\n"
+                },
+                {
+                    "date": 1635173793588,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         ->editColumn('harga2', function($query) {\r\n             return '<label id = \"hargakedua_'.$query->idproduct.'\"> '.$query->harga2.'</label>';\r\n         })\r\n         ->editColumn('harga3', function($query) {\r\n-            return '<label id = \"hargaketiga_'.$query->idproduct.'\"> '.$query->harga3.'</label>';\r\n+            return '<label id = \"hargaketiga_'.$query->idproduct.'\"> '.$query->harga3.'</label>'.'<input id = \"stoksekarang_'.$query->idproduct.'\" value = \"'..'\"> '.$query->harga3.'</label>';\r\n         })\r\n         \r\n         ->editColumn('action', function($query) {\r\n             $mybutton = '<button type=\"button\" id = \"add_'.$query->idproduct.'\" onclick = \"inputinterface(this)\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pl-2 pr-2\"></i></button>';\r\n"
+                },
+                {
+                    "date": 1635173809198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         ->editColumn('harga2', function($query) {\r\n             return '<label id = \"hargakedua_'.$query->idproduct.'\"> '.$query->harga2.'</label>';\r\n         })\r\n         ->editColumn('harga3', function($query) {\r\n-            return '<label id = \"hargaketiga_'.$query->idproduct.'\"> '.$query->harga3.'</label>'.'<input id = \"stoksekarang_'.$query->idproduct.'\" value = \"'..'\"> '.$query->harga3.'</label>';\r\n+            return '<label id = \"hargaketiga_'.$query->idproduct.'\"> '.$query->harga3.'</label>'.'<input id = \"stoksekarang_'.$query->idproduct.'\" value = \"'.$query->stok.'\"> '.$query->stok.'</label>';\r\n         })\r\n         \r\n         ->editColumn('action', function($query) {\r\n             $mybutton = '<button type=\"button\" id = \"add_'.$query->idproduct.'\" onclick = \"inputinterface(this)\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pl-2 pr-2\"></i></button>';\r\n"
+                },
+                {
+                    "date": 1635173815562,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         ->editColumn('harga2', function($query) {\r\n             return '<label id = \"hargakedua_'.$query->idproduct.'\"> '.$query->harga2.'</label>';\r\n         })\r\n         ->editColumn('harga3', function($query) {\r\n-            return '<label id = \"hargaketiga_'.$query->idproduct.'\"> '.$query->harga3.'</label>'.'<input id = \"stoksekarang_'.$query->idproduct.'\" value = \"'.$query->stok.'\"> '.$query->stok.'</label>';\r\n+            return '<label id = \"hargaketiga_'.$query->idproduct.'\"> '.$query->harga3.'</label>'.'<input id = \"stoksekarang_'.$query->idproduct.'\" value = \"'.$query->stok.'\"> '';\r\n         })\r\n         \r\n         ->editColumn('action', function($query) {\r\n             $mybutton = '<button type=\"button\" id = \"add_'.$query->idproduct.'\" onclick = \"inputinterface(this)\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pl-2 pr-2\"></i></button>';\r\n"
+                },
+                {
+                    "date": 1635173827059,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n         ->editColumn('harga2', function($query) {\r\n             return '<label id = \"hargakedua_'.$query->idproduct.'\"> '.$query->harga2.'</label>';\r\n         })\r\n         ->editColumn('harga3', function($query) {\r\n-            return '<label id = \"hargaketiga_'.$query->idproduct.'\"> '.$query->harga3.'</label>'.'<input id = \"stoksekarang_'.$query->idproduct.'\" value = \"'.$query->stok.'\"> '';\r\n+            return '<label id = \"hargaketiga_'.$query->idproduct.'\"> '.$query->harga3.'</label>'.'<input type = \"hidden\" id = \"stoksekarang_'.$query->idproduct.'\" value = \"'.$query->stok.'\"> ';\r\n         })\r\n         \r\n         ->editColumn('action', function($query) {\r\n             $mybutton = '<button type=\"button\" id = \"add_'.$query->idproduct.'\" onclick = \"inputinterface(this)\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#tambah\"><i class=\"fas fa-plus pl-2 pr-2\"></i></button>';\r\n"
                 }
             ],
             "date": 1630203664033,

@@ -491,12 +491,23 @@
         }
         else{
             var idproduct = idproductchoose;
+            var mystok = $("#stoksekarang_"+idproduct).val();
             var price =  $("#priceinputinterface").val();
             var quantity = $("#qtyinputinterface").val();
-
+            // alert(mystok);
             var hargaakhir = parseInt(price) * parseInt(quantity);
-
-        $.ajaxSetup({
+            if(parseInt(quantity)>parseInt(mystok))
+            {
+                            Swal.fire({
+                                type: 'info',
+                                title: 'Stock Insufficient',
+                                text: 'Please add product stock first !! ',
+                                confirmButtonColor: '#e00d0d',
+                            });
+            }
+            else
+            {
+                $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
@@ -545,24 +556,12 @@
                                     }
                             });
                     }
-                    // var obj = result;
-                        // var mystring = jsonparse[0][mystring];
-                        // var spliiter = result.split("~~~");
-                        // var mydatatable = spliiter[0];
-                        // var myalltaotal = spliiter[1];
-                        // $("#tutupmodal").click();
-                        // $("#tabelkeranjang").html("");
-                        // $("#tabelkeranjang").html(obj.mystring);
-                     
-                        // Swal.fire({
-                        //     title: 'Data Changed',
-                        //     text: 'Data Changed Successfully',
-                        //     type: 'success',
-                        //     confirmButtonColor: '#53d408',
-                        // });
+              
 
                 }
             });
+            }
+  
         }
        
     };

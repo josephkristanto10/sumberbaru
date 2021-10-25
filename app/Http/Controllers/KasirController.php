@@ -106,7 +106,7 @@ class KasirController extends Controller
             return '<label id = "hargakedua_'.$query->idproduct.'"> '.$query->harga2.'</label>';
         })
         ->editColumn('harga3', function($query) {
-            return '<label id = "hargaketiga_'.$query->idproduct.'"> '.$query->harga3.'</label>';
+            return '<label id = "hargaketiga_'.$query->idproduct.'"> '.$query->harga3.'</label>'.'<input type = "hidden" id = "stoksekarang_'.$query->idproduct.'" value = "'.$query->stok.'"> ';
         })
         
         ->editColumn('action', function($query) {
