@@ -29,7 +29,7 @@ class PriceListController extends Controller
 
      
 
-        $supplier = DB::select("SELECT supplier.id, supplier.name, supplier.phone, supplier.address, count(supplier_product.id) as jumlahbarang FROM supplier_product right join supplier on supplier.id = supplier_product.idsupplier group by supplier_product.idsupplier");
+        $supplier = DB::select("SELECT supplier.id, supplier.name, supplier.phone, supplier.address, count(supplier_product.id) as jumlahbarang FROM supplier_product right join supplier on supplier.id = supplier_product.idsupplier group by supplier.id");
         return DataTables::of($supplier)
         ->editColumn('name', function($query) {
             return '<label id = "name'.$query->id.'"> '.$query->name.'</label>';

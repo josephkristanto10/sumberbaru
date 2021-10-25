@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 173,
+            "activePatchIndex": 174,
             "patches": [
                 {
                     "date": 1630203634136,
@@ -700,6 +700,10 @@
                 {
                     "date": 1635168292570,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,15 +44,11 @@\n \r\n             '<a href = \"'.$myurl.'\"><button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-info pl-2 pr-2\" ><i class=\"fas fa-server pr-2\"></i>'.$query->jumlahbarang.' Barang</button></a>\r\n             ';\r\n         })\r\n-        ->addColumn('action', \r\n-               function ($query) {\r\n-                return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\r\n- ';})\r\n+      \r\n               \r\n-               ->rawColumns(['action', 'name', 'phone', 'address', 'status', 'list'])\r\n+               ->rawColumns([ 'name', 'phone', 'address', 'status', 'list'])\r\n                ->make(true);\r\n     }\r\n     public function getdatatableproductpersupplier($id){\r\n \r\n"
+                },
+                {
+                    "date": 1635168922546,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,15 +60,11 @@\n         })\r\n         ->editColumn('name', function($query) {\r\n             return '<label id = \"name'.$query->idproduct.'\"> '.$query->name.'</label>';\r\n         })\r\n-        ->addColumn('action', \r\n-               function ($query) {\r\n-                return '\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\r\n- ';})\r\n+        \r\n               \r\n-               ->rawColumns(['action', 'name', 'code','status'])\r\n+               ->rawColumns([ 'name', 'code','status'])\r\n                ->make(true);\r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
                 }
             ],
             "date": 1630203634136,

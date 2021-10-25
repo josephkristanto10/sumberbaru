@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 73,
+            "activePatchIndex": 74,
             "patches": [
                 {
                     "date": 1630204505410,
@@ -300,6 +300,10 @@
                 {
                     "date": 1630595833978,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -88,13 +88,13 @@\n @include(\"layout.footer\")\r\n <script>\r\n     var idsup = $(\"#idsupplier\").val();\r\n     var myurl = '{{url(\"/getdatatableproductpersupplier/\")}}' + \"/\"+ idsup;\r\n-    alert(myurl);\r\n+  \r\n      $('#mytable').DataTable({\r\n         processing: true,\r\n         serverSide: true,\r\n-        ajax: \"{{url('/getdatatableproductpersupplier/2')}}\",\r\n+        ajax: myurl,\r\n         columns: [\r\n             { data: 'code', name: 'name' },\r\n             { data: 'name', name: 'phone' },\r\n             { data: 'action', name: 'action', searchable:false }\r\n"
+                },
+                {
+                    "date": 1635168877924,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,9 +56,8 @@\n                             <thead>\r\n                                 <tr>\r\n                                     <th width=\"2%\">Kode</th>\r\n                                     <th width=\"15%\">Nama Barang</th>\r\n-                                    <th width=\"6%\">Aksi</th>\r\n                                 </tr>\r\n                             </thead>\r\n                            \r\n                         </table>\r\n@@ -95,10 +94,9 @@\n         serverSide: true,\r\n         ajax: myurl,\r\n         columns: [\r\n             { data: 'code', name: 'name' },\r\n-            { data: 'name', name: 'phone' },\r\n-            { data: 'action', name: 'action', searchable:false }\r\n+            { data: 'name', name: 'phone' }\r\n         ]\r\n     });\r\n     function success() {\r\n       $('#mytable').DataTable().ajax.reload(null, false);\r\n"
                 }
             ],
             "date": 1630204505410,

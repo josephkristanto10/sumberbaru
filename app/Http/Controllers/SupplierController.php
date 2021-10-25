@@ -61,13 +61,9 @@ class SupplierController extends Controller
         ->editColumn('name', function($query) {
             return '<label id = "name'.$query->idproduct.'"> '.$query->name.'</label>';
         })
-        ->addColumn('action', 
-               function ($query) {
-                return '
-                <button type="button" class="btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2" alt="alert" class="img-fluid model_img" id="sa-confirm"><i class="fas fa-trash"></i></button>
- ';})
+        
               
-               ->rawColumns(['action', 'name', 'code','status'])
+               ->rawColumns([ 'name', 'code','status'])
                ->make(true);
     }
     public function indexproductsupplier($id){

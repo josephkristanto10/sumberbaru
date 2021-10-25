@@ -57,7 +57,6 @@
                                 <tr>
                                     <th width="2%">Kode</th>
                                     <th width="15%">Nama Barang</th>
-                                    <th width="6%">Aksi</th>
                                 </tr>
                             </thead>
                            
@@ -96,8 +95,7 @@
         ajax: myurl,
         columns: [
             { data: 'code', name: 'name' },
-            { data: 'name', name: 'phone' },
-            { data: 'action', name: 'action', searchable:false }
+            { data: 'name', name: 'phone' }
         ]
     });
     function success() {
