@@ -24,7 +24,7 @@ class SupplierController extends Controller
     }
     public function getdatatableproductsupplier(){
 
-        $supplier = DB::select("SELECT supplier.id, supplier.name, supplier.phone, supplier.address, count(supplier_product.id) as jumlahbarang FROM supplier_product right join supplier on supplier.id = supplier_product.idsupplier group by supplier_product.idsupplier");
+        $supplier = DB::select("SELECT supplier.id, supplier.name, supplier.phone, supplier.address, count(supplier_product.id) as jumlahbarang FROM supplier_product right join supplier on supplier.id = supplier_product.idsupplier group by supplier.id");
         return DataTables::of($supplier)
         ->editColumn('name', function($query) {
             return '<label id = "name'.$query->id.'"> '.$query->name.'</label>';
@@ -45,13 +45,9 @@ class SupplierController extends Controller
             '<a href = "'.$myurl.'"><button type="button" class="btn waves-effect waves-light btn-sm btn-info pl-2 pr-2" ><i class="fas fa-server pr-2"></i>'.$query->jumlahbarang.' Barang</button></a>
             ';
         })
-        ->addColumn('action', 
-               function ($query) {
-                return '<button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#modaledit" id = "'.$query->id.'" onclick = "filldatachange(this)"><i class="fas fa-edit pr-2"></i>Ubah</button>
-                <button type="button" class="btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2" alt="alert" class="img-fluid model_img" id="sa-confirm"><i class="fas fa-trash"></i></button>
- ';})
+      
               
-               ->rawColumns(['action', 'name', 'phone', 'address', 'status', 'list'])
+               ->rawColumns([ 'name', 'phone', 'address', 'status', 'list'])
                ->make(true);
     }
     public function getdatatableproductpersupplier($id){

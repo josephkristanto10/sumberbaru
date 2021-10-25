@@ -45,7 +45,6 @@
                                     <th width="8%">Nomor Telepon</th>
                                     <th width="13%">Alamat</th>
                                     <th width="4%">Daftar</th>
-                                    <th width="6%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -191,8 +190,7 @@
             { data: 'phone', name: 'phone' },
             { data: 'address', name: 'address' },
             // { data: 'status', name: 'status' },
-            { data: 'list', name: 'list', searchable:false},
-            { data: 'action', name: 'action' }
+            { data: 'list', name: 'list', searchable:false}
         ]
     });
     function success() {
