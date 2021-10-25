@@ -220,7 +220,7 @@
     $('#mytable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '/getdatatable',
+        ajax: "{{route('getdatatable')}}",
         columns: [
             { data: 'kode', name: 'kode' },
             { data: 'name', name: 'name' },

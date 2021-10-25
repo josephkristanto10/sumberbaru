@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 257,
+            "activePatchIndex": 259,
             "patches": [
                 {
                     "date": 1630203832980,
@@ -1036,6 +1036,14 @@
                 {
                     "date": 1635044598513,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,8 +47,9 @@\n                                     <th width=\"30%\">Nama Barang</th>\r\n                                     <th width=\"13%\">Harga 1</th>\r\n                                     <th width=\"10%\">Harga 2</th>\r\n                                     <th width=\"10%\">Harga 3</th>\r\n+                                    <th width=\"10%\">Harga 3</th>\r\n                                     <th width=\"15%\">Aksi</th>\r\n                                 </tr>\r\n                             </thead>\r\n                             <tbody>\r\n@@ -225,9 +226,9 @@\n             { data: 'name', name: 'name' },\r\n             { data: 'harga1', name: 'harga1' },\r\n             { data: 'harga2', name: 'harga2' },\r\n             { data: 'harga3', name: 'harga3' },\r\n-            { data: 'status', name: 'harga3' },\r\n+            { data: 'status', name: 'status' },\r\n             { data: 'intro', name: 'harga3' }\r\n         ]\r\n     });\r\n \r\n"
+                },
+                {
+                    "date": 1635166077605,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n                                     <th width=\"30%\">Nama Barang</th>\r\n                                     <th width=\"13%\">Harga 1</th>\r\n                                     <th width=\"10%\">Harga 2</th>\r\n                                     <th width=\"10%\">Harga 3</th>\r\n-                                    <th width=\"10%\">Harga 3</th>\r\n+                                    <th width=\"10%\">Status</th>\r\n                                     <th width=\"15%\">Aksi</th>\r\n                                 </tr>\r\n                             </thead>\r\n                             <tbody>\r\n@@ -219,9 +219,9 @@\n \r\n     $('#mytable').DataTable({\r\n         processing: true,\r\n         serverSide: true,\r\n-        ajax: '/getdatatable',\r\n+        ajax: \"{{route()}\",\r\n         columns: [\r\n             { data: 'kode', name: 'kode' },\r\n             { data: 'name', name: 'name' },\r\n             { data: 'harga1', name: 'harga1' },\r\n"
+                },
+                {
+                    "date": 1635166091131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -219,9 +219,9 @@\n \r\n     $('#mytable').DataTable({\r\n         processing: true,\r\n         serverSide: true,\r\n-        ajax: \"{{route()}\",\r\n+        ajax: \"{{route('getdatatable')}}\",\r\n         columns: [\r\n             { data: 'kode', name: 'kode' },\r\n             { data: 'name', name: 'name' },\r\n             { data: 'harga1', name: 'harga1' },\r\n"
                 }
             ],
             "date": 1630203832980,

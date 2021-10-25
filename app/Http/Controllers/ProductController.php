@@ -39,13 +39,13 @@ class ProductController extends Controller
         ->editColumn('status', function($query) {
             $mystatus = "";
             if($query->status == "Active"){
-                $mtstatus = '<b><label id = "status'.$query->id.'" class = "text-success"> '.$query->status.'</label></b>';
+                $mystatus = '<b><label id = "status'.$query->id.'" class = "text-success"> '.$query->status.'</label></b>';
             }
             else
             {
-                $mtstatus = '<b><label id = "status'.$query->id.'" class = "text-danger"> '.$query->status.'</label></b';
+                $mystatus = '<b><label id = "status'.$query->id.'" class = "text-danger"> '.$query->status.'</label></b';
             }
-            return $mtstatus;
+            return $mystatus;
         })
                ->addColumn('intro', 
                function ($query) {

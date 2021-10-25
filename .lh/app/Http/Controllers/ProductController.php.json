@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 293,
+            "activePatchIndex": 295,
             "patches": [
                 {
                     "date": 1630203560740,
@@ -1180,6 +1180,14 @@
                 {
                     "date": 1635045916480,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,15 +27,15 @@\n         ->editColumn('name', function($query) {\r\n             return '<label id = \"name'.$query->id.'\"> '.$query->name.'</label>';\r\n         })\r\n         ->editColumn('harga1', function($query) {\r\n-            return '<label id = \"hargapertama'.$query->id.'\"> '.$query->harga1.'</label>';\r\n+            return '<label id = \"hargapertama'.$query->id.'\"> '.number_format($query->harga1).'</label>';\r\n         })\r\n         ->editColumn('harga2', function($query) {\r\n-            return '<label id = \"hargakedua'.$query->id.'\"> '.$query->harga2.'</label>';\r\n+            return '<label id = \"hargakedua'.$query->id.'\"> '.number_format($query->harga2).'</label>';\r\n         })\r\n         ->editColumn('harga3', function($query) {\r\n-            return '<label id = \"hargaketiga'.$query->id.'\"> '.$query->harga3.'</label>';\r\n+            return '<label id = \"hargaketiga'.$query->id.'\"> '.number_format($query->harga3).'</label>';\r\n         })\r\n         ->editColumn('status', function($query) {\r\n             $mystatus = \"\";\r\n             if($query->status == \"Active\"){\r\n"
+                },
+                {
+                    "date": 1635165879128,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n             else\r\n             {\r\n                 $mtstatus = '<b><label id = \"status'.$query->id.'\" class = \"text-danger\"> '.$query->status.'</label></b';\r\n             }\r\n-            return $mtstatus;\r\n+            return $mystatus;\r\n         })\r\n                ->addColumn('intro', \r\n                function ($query) {\r\n                 $mystatus = \"\";\r\n"
+                },
+                {
+                    "date": 1635165899168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,13 +38,13 @@\n         })\r\n         ->editColumn('status', function($query) {\r\n             $mystatus = \"\";\r\n             if($query->status == \"Active\"){\r\n-                $mtstatus = '<b><label id = \"status'.$query->id.'\" class = \"text-success\"> '.$query->status.'</label></b>';\r\n+                $mystatus = '<b><label id = \"status'.$query->id.'\" class = \"text-success\"> '.$query->status.'</label></b>';\r\n             }\r\n             else\r\n             {\r\n-                $mtstatus = '<b><label id = \"status'.$query->id.'\" class = \"text-danger\"> '.$query->status.'</label></b';\r\n+                $mystatus = '<b><label id = \"status'.$query->id.'\" class = \"text-danger\"> '.$query->status.'</label></b';\r\n             }\r\n             return $mystatus;\r\n         })\r\n                ->addColumn('intro', \r\n"
                 }
             ],
             "date": 1630203560740,
