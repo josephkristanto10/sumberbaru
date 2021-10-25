@@ -47,6 +47,7 @@ Route::get('/transactionreturn/gettablereturprocess', 'ReturController@getdatain
 Route::get('/invoice/getmydata', 'NotaController@getmydata')->name("gettableinvoice");
 Route::get('/invoice/getdatedata', 'NotaController@getdateinvoice')->name("getdateinvoice");
 Route::get('invoice/detail/{id}', 'NotaController@getmydetaildata')->name("getinvoicedetail");
+Route::post("/kasir/removeitem", "KasirController@removeitem")->name("removeitem");
 // Route::get('/admin', "AdminController@index");
 Route::resource('/dashboard', 'IndexController');
 Route::resource('/product', 'ProductController');

@@ -152,7 +152,8 @@ class KasirController extends Controller
         
         ->editColumn('action', function($query) {
             $mybutton = '
-            <button type="button" id = "'.$query->id.'" onclick = "openmodaleditcustom(this)" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>';
+            <button type="button" id = "'.$query->id.'" onclick = "openmodaleditcustom(this)" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>'.'
+            <button type="button" class="btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2"  class="img-fluid model_img" id="delete_'.$query->id.'"  onclick = "removeitem(this)"><i class="fas fa-trash"></i></button>';
           
             return $mybutton;
         })
@@ -164,6 +165,11 @@ class KasirController extends Controller
               
                ->rawColumns(['action', 'name', 'qty', 'subtotal'])
                ->make(true);
+    }
+    public function removeitem(Request $request){
+        $myid = $request->myitemid;
+        $cart = Cart::find($myid);
+        $cart->delete();
     }
     public function createinvoice(Request $request){
         date_default_timezone_set('Asia/Jakarta');

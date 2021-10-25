@@ -565,6 +565,57 @@
         }
        
     };
+    function removeitem(element){
+        var mysplit = element.id.split("_");
+        var myid = mysplit[1];
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        allowOutsideClick: false,
+        confirmButtonText: 'Yes, remove this item!'
+        }).then((result) => {
+        var myresult =  result['value'];
+        if (myresult) {
+          
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{route('removeitem')}}",
+                method: 'POST',
+                data: {
+                    myitemid: myid
+
+                },
+                success: function (result) {
+                    // $("#qtyitemtotal").html("0");
+                    // $("#allitemtotal").html("0");
+                    // $("#tabelkeranjang").html("");
+                     Swal.fire({
+                            type: 'success',
+                            title: 'Remove Item Success Confirmation ',
+                            text: 'This item has been removed!!',
+                            confirmButtonColor: '#1fa00c',
+                            allowOutsideClick: false,
+                            }).then((result) => {
+                                firstsummary();
+                                successcart();
+                            });
+                }
+            });
+                
+           
+        }
+        })
+   
+    }
     function reset(){
         Swal.fire({
         title: 'Are you sure?',
