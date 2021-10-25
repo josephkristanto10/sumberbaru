@@ -57,9 +57,16 @@ class NotaController extends Controller
      
         ->addColumn('action',
                function ($query) {
+                   $mydelivery = "";
+                   if($query->transaction_shipment_delivery == "true"){
+                            $mydelivery = '<a href = "#detail" id = "'.$query->id.'" onclick = "openmodaldetailinvoice(this)" data-toggle = "modal"><button type="button" class="btn waves-effect waves-light btn-sm btn-success pr-2"><i class="fas fa-server pr-2"></i>Kelola</button></a>';
+                   }
+                   else
+                   {
+                    $mydelivery = '<a href = "#detail" id = "'.$query->id.'" onclick = "openmodaldetailinvoice(this)" data-toggle = "modal"><button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2"><i class="fas fa-server pr-2"></i>Kelola</button></a>';
+                   }
                 // $myurls = url("/pricelist/indexpricelist")."/".$query->id;
-                return ' <a href = "#detail" id = "'.$query->id.'" onclick = "openmodaldetailinvoice(this)" data-toggle = "modal"><button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2"><i class="fas fa-server pr-2"></i>Kelola</button></a>
- ';
+                return $mydelivery;
 })
               
                ->rawColumns(['action', 'testdate', 'transactionno', 'customer', 'quantity', 'total','method'])
