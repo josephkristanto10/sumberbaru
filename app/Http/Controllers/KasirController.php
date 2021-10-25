@@ -90,27 +90,27 @@ class KasirController extends Controller
     }
     public function gettableproduct(){
       
-        $mycart = DB::select("select * from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0 and product.status = 'Active' group by product.id");
+        $mycart = DB::select("select *, product.id as idproduct from product inner join supplier_product on supplier_product.idproduct = product.id where product.stok > 0 and product.status = 'Active' group by product.id");
         // Product::join("supplier_product",'supplier_product.idproduct','=','product.id')->where('product.stok', '>','0')->get();
         return DataTables::of($mycart)
         ->editColumn('kode', function($query) {
-            return '<label id = "kode_'.$query->id.'"> '.$query->kode.'</label>';
+            return '<label id = "kode_'.$query->idproduct.'"> '.$query->kode.'</label>';
         })
         ->editColumn('name', function($query) {
-            return '<label id = "name_'.$query->id.'"> '.$query->name.'</label>';
+            return '<label id = "name_'.$query->idproduct.'"> '.$query->name.'</label>';
         })
         ->editColumn('harga1', function($query) {
-            return '<label id = "hargapertama_'.$query->id.'"> '.$query->harga1.'</label>';
+            return '<label id = "hargapertama_'.$query->idproduct.'"> '.$query->harga1.'</label>';
         })
         ->editColumn('harga2', function($query) {
-            return '<label id = "hargakedua_'.$query->id.'"> '.$query->harga2.'</label>';
+            return '<label id = "hargakedua_'.$query->idproduct.'"> '.$query->harga2.'</label>';
         })
         ->editColumn('harga3', function($query) {
-            return '<label id = "hargaketiga_'.$query->id.'"> '.$query->harga3.'</label>';
+            return '<label id = "hargaketiga_'.$query->idproduct.'"> '.$query->harga3.'</label>';
         })
         
         ->editColumn('action', function($query) {
-            $mybutton = '<button type="button" id = "add_'.$query->id.'" onclick = "inputinterface(this)" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus pl-2 pr-2"></i></button>';
+            $mybutton = '<button type="button" id = "add_'.$query->idproduct.'" onclick = "inputinterface(this)" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus pl-2 pr-2"></i></button>';
           
             return $mybutton;
         })
