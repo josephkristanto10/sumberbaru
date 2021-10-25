@@ -52,11 +52,11 @@ class ProductController extends Controller
                 $mystatus = "";
                 if($query->status == "Active"){
                     $mystring = "inActive";
-                    $mystatus = '<button type="button" style = "margin-top:10px;" style = "margin-top:10px;" onclick="setstatusproduct(\''.$mystring.'\',\''.$query->id.'\')" class="btn waves-effect waves-light btn-sm btn-danger pr-2"  id = "'.$query->id.'" ><i class="fas fa-edit pr-2"></i>Set Inactive</button>';
+                    $mystatus = '<button type="button"  onclick="setstatusproduct(\''.$mystring.'\',\''.$query->id.'\')" class="btn waves-effect waves-light btn-sm btn-danger pr-2"  id = "'.$query->id.'" ><i class="fas fa-edit pr-2"></i>Set Inactive</button>';
                 }
                 else{
                     $mystring = "Active";
-                    $mystatus = '<button type="button" style = "margin-top:10px;" style = "margin-top:10px;" onclick="setstatusproduct(\''.$mystring.'\',\''.$query->id.'\')"  class="btn waves-effect waves-light btn-sm btn-success pr-2"  id = "'.$query->id.'" ><i class="fas fa-edit pr-2"></i>Set Active</button>';
+                    $mystatus = '<button type="button"  onclick="setstatusproduct(\''.$mystring.'\',\''.$query->id.'\')"  class="btn waves-effect waves-light btn-sm btn-success pr-2"  id = "'.$query->id.'" ><i class="fas fa-edit pr-2"></i>Set Active</button>';
                 }
                 return '<button type="button" class="btn waves-effect waves-light btn-sm btn-primary pr-2" data-toggle="modal" data-target="#modaledit" id = "'.$query->id.'" onclick = "filldatachange(this)"><i class="fas fa-edit pr-2"></i>Ubah</button> '.$mystatus.'
  ';})

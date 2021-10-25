@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 300,
+            "activePatchIndex": 301,
             "patches": [
                 {
                     "date": 1630203560740,
@@ -1208,6 +1208,10 @@
                 {
                     "date": 1635170964467,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n                     $products->harga2 = $request->myprice2;\r\n                     $products->harga3 = $request->myprice3;\r\n                     $products->stok = 0;\r\n                     $products->status = \"Active\";\r\n-                    $products->save(); // returns false\r\n+                    $products->save(); // returns falsesadasdasd\r\n                  }\r\n                  catch(\\Exception $e){\r\n                     return $e->getMessage();\r\n                  }\r\n"
+                },
+                {
+                    "date": 1635171354612,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,13 +51,13 @@\n                function ($query) {\r\n                 $mystatus = \"\";\r\n                 if($query->status == \"Active\"){\r\n                     $mystring = \"inActive\";\r\n-                    $mystatus = '<button type=\"button\" style = \"margin-top:10px;\" style = \"margin-top:10px;\" onclick=\"setstatusproduct(\\''.$mystring.'\\',\\''.$query->id.'\\')\" class=\"btn waves-effect waves-light btn-sm btn-danger pr-2\"  id = \"'.$query->id.'\" ><i class=\"fas fa-edit pr-2\"></i>Set Inactive</button>';\r\n+                    $mystatus = '<button type=\"button\"  onclick=\"setstatusproduct(\\''.$mystring.'\\',\\''.$query->id.'\\')\" class=\"btn waves-effect waves-light btn-sm btn-danger pr-2\"  id = \"'.$query->id.'\" ><i class=\"fas fa-edit pr-2\"></i>Set Inactive</button>';\r\n                 }\r\n                 else{\r\n                     $mystring = \"Active\";\r\n-                    $mystatus = '<button type=\"button\" style = \"margin-top:10px;\" style = \"margin-top:10px;\" onclick=\"setstatusproduct(\\''.$mystring.'\\',\\''.$query->id.'\\')\"  class=\"btn waves-effect waves-light btn-sm btn-success pr-2\"  id = \"'.$query->id.'\" ><i class=\"fas fa-edit pr-2\"></i>Set Active</button>';\r\n+                    $mystatus = '<button type=\"button\"  onclick=\"setstatusproduct(\\''.$mystring.'\\',\\''.$query->id.'\\')\"  class=\"btn waves-effect waves-light btn-sm btn-success pr-2\"  id = \"'.$query->id.'\" ><i class=\"fas fa-edit pr-2\"></i>Set Active</button>';\r\n                 }\r\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button> '.$mystatus.'\r\n  ';})\r\n               \r\n"
                 }
             ],
             "date": 1630203560740,
