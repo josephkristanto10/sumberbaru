@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 118,
+            "activePatchIndex": 125,
             "patches": [
                 {
                     "date": 1630204455079,
@@ -480,6 +480,34 @@
                 {
                     "date": 1630764159228,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -190,9 +190,9 @@\n                     idproduct : idproducts\r\n                     \r\n                 },\r\n                 success: function (result) {\r\n-                    alert(result);\r\n+                    $(\"#dynamichistory\")\r\n                     // if(result == \"\")\r\n                     // {\r\n                     //     success();\r\n                     //     Swal.fire({\r\n"
+                },
+                {
+                    "date": 1635342354428,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,9 @@\n                             <td> <b>Harga</b> </td>\r\n                             <td>\r\n                                 <div class=\"input-group\">\r\n                                     <span class=\"input-group-text\">Rp.</span>\r\n-                                    <input type=\"number\" class=\"form-control\" value=\"0\" id = \"priceproduct\">\r\n+                                    <input type=\"text\" class=\"form-control\" value=\"0\" id = \"priceproduct\">\r\n                                 </div>\r\n                             </td>\r\n                         </tr>\r\n                     </table>\r\n@@ -190,9 +190,9 @@\n                     idproduct : idproducts\r\n                     \r\n                 },\r\n                 success: function (result) {\r\n-                    $(\"#dynamichistory\")\r\n+                    $(\"#dynamichistory\").html(result);\r\n                     // if(result == \"\")\r\n                     // {\r\n                     //     success();\r\n                     //     Swal.fire({\r\n"
+                },
+                {
+                    "date": 1635342364277,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,9 @@\n                             <td> <b>Harga</b> </td>\r\n                             <td>\r\n                                 <div class=\"input-group\">\r\n                                     <span class=\"input-group-text\">Rp.</span>\r\n-                                    <input type=\"text\" class=\"form-control\" value=\"0\" id = \"priceproduct\">\r\n+                                    <input type=\"number\" class=\"form-control\" value=\"0\" id = \"priceproduct\">\r\n                                 </div>\r\n                             </td>\r\n                         </tr>\r\n                     </table>\r\n"
+                },
+                {
+                    "date": 1635342382043,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,9 @@\n                             <td> <b>Harga</b> </td>\r\n                             <td>\r\n                                 <div class=\"input-group\">\r\n                                     <span class=\"input-group-text\">Rp.</span>\r\n-                                    <input type=\"number\" class=\"form-control\" value=\"0\" id = \"priceproduct\">\r\n+                                    <input type=\"text\" class=\"form-control\" value=\"0\" id = \"priceproduct\">\r\n                                 </div>\r\n                             </td>\r\n                         </tr>\r\n                     </table>\r\n"
+                },
+                {
+                    "date": 1635342459958,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -229,8 +229,9 @@\n        var myname = splitter[1];\r\n        $(\"#namabarang\").text(myname);\r\n        $(\"#idchange\").val(myid);\r\n        var myprice =  $(\"#price\"+myid).text();\r\n+       alert(myprice);\r\n     //    alert(myprice);\r\n        $(\"#priceproduct\").val(parseInt(myprice));\r\n    }\r\n    function changedata(){\r\n"
+                },
+                {
+                    "date": 1635342521563,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -229,9 +229,10 @@\n        var myname = splitter[1];\r\n        $(\"#namabarang\").text(myname);\r\n        $(\"#idchange\").val(myid);\r\n        var myprice =  $(\"#price\"+myid).text();\r\n-       alert(myprice);\r\n+       var myStr = 'this,is,a,test';\r\n+        var newStr = myStr.replace(/,/g, '-');\r\n     //    alert(myprice);\r\n        $(\"#priceproduct\").val(parseInt(myprice));\r\n    }\r\n    function changedata(){\r\n"
+                },
+                {
+                    "date": 1635342527694,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -229,9 +229,9 @@\n        var myname = splitter[1];\r\n        $(\"#namabarang\").text(myname);\r\n        $(\"#idchange\").val(myid);\r\n        var myprice =  $(\"#price\"+myid).text();\r\n-       var myStr = 'this,is,a,test';\r\n+       var myStr = myprice;\r\n         var newStr = myStr.replace(/,/g, '-');\r\n     //    alert(myprice);\r\n        $(\"#priceproduct\").val(parseInt(myprice));\r\n    }\r\n"
+                },
+                {
+                    "date": 1635342533188,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -230,9 +230,9 @@\n        $(\"#namabarang\").text(myname);\r\n        $(\"#idchange\").val(myid);\r\n        var myprice =  $(\"#price\"+myid).text();\r\n        var myStr = myprice;\r\n-        var newStr = myStr.replace(/,/g, '-');\r\n+        var newStr = myStr.replace(/,/g, '');\r\n     //    alert(myprice);\r\n        $(\"#priceproduct\").val(parseInt(myprice));\r\n    }\r\n    function changedata(){\r\n"
                 }
             ],
             "date": 1630204455079,

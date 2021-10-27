@@ -57,6 +57,7 @@
                                 <tr>
                                     <th width="2%">Kode</th>
                                     <th width="15%">Nama Barang</th>
+                                    <th width="15%">Aksi</th>
                                 </tr>
                             </thead>
                            
@@ -94,13 +95,56 @@
         serverSide: true,
         ajax: myurl,
         columns: [
-            { data: 'code', name: 'name' },
-            { data: 'name', name: 'phone' }
+            { data: 'code', name: 'code' },
+            { data: 'name', name: 'name' },
+            { data: 'action', name: 'action' },
         ]
     });
     function success() {
       $('#mytable').DataTable().ajax.reload(null, false);
    };
+   function deleteproductonsupplier(idproduct, idsupplier){
+    $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                });
+            $.ajax({
+                url: "{{route('deleteitemonsupplier')}}",
+                method: 'POST',
+                data: {
+                    myproduct : idproduct,
+                    mysupplier : idsupplier
+                    
+                },
+                success: function (result) {
+                    // alert(result);
+                    if(result == "")
+                    {
+                        success();
+                        Swal.fire({
+                                title: 'Data Changed',
+                                text: 'Data Changed Successfully',
+                                type: 'success',
+                                confirmButtonColor: '#53d408',
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                               
+                            });
+                    }
+                    else{
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Data Exists',
+                            text: 'Duplicate Entry For This Product Name',
+                            confirmButtonColor: '#e00d0d',
+                        });
+                    }
+                  
+                  
+                }
+            });
+   }
    function filldatachange(elements){
        var myid = elements.id;
        var name = $("#name" + myid).text();

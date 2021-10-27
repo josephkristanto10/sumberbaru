@@ -79,7 +79,7 @@ class PriceListController extends Controller
             // $format = 'jS F Y  H:i:s"';
             // $mytanggalku = "2020-09-21 08:00:00";
             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);
-            $mydate = $date->format('jS F Y  H:i:s');
+            $mydate = $date->format('d-m-Y  H:i');
             return '<label id = "tanggal'.$query->idproduct.'"> '.$mydate.' </label>';
         })
         ->addColumn('action', 

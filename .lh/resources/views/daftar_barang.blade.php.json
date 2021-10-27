@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 259,
+            "activePatchIndex": 263,
             "patches": [
                 {
                     "date": 1630203832980,
@@ -1044,6 +1044,22 @@
                 {
                     "date": 1635166091131,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -219,9 +219,9 @@\n \r\n     $('#mytable').DataTable({\r\n         processing: true,\r\n         serverSide: true,\r\n-        ajax: \"{{route()}\",\r\n+        ajax: \"{{route('getdatatable')}}\",\r\n         columns: [\r\n             { data: 'kode', name: 'kode' },\r\n             { data: 'name', name: 'name' },\r\n             { data: 'harga1', name: 'harga1' },\r\n"
+                },
+                {
+                    "date": 1635342603054,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -305,9 +305,10 @@\n        var nama = $(\"#name\" + myid).text();\r\n        var harga1 = $(\"#hargapertama\" + myid).text();\r\n        var harga2 = $(\"#hargakedua\" + myid).text();\r\n        var harga3 = $(\"#hargaketiga\" + myid).text();\r\n-\r\n+     \r\n+        var newStr = myStr.replace(/,/g, '');\r\n         $(\"#idchange\").val(myid);\r\n \r\n        $(\"#productcodeedit\").val(kode);\r\n        $(\"#productnameedit\").val(nama);\r\n"
+                },
+                {
+                    "date": 1635342609346,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -306,9 +306,9 @@\n        var harga1 = $(\"#hargapertama\" + myid).text();\r\n        var harga2 = $(\"#hargakedua\" + myid).text();\r\n        var harga3 = $(\"#hargaketiga\" + myid).text();\r\n      \r\n-        var newStr = myStr.replace(/,/g, '');\r\n+        var stringharga1 = harga1.replace(/,/g, '');\r\n         $(\"#idchange\").val(myid);\r\n \r\n        $(\"#productcodeedit\").val(kode);\r\n        $(\"#productnameedit\").val(nama);\r\n"
+                },
+                {
+                    "date": 1635342619671,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -307,8 +307,10 @@\n        var harga2 = $(\"#hargakedua\" + myid).text();\r\n        var harga3 = $(\"#hargaketiga\" + myid).text();\r\n      \r\n         var stringharga1 = harga1.replace(/,/g, '');\r\n+        var stringharga2 = harga2.replace(/,/g, '');\r\n+        var stringharga3 = harga3.replace(/,/g, '');\r\n         $(\"#idchange\").val(myid);\r\n \r\n        $(\"#productcodeedit\").val(kode);\r\n        $(\"#productnameedit\").val(nama);\r\n"
+                },
+                {
+                    "date": 1635342631337,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -313,9 +313,9 @@\n         $(\"#idchange\").val(myid);\r\n \r\n        $(\"#productcodeedit\").val(kode);\r\n        $(\"#productnameedit\").val(nama);\r\n-       $(\"#productprice1edit\").val(parseInt(harga1));\r\n+       $(\"#productprice1edit\").val(parseInt(stringharga1));\r\n        $(\"#productprice2edit\").val(parseInt(harga2));\r\n        $(\"#productprice3edit\").val(parseInt(harga3));\r\n    }\r\n \r\n"
                 }
             ],
             "date": 1630203832980,

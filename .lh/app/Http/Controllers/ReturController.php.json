@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 222,
+            "activePatchIndex": 230,
             "patches": [
                 {
                     "date": 1630204255619,
@@ -896,6 +896,38 @@
                 {
                     "date": 1634204842491,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -121,9 +121,9 @@\n                function ($query) {\r\n                    $mystring = \"\";\r\n                 if($query->status == \"Process\")\r\n                 {\r\n-                    $mystring = '' <div class=\"btn-group\">\r\n+                    $mystring = ' <div class=\"btn-group\">\r\n                     <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n                         <i class=\"ti-layout-media-overlay pl-2 pr-1\"></i> Pilih\r\n                     </button>\r\n                     <div class=\"dropdown-menu\">\r\n@@ -131,9 +131,9 @@\n                         <a class=\"dropdown-item\" id = \"'.$query->id.'\" onclick = \"openmodaledit(this)\" href=\"javascript:void(0)\" data-target=\"#edit\" data-toggle=\"modal\">Ubah</a>\r\n                         <a class=\"dropdown-item\" id = \"'.$query->id.'\" onclick = \"canceldata(this)\" href=\"javascript:void(0)\">Batal</a>\r\n                     </div>\r\n                 </div>\r\n-     '';\r\n+     ';\r\n                 }\r\n                 return ;})\r\n               \r\n                ->rawColumns(['action', 'returndate', 'supplier.name', 'product.name', 'qty', 'info', 'status'])\r\n"
+                },
+                {
+                    "date": 1635341924807,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n use App\\Models\\Product;\r\n use App\\Models\\Supplier;\r\n use Illuminate\\Http\\Request;\r\n use DataTables;\r\n+use DateTime;\r\n \r\n class ReturController extends Controller\r\n {\r\n     /**\r\n@@ -133,9 +134,9 @@\n                     </div>\r\n                 </div>\r\n      ';\r\n                 }\r\n-                return ;})\r\n+                return $mystring;})\r\n               \r\n                ->rawColumns(['action', 'returndate', 'supplier.name', 'product.name', 'qty', 'info', 'status'])\r\n                ->make(true);\r\n     }\r\n"
+                },
+                {
+                    "date": 1635341976997,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,8 +91,10 @@\n                                       ->get();\r\n \r\n         return DataTables::of($dataretur)\r\n         ->editColumn('returndate', function($query) {\r\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\r\n+            $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"returndate_'.$query->id.'\">'.$query->returndate.'</label>';\r\n         })\r\n         ->editColumn('supplier.name', function($query) {\r\n             return '<label id = \"suppliername_'.$query->id.'\">'.$query->suppliername.'</label>'.\"<input type = 'hidden' id = 'idsupplier_\".$query->id.\"' value = '\".$query->idsupplier.\"'>\";\r\n"
+                },
+                {
+                    "date": 1635341985698,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -91,9 +91,9 @@\n                                       ->get();\r\n \r\n         return DataTables::of($dataretur)\r\n         ->editColumn('returndate', function($query) {\r\n-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\r\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->created_at);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"returndate_'.$query->id.'\">'.$query->returndate.'</label>';\r\n         })\r\n         ->editColumn('supplier.name', function($query) {\r\n"
+                },
+                {
+                    "date": 1635341993974,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -93,9 +93,9 @@\n         return DataTables::of($dataretur)\r\n         ->editColumn('returndate', function($query) {\r\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->created_at);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n-            return '<label id = \"returndate_'.$query->id.'\">'.$query->returndate.'</label>';\r\n+            return '<label id = \"returndate_'.$query->id.'\">'.mydate.'</label>';\r\n         })\r\n         ->editColumn('supplier.name', function($query) {\r\n             return '<label id = \"suppliername_'.$query->id.'\">'.$query->suppliername.'</label>'.\"<input type = 'hidden' id = 'idsupplier_\".$query->id.\"' value = '\".$query->idsupplier.\"'>\";\r\n         })\r\n"
+                },
+                {
+                    "date": 1635342020405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -93,9 +93,9 @@\n         return DataTables::of($dataretur)\r\n         ->editColumn('returndate', function($query) {\r\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->created_at);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n-            return '<label id = \"returndate_'.$query->id.'\">'.mydate.'</label>';\r\n+            return '<label id = \"returndate_'.$query->id.'\">'.$mydate.'</label>';\r\n         })\r\n         ->editColumn('supplier.name', function($query) {\r\n             return '<label id = \"suppliername_'.$query->id.'\">'.$query->suppliername.'</label>'.\"<input type = 'hidden' id = 'idsupplier_\".$query->id.\"' value = '\".$query->idsupplier.\"'>\";\r\n         })\r\n@@ -150,8 +150,10 @@\n                                       ->get();\r\n \r\n         return DataTables::of($dataretur)\r\n         ->editColumn('returndate', function($query) {\r\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->created_at);\r\n+            $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"returndate_'.$query->id.'\">'.$query->returndate.'</label>';\r\n         })\r\n         ->editColumn('supplier.name', function($query) {\r\n             return '<label id = \"suppliername_'.$query->id.'\">'.$query->suppliername.'</label>';\r\n"
+                },
+                {
+                    "date": 1635342123448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -152,9 +152,9 @@\n         return DataTables::of($dataretur)\r\n         ->editColumn('returndate', function($query) {\r\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->created_at);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n-            return '<label id = \"returndate_'.$query->id.'\">'.$query->returndate.'</label>';\r\n+            return '<label id = \"returndate_'.$query->id.'\">'.$mydate.'</label>';\r\n         })\r\n         ->editColumn('supplier.name', function($query) {\r\n             return '<label id = \"suppliername_'.$query->id.'\">'.$query->suppliername.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635342264248,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -167,8 +167,10 @@\n         ->editColumn('info', function($query) {\r\n             return '<label id = \"info_'.$query->id.'\">'.$query->infoketerangan.'</label>';\r\n         })\r\n         ->editColumn('confirmationdate', function($query) {\r\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->created_at);\r\n+            $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"confirmationdate_'.$query->id.'\">'.$query->confirmationdate.'</label>';\r\n         })\r\n         ->editColumn('retur', function($query) {\r\n             return '<label id = \"confirmationdate_'.$query->id.'\">Retur('.$query->returnitemqty.')<br>Refund('.$query->returnitemmoney.')'.'</label>';\r\n"
+                },
+                {
+                    "date": 1635342269318,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -167,9 +167,9 @@\n         ->editColumn('info', function($query) {\r\n             return '<label id = \"info_'.$query->id.'\">'.$query->infoketerangan.'</label>';\r\n         })\r\n         ->editColumn('confirmationdate', function($query) {\r\n-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->created_at);\r\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->updated_at);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"confirmationdate_'.$query->id.'\">'.$query->confirmationdate.'</label>';\r\n         })\r\n         ->editColumn('retur', function($query) {\r\n"
                 }
             ],
             "date": 1630204255619,

@@ -125,8 +125,28 @@ class KasirController extends Controller
     }
     public function getsummary(){
         $mydata = db::select("select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart");
-   
+        // $mydate = date("Y-m-d");
+        $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();
+        $myinvoicetodaycount = $myinvoicetoday->count()+1;
+        $stringcounter = "00".$myinvoicetodaycount;
+        if($myinvoicetodaycount == 0){
+            $stringcounter = "001";
+        }
+        else if($myinvoicetodaycount>0 && $myinvoicetodaycount)
+        {
+            $stringcounter = "00".$myinvoicetodaycount;
+        }
+        else if($myinvoicetodaycount >= 10)
+        {
+            $stringcounter = "0".$myinvoicetodaycount;
+        }
+        else if($myinvoicetodaycount >= 100)
+        {
+            $stringcounter = $myinvoicetodaycount;
+        }
+        $formatinvoice = date('dmY').$stringcounter;
         return response()->json([
+     'invoice' => $formatinvoice,
      'myproducttype' => $mydata[0]->producttype,
      'myproductqty' => $mydata[0]->productqty,
      'myproductgrantotal' => $mydata[0]->grandtotal
@@ -174,6 +194,7 @@ class KasirController extends Controller
     public function createinvoice(Request $request){
         date_default_timezone_set('Asia/Jakarta');
        $mydate = date("Y-m-d");
+       $notransaksi = $request->mynotransaksi;
        $custname = $request->mycustomername;
        $invoicenote = $request->myinvoicenote;
        if($custname == "none")
@@ -193,7 +214,7 @@ class KasirController extends Controller
        
        //invoice
        $invoice = new Invoice;
-        $invoice->transaction_no = "txx";
+        $invoice->transaction_no = $notransaksi;
         $invoice->transaction_date = $mydate;
         $invoice->transaction_method = $paymentmethod;
         $invoice->transaction_shipment_delivery = $checked;

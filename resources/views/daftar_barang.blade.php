@@ -306,14 +306,17 @@
        var harga1 = $("#hargapertama" + myid).text();
        var harga2 = $("#hargakedua" + myid).text();
        var harga3 = $("#hargaketiga" + myid).text();
-
+     
+        var stringharga1 = harga1.replace(/,/g, '');
+        var stringharga2 = harga2.replace(/,/g, '');
+        var stringharga3 = harga3.replace(/,/g, '');
         $("#idchange").val(myid);
 
        $("#productcodeedit").val(kode);
        $("#productnameedit").val(nama);
-       $("#productprice1edit").val(parseInt(harga1));
-       $("#productprice2edit").val(parseInt(harga2));
-       $("#productprice3edit").val(parseInt(harga3));
+       $("#productprice1edit").val(parseInt(stringharga1));
+       $("#productprice2edit").val(parseInt(stringharga2));
+       $("#productprice3edit").val(parseInt(stringharga3));
    }
 
    function changedata() {

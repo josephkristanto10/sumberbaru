@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 74,
+            "activePatchIndex": 86,
             "patches": [
                 {
                     "date": 1630204505410,
@@ -304,6 +304,54 @@
                 {
                     "date": 1635168877924,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,9 +56,8 @@\n                             <thead>\r\n                                 <tr>\r\n                                     <th width=\"2%\">Kode</th>\r\n                                     <th width=\"15%\">Nama Barang</th>\r\n-                                    <th width=\"6%\">Aksi</th>\r\n                                 </tr>\r\n                             </thead>\r\n                            \r\n                         </table>\r\n@@ -95,10 +94,9 @@\n         serverSide: true,\r\n         ajax: myurl,\r\n         columns: [\r\n             { data: 'code', name: 'name' },\r\n-            { data: 'name', name: 'phone' },\r\n-            { data: 'action', name: 'action', searchable:false }\r\n+            { data: 'name', name: 'phone' }\r\n         ]\r\n     });\r\n     function success() {\r\n       $('#mytable').DataTable().ajax.reload(null, false);\r\n"
+                },
+                {
+                    "date": 1635342769879,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -94,9 +94,10 @@\n         serverSide: true,\r\n         ajax: myurl,\r\n         columns: [\r\n             { data: 'code', name: 'name' },\r\n-            { data: 'name', name: 'phone' }\r\n+            { data: 'name', name: 'phone' },\r\n+            { data: 'name', name: 'phone' },\r\n         ]\r\n     });\r\n     function success() {\r\n       $('#mytable').DataTable().ajax.reload(null, false);\r\n"
+                },
+                {
+                    "date": 1635342776169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -95,9 +95,9 @@\n         ajax: myurl,\r\n         columns: [\r\n             { data: 'code', name: 'name' },\r\n             { data: 'name', name: 'phone' },\r\n-            { data: 'name', name: 'phone' },\r\n+            { data: 'action', name: 'action' },\r\n         ]\r\n     });\r\n     function success() {\r\n       $('#mytable').DataTable().ajax.reload(null, false);\r\n"
+                },
+                {
+                    "date": 1635342793766,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,8 +56,9 @@\n                             <thead>\r\n                                 <tr>\r\n                                     <th width=\"2%\">Kode</th>\r\n                                     <th width=\"15%\">Nama Barang</th>\r\n+                                    <th width=\"15%\">Nama Barang</th>\r\n                                 </tr>\r\n                             </thead>\r\n                            \r\n                         </table>\r\n@@ -93,10 +94,10 @@\n         processing: true,\r\n         serverSide: true,\r\n         ajax: myurl,\r\n         columns: [\r\n-            { data: 'code', name: 'name' },\r\n-            { data: 'name', name: 'phone' },\r\n+            { data: 'code', name: 'code' },\r\n+            { data: 'name', name: 'name' },\r\n             { data: 'action', name: 'action' },\r\n         ]\r\n     });\r\n     function success() {\r\n"
+                },
+                {
+                    "date": 1635343166526,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,9 +56,9 @@\n                             <thead>\r\n                                 <tr>\r\n                                     <th width=\"2%\">Kode</th>\r\n                                     <th width=\"15%\">Nama Barang</th>\r\n-                                    <th width=\"15%\">Nama Barang</th>\r\n+                                    <th width=\"15%\">Aksi</th>\r\n                                 </tr>\r\n                             </thead>\r\n                            \r\n                         </table>\r\n@@ -102,8 +102,11 @@\n     });\r\n     function success() {\r\n       $('#mytable').DataTable().ajax.reload(null, false);\r\n    };\r\n+   function deleteproductonsupplier(idproduct, idsupplier){\r\n+       \r\n+   }\r\n    function filldatachange(elements){\r\n        var myid = elements.id;\r\n        var name = $(\"#name\" + myid).text();\r\n        var phone = $(\"#phone\" + myid).text();\r\n"
+                },
+                {
+                    "date": 1635343194917,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,49 @@\n     function success() {\r\n       $('#mytable').DataTable().ajax.reload(null, false);\r\n    };\r\n    function deleteproductonsupplier(idproduct, idsupplier){\r\n-       \r\n+    $.ajaxSetup({\r\n+                headers: {\r\n+                    'X-CSRF-TOKEN': $('meta[name=\"csrf-token\"]').attr('content')\r\n+                }\r\n+                });\r\n+            $.ajax({\r\n+                url: myurl,\r\n+                method: 'PUT',\r\n+                data: {\r\n+                    myname : name,\r\n+                    myphone : phone,\r\n+                    myaddress : address\r\n+                    \r\n+                },\r\n+                success: function (result) {\r\n+                    // alert(result);\r\n+                    if(result == \"\")\r\n+                    {\r\n+                        success();\r\n+                        Swal.fire({\r\n+                                title: 'Data Changed',\r\n+                                text: 'Data Changed Successfully',\r\n+                                type: 'success',\r\n+                                confirmButtonColor: '#53d408',\r\n+                                allowOutsideClick: false,\r\n+                            }).then((result) => {\r\n+                               \r\n+                            });\r\n+                    }\r\n+                    else{\r\n+                        Swal.fire({\r\n+                            type: 'error',\r\n+                            title: 'Data Exists',\r\n+                            text: 'Duplicate Entry For This Product Name',\r\n+                            confirmButtonColor: '#e00d0d',\r\n+                        });\r\n+                    }\r\n+                  \r\n+                  \r\n+                }\r\n+            });\r\n    }\r\n    function filldatachange(elements){\r\n        var myid = elements.id;\r\n        var name = $(\"#name\" + myid).text();\r\n"
+                },
+                {
+                    "date": 1635343200101,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,9 +110,9 @@\n                 }\r\n                 });\r\n             $.ajax({\r\n                 url: myurl,\r\n-                method: 'PUT',\r\n+                method: 'POST',\r\n                 data: {\r\n                     myname : name,\r\n                     myphone : phone,\r\n                     myaddress : address\r\n"
+                },
+                {
+                    "date": 1635343207202,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,9 +112,9 @@\n             $.ajax({\r\n                 url: myurl,\r\n                 method: 'POST',\r\n                 data: {\r\n-                    myname : name,\r\n+                    myprodut : name,\r\n                     myphone : phone,\r\n                     myaddress : address\r\n                     \r\n                 },\r\n"
+                },
+                {
+                    "date": 1635343213200,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,11 +112,10 @@\n             $.ajax({\r\n                 url: myurl,\r\n                 method: 'POST',\r\n                 data: {\r\n-                    myprodut : name,\r\n-                    myphone : phone,\r\n-                    myaddress : address\r\n+                    myproduct : idproduct,\r\n+                    myphone : idsupplier\r\n                     \r\n                 },\r\n                 success: function (result) {\r\n                     // alert(result);\r\n"
+                },
+                {
+                    "date": 1635343218418,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -113,9 +113,9 @@\n                 url: myurl,\r\n                 method: 'POST',\r\n                 data: {\r\n                     myproduct : idproduct,\r\n-                    myphone : idsupplier\r\n+                    mysupplier : idsupplier\r\n                     \r\n                 },\r\n                 success: function (result) {\r\n                     // alert(result);\r\n"
+                },
+                {
+                    "date": 1635343224793,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n                     'X-CSRF-TOKEN': $('meta[name=\"csrf-token\"]').attr('content')\r\n                 }\r\n                 });\r\n             $.ajax({\r\n-                url: myurl,\r\n+                url: \"{{myurl}}\",\r\n                 method: 'POST',\r\n                 data: {\r\n                     myproduct : idproduct,\r\n                     mysupplier : idsupplier\r\n"
+                },
+                {
+                    "date": 1635343230591,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n                     'X-CSRF-TOKEN': $('meta[name=\"csrf-token\"]').attr('content')\r\n                 }\r\n                 });\r\n             $.ajax({\r\n-                url: \"{{myurl}}\",\r\n+                url: \"{{route('')}}\",\r\n                 method: 'POST',\r\n                 data: {\r\n                     myproduct : idproduct,\r\n                     mysupplier : idsupplier\r\n"
+                },
+                {
+                    "date": 1635343239328,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n                     'X-CSRF-TOKEN': $('meta[name=\"csrf-token\"]').attr('content')\r\n                 }\r\n                 });\r\n             $.ajax({\r\n-                url: \"{{route('')}}\",\r\n+                url: \"{{route('deleteitemonsupplier')}}\",\r\n                 method: 'POST',\r\n                 data: {\r\n                     myproduct : idproduct,\r\n                     mysupplier : idsupplier\r\n"
                 }
             ],
             "date": 1630204505410,

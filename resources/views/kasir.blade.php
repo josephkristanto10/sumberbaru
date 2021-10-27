@@ -85,7 +85,7 @@
                     <div class="card-body">
                         <button type="button" onclick = "reset()" class="btn waves-effect waves-light btn-outline-danger float-right"><i class="fas fa-shopping-cart pr-2"></i>Reset Keranjang</button>
                         <h4 class="card-title">Keranjang Nota</h4>
-                        <h6 class="card-subtitle">No 17082021001 </h6>
+                        <h6 class="card-subtitle">No <label id = "notransaksi"></label> </h6>
 
                         <hr>
                         <div class="table mt-40" style="clear: both;">
@@ -287,6 +287,7 @@
    
   
     function createinvoice(){
+        var notransaksi = $("#notransaksi").text();
         var paymentmethod = $("#inlineFormCustomSelect").val();
         var mygrandtotal = $("#allitemtotal").text();
         if(paymentmethod == "0")
@@ -338,6 +339,7 @@
                     url: "{{route('createinvoice')}}",
                     method: 'POST',
                     data: {
+                        mynotransaksi: notransaksi,
                         mycustomername : customername,
                         myinvoicenote : invoicenote,
                         mychecked : checkedshipment,
@@ -807,6 +809,7 @@
                 method: 'GET',
                 success: function (result) {
                         // console.log(result);
+                        $("#notransaksi").text(result.invoice);
                         $("#allitemtotal").text(result.myproductgrantotal);
                                 $("#qtyitemtotal").text(result.myproductqty);
                 }

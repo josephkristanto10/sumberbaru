@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 171,
+            "activePatchIndex": 180,
             "patches": [
                 {
                     "date": 1630204235417,
@@ -692,6 +692,42 @@
                 {
                     "date": 1635178448403,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n                    {\r\n                     $mydelivery = '<a href = \"#detail\" id = \"'.$query->id.'\" onclick = \"openmodaldetailinvoice(this)\" data-toggle = \"modal\"><button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\"><i class=\"fas fa-server pr-2\"></i>Kelola</button></a>';\r\n                    }\r\n                 // $myurls = url(\"/pricelist/indexpricelist\").\"/\".$query->id;\r\n-                return '  ';\r\n+                return $mydelivery;\r\n })\r\n               \r\n                ->rawColumns(['action', 'testdate', 'transactionno', 'customer', 'quantity', 'total','method'])\r\n                ->make(true);\r\n"
+                },
+                {
+                    "date": 1635341779035,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,8 +36,9 @@\n         $formatend = $splitterenddate[2].\"-\".$splitterenddate[0].\"-\".$splitterenddate[1];\r\n         $myinv = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();\r\n         return DataTables::of($myinv)\r\n         ->editColumn('testdate', function($query) {\r\n+            \r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n         ->editColumn('transactionno', function($query) {\r\n             return '<label id = \"transactionno_'.$query->id.'\"> '.$query->transaction_no.'</label>';\r\n"
+                },
+                {
+                    "date": 1635341800282,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,9 +36,9 @@\n         $formatend = $splitterenddate[2].\"-\".$splitterenddate[0].\"-\".$splitterenddate[1];\r\n         $myinv = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();\r\n         return DataTables::of($myinv)\r\n         ->editColumn('testdate', function($query) {\r\n-            \r\n+            $mytransactiondate = $query->transaction_date;\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n         ->editColumn('transactionno', function($query) {\r\n             return '<label id = \"transactionno_'.$query->id.'\"> '.$query->transaction_no.'</label>';\r\n"
+                },
+                {
+                    "date": 1635341841657,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,8 +37,10 @@\n         $myinv = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();\r\n         return DataTables::of($myinv)\r\n         ->editColumn('testdate', function($query) {\r\n             $mytransactiondate = $query->transaction_date;\r\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\r\n+            $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n         ->editColumn('transactionno', function($query) {\r\n             return '<label id = \"transactionno_'.$query->id.'\"> '.$query->transaction_no.'</label>';\r\n"
+                },
+                {
+                    "date": 1635341852194,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,10 +36,10 @@\n         $formatend = $splitterenddate[2].\"-\".$splitterenddate[0].\"-\".$splitterenddate[1];\r\n         $myinv = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();\r\n         return DataTables::of($myinv)\r\n         ->editColumn('testdate', function($query) {\r\n-            $mytransactiondate = $query->transaction_date;\r\n-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\r\n+            $mytransactiondate = $query->created_at;\r\n+            $date = DateTime::createFromFormat('Y-m-d', $query->tanggalterbaru);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n         ->editColumn('transactionno', function($query) {\r\n"
+                },
+                {
+                    "date": 1635341860171,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n         $myinv = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();\r\n         return DataTables::of($myinv)\r\n         ->editColumn('testdate', function($query) {\r\n             $mytransactiondate = $query->created_at;\r\n-            $date = DateTime::createFromFormat('Y-m-d', $query->tanggalterbaru);\r\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n         ->editColumn('transactionno', function($query) {\r\n"
+                },
+                {
+                    "date": 1635341868153,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n         $myinv = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();\r\n         return DataTables::of($myinv)\r\n         ->editColumn('testdate', function($query) {\r\n             $mytransactiondate = $query->created_at;\r\n-            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->tanggalterbaru);\r\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', mytransactiondate);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n         ->editColumn('transactionno', function($query) {\r\n"
+                },
+                {
+                    "date": 1635341874916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,9 @@\n         $myinv = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();\r\n         return DataTables::of($myinv)\r\n         ->editColumn('testdate', function($query) {\r\n             $mytransactiondate = $query->created_at;\r\n-            $date = DateTime::createFromFormat('Y-m-d H:i:s', mytransactiondate);\r\n+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $mytransactiondate);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n             return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n         })\r\n         ->editColumn('transactionno', function($query) {\r\n"
+                },
+                {
+                    "date": 1635341880940,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,9 @@\n         ->editColumn('testdate', function($query) {\r\n             $mytransactiondate = $query->created_at;\r\n             $date = DateTime::createFromFormat('Y-m-d H:i:s', $mytransactiondate);\r\n             $mydate = $date->format('d-m-Y  H:i');\r\n-            return '<label id = \"createdat_'.$query->id.'\"> '.$query->created_at.'</label>';\r\n+            return '<label id = \"createdat_'.$query->id.'\"> '.$mydate.'</label>';\r\n         })\r\n         ->editColumn('transactionno', function($query) {\r\n             return '<label id = \"transactionno_'.$query->id.'\"> '.$query->transaction_no.'</label>';\r\n         })\r\n"
+                },
+                {
+                    "date": 1635341905077,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n use App\\Models\\Invoice;\r\n use App\\Models\\InvoiceDetail;\r\n use Illuminate\\Http\\Request;\r\n use DataTables;\r\n+use DateTime;\r\n use DB;\r\n \r\n class NotaController extends Controller\r\n {\r\n"
                 }
             ],
             "date": 1630204235417,

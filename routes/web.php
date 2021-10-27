@@ -23,6 +23,7 @@ Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesu
 Route::get('/getdatatablepersupplier/{id}', 'PriceListController@getdatatablepersupplier')->name("getdatatablepersupplier");
 Route::get('/getdatatableproductpersupplier/{id}', 'SupplierController@getdatatableproductpersupplier')->name("getdatatableproductpersupplier");
 Route::get('/supplier/productsupplier/{id}', 'SupplierController@indexproductsupplier');
+Route::post("/supplier/deleteitemonsupplier",'SupplierController@deleteitemonsupplier')->name("deleteitemonsupplier");
 Route::get('/pricelist/indexpricelist/{id}', 'PriceListController@indexpricelist');
 Route::get('/pricelist/gethistoryproduct', 'PriceListController@gethistoryproduct')->name("gethistoryproduct");
 Route::get('/pricelist/editprice/{id}','PriceListController@editpricelist');

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 155,
+            "activePatchIndex": 157,
             "patches": [
                 {
                     "date": 1630202749383,
@@ -628,6 +628,14 @@
                 {
                     "date": 1635175410649,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,9 +46,9 @@\n Route::get('/transactionreturn/gettablereturprocess', 'ReturController@getdatainprogress')->name(\"gettablereturprocess\");\r\n Route::get('/invoice/getmydata', 'NotaController@getmydata')->name(\"gettableinvoice\");\r\n Route::get('/invoice/getdatedata', 'NotaController@getdateinvoice')->name(\"getdateinvoice\");\r\n Route::get('invoice/detail/{id}', 'NotaController@getmydetaildata')->name(\"getinvoicedetail\");\r\n-Route::post(\"/kasir/removeitem\")\r\n+Route::post(\"/kasir/removeitem\", \"KasirController@removeitem\")->name(\"removeitem\");\r\n // Route::get('/admin', \"AdminController@index\");\r\n Route::resource('/dashboard', 'IndexController');\r\n Route::resource('/product', 'ProductController');\r\n Route::resource('/supplier', 'SupplierController');\r\n"
+                },
+                {
+                    "date": 1635343266612,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,8 +22,9 @@\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n Route::get('/getdatatablepersupplier/{id}', 'PriceListController@getdatatablepersupplier')->name(\"getdatatablepersupplier\");\r\n Route::get('/getdatatableproductpersupplier/{id}', 'SupplierController@getdatatableproductpersupplier')->name(\"getdatatableproductpersupplier\");\r\n Route::get('/supplier/productsupplier/{id}', 'SupplierController@indexproductsupplier');\r\n+Route::post(\"/supplier/deleteitemonsupplier\",'SupplierController')\r\n Route::get('/pricelist/indexpricelist/{id}', 'PriceListController@indexpricelist');\r\n Route::get('/pricelist/gethistoryproduct', 'PriceListController@gethistoryproduct')->name(\"gethistoryproduct\");\r\n Route::get('/pricelist/editprice/{id}','PriceListController@editpricelist');\r\n Route::get('/stok/getdatatableproductlog', 'StokController@getdatatableproductlog')->name(\"getdatatableproductlog\");\r\n"
+                },
+                {
+                    "date": 1635343278916,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n Route::get('/getdatatablepricelistsupplier', 'PriceListController@getdatatablesupplier')->name(\"getdatatablesupplierpricelist\");\r\n Route::get('/getdatatablepersupplier/{id}', 'PriceListController@getdatatablepersupplier')->name(\"getdatatablepersupplier\");\r\n Route::get('/getdatatableproductpersupplier/{id}', 'SupplierController@getdatatableproductpersupplier')->name(\"getdatatableproductpersupplier\");\r\n Route::get('/supplier/productsupplier/{id}', 'SupplierController@indexproductsupplier');\r\n-Route::post(\"/supplier/deleteitemonsupplier\",'SupplierController')\r\n+Route::post(\"/supplier/deleteitemonsupplier\",'SupplierController@deleteitemonsupplier')->name(\"deleteitemonsupplier\");\r\n Route::get('/pricelist/indexpricelist/{id}', 'PriceListController@indexpricelist');\r\n Route::get('/pricelist/gethistoryproduct', 'PriceListController@gethistoryproduct')->name(\"gethistoryproduct\");\r\n Route::get('/pricelist/editprice/{id}','PriceListController@editpricelist');\r\n Route::get('/stok/getdatatableproductlog', 'StokController@getdatatableproductlog')->name(\"getdatatableproductlog\");\r\n"
                 }
             ],
             "date": 1630202749383,

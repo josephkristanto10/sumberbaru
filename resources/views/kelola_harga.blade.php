@@ -95,7 +95,7 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-text">Rp.</span>
-                                    <input type="number" class="form-control" value="0" id = "priceproduct">
+                                    <input type="text" class="form-control" value="0" id = "priceproduct">
                                 </div>
                             </td>
                         </tr>
@@ -230,8 +230,10 @@
        $("#namabarang").text(myname);
        $("#idchange").val(myid);
        var myprice =  $("#price"+myid).text();
+       var myStr = myprice;
+        var newStr = myStr.replace(/,/g, '');
     //    alert(myprice);
-       $("#priceproduct").val(parseInt(myprice));
+       $("#priceproduct").val(parseInt(newStr));
    }
    function changedata(){
             var myid = $("#idchange").val();

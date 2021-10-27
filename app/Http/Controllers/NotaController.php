@@ -6,6 +6,7 @@ use App\Models\Invoice;
 use App\Models\InvoiceDetail;
 use Illuminate\Http\Request;
 use DataTables;
+use DateTime;
 use DB;
 
 class NotaController extends Controller
@@ -37,7 +38,10 @@ class NotaController extends Controller
         $myinv = Invoice::where('transaction_date','>=',$formatstart)->where('transaction_date','<=',$formatend)->get();
         return DataTables::of($myinv)
         ->editColumn('testdate', function($query) {
-            return '<label id = "createdat_'.$query->id.'"> '.$query->created_at.'</label>';
+            $mytransactiondate = $query->created_at;
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $mytransactiondate);
+            $mydate = $date->format('d-m-Y  H:i');
+            return '<label id = "createdat_'.$query->id.'"> '.$mydate.'</label>';
         })
         ->editColumn('transactionno', function($query) {
             return '<label id = "transactionno_'.$query->id.'"> '.$query->transaction_no.'</label>';

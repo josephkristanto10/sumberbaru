@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use DataTables;
+use DateTime;
 
 class ReturController extends Controller
 {
@@ -91,7 +92,9 @@ class ReturController extends Controller
 
         return DataTables::of($dataretur)
         ->editColumn('returndate', function($query) {
-            return '<label id = "returndate_'.$query->id.'">'.$query->returndate.'</label>';
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->created_at);
+            $mydate = $date->format('d-m-Y  H:i');
+            return '<label id = "returndate_'.$query->id.'">'.$mydate.'</label>';
         })
         ->editColumn('supplier.name', function($query) {
             return '<label id = "suppliername_'.$query->id.'">'.$query->suppliername.'</label>'."<input type = 'hidden' id = 'idsupplier_".$query->id."' value = '".$query->idsupplier."'>";
@@ -148,7 +151,9 @@ class ReturController extends Controller
 
         return DataTables::of($dataretur)
         ->editColumn('returndate', function($query) {
-            return '<label id = "returndate_'.$query->id.'">'.$query->returndate.'</label>';
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->created_at);
+            $mydate = $date->format('d-m-Y  H:i');
+            return '<label id = "returndate_'.$query->id.'">'.$mydate.'</label>';
         })
         ->editColumn('supplier.name', function($query) {
             return '<label id = "suppliername_'.$query->id.'">'.$query->suppliername.'</label>';
@@ -163,7 +168,9 @@ class ReturController extends Controller
             return '<label id = "info_'.$query->id.'">'.$query->infoketerangan.'</label>';
         })
         ->editColumn('confirmationdate', function($query) {
-            return '<label id = "confirmationdate_'.$query->id.'">'.$query->confirmationdate.'</label>';
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $query->updated_at);
+            $mydate = $date->format('d-m-Y  H:i');
+            return '<label id = "confirmationdate_'.$query->id.'">'.$mydate.'</label>';
         })
         ->editColumn('retur', function($query) {
             return '<label id = "confirmationdate_'.$query->id.'">Retur('.$query->returnitemqty.')<br>Refund('.$query->returnitemmoney.')'.'</label>';

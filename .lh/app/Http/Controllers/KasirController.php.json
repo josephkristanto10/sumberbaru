@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 298,
+            "activePatchIndex": 344,
             "patches": [
                 {
                     "date": 1630203664033,
@@ -1200,6 +1200,190 @@
                 {
                     "date": 1635175460493,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -167,9 +167,9 @@\n                ->make(true);\r\n     }\r\n     public function removeitem(Request $request){\r\n         $myid = $request->myitemid;\r\n-        $cart = Cart::find();\r\n+        $cart = Cart::find($myid);\r\n     }\r\n     public function createinvoice(Request $request){\r\n         date_default_timezone_set('Asia/Jakarta');\r\n        $mydate = date(\"Y-m-d\");\r\n"
+                },
+                {
+                    "date": 1635340609727,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,9 +124,9 @@\n                ->make(true);\r\n     }\r\n     public function getsummary(){\r\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n-   \r\n+        $countinvoice = Invoice:all();\r\n         return response()->json([\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n      'myproductgrantotal' => $mydata[0]->grandtotal\r\n@@ -168,8 +168,9 @@\n     }\r\n     public function removeitem(Request $request){\r\n         $myid = $request->myitemid;\r\n         $cart = Cart::find($myid);\r\n+        $cart->delete();\r\n     }\r\n     public function createinvoice(Request $request){\r\n         date_default_timezone_set('Asia/Jakarta');\r\n        $mydate = date(\"Y-m-d\");\r\n"
+                },
+                {
+                    "date": 1635340618660,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,9 +124,10 @@\n                ->make(true);\r\n     }\r\n     public function getsummary(){\r\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n-        $countinvoice = Invoice:all();\r\n+        $mydate = \r\n+        $countinvoice = Invoice::all();\r\n         return response()->json([\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n      'myproductgrantotal' => $mydata[0]->grandtotal\r\n"
+                },
+                {
+                    "date": 1635340624649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,9 +124,9 @@\n                ->make(true);\r\n     }\r\n     public function getsummary(){\r\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n-        $mydate = \r\n+        $mydate = date(\"Y-m-d\")\r\n         $countinvoice = Invoice::all();\r\n         return response()->json([\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340630405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,10 +124,10 @@\n                ->make(true);\r\n     }\r\n     public function getsummary(){\r\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n-        $mydate = date(\"Y-m-d\")\r\n-        $countinvoice = Invoice::all();\r\n+        $mydate = date(\"Y-m-d\");\r\n+        $countinvoice = Invoice::whereDate();\r\n         return response()->json([\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n      'myproductgrantotal' => $mydata[0]->grandtotal\r\n"
+                },
+                {
+                    "date": 1635340671431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -125,8 +125,9 @@\n     }\r\n     public function getsummary(){\r\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n         $mydate = date(\"Y-m-d\");\r\n+        Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $countinvoice = Invoice::whereDate();\r\n         return response()->json([\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340685264,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,10 +124,11 @@\n                ->make(true);\r\n     }\r\n     public function getsummary(){\r\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n-        $mydate = date(\"Y-m-d\");\r\n-        Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n+        // $mydate = date(\"Y-m-d\");\r\n+        $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n+        $myinvoicetoday\r\n         $countinvoice = Invoice::whereDate();\r\n         return response()->json([\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340693134,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -126,9 +126,9 @@\n     public function getsummary(){\r\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n-        $myinvoicetoday\r\n+        $myinvoicetodaycount = $myinvoicetoday()\r\n         $countinvoice = Invoice::whereDate();\r\n         return response()->json([\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340702814,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -126,11 +126,12 @@\n     public function getsummary(){\r\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n-        $myinvoicetodaycount = $myinvoicetoday()\r\n+        $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n         return response()->json([\r\n+            'myproducttype'\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n      'myproductgrantotal' => $mydata[0]->grandtotal\r\n    ]);\r\n"
+                },
+                {
+                    "date": 1635340719330,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n         return response()->json([\r\n-            'myproducttype'\r\n+     'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n      'myproductgrantotal' => $mydata[0]->grandtotal\r\n    ]);\r\n"
+                },
+                {
+                    "date": 1635340746306,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,8 +128,9 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n+        \r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340772476,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,9 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n-        \r\n+        $formatinvoice = ;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340779152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,9 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n-        $formatinvoice = ;\r\n+        $formatinvoice = date('Y-m-d')+\"\";\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340790126,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,11 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n-        $formatinvoice = date('Y-m-d')+\"\";\r\n+        $counter = ;\r\n+        if()\r\n+        $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340801911,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,9 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n-        $counter = ;\r\n+        $counter = 0;\r\n         if()\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n"
+                },
+                {
+                    "date": 1635340812116,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,9 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n-        $counter = 0;\r\n+        $stringcounter = \"\";\r\n         if()\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n"
+                },
+                {
+                    "date": 1635340825670,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,9 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n-        $stringcounter = \"\";\r\n+        $stringcounter = \"00\";\r\n         if()\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n"
+                },
+                {
+                    "date": 1635340836248,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n         $stringcounter = \"00\";\r\n-        if()\r\n+        if($stringcounter == \"\")\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n"
+                },
+                {
+                    "date": 1635340845602,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n         $stringcounter = \"00\";\r\n-        if($stringcounter == \"\")\r\n+        if($countinvoice == \"\")\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n"
+                },
+                {
+                    "date": 1635340851406,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,12 @@\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n         $stringcounter = \"00\";\r\n-        if($countinvoice == \"\")\r\n+        if($countinvoice == 10)\r\n+        {\r\n+            \r\n+        }\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n"
+                },
+                {
+                    "date": 1635340861285,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -131,10 +131,14 @@\n         $countinvoice = Invoice::whereDate();\r\n         $stringcounter = \"00\";\r\n         if($countinvoice == 10)\r\n         {\r\n-            \r\n+            $stringcounter = \"00\";\r\n         }\r\n+        else\r\n+        {\r\n+\r\n+        }\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n"
+                },
+                {
+                    "date": 1635340879599,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,16 +128,16 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n-        $stringcounter = \"00\";\r\n+        $stringcounter = \"00\"$myinvoicetodaycount;\r\n         if($countinvoice == 10)\r\n         {\r\n-            $stringcounter = \"00\";\r\n+\r\n         }\r\n         else\r\n         {\r\n-\r\n+            \r\n         }\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n"
+                },
+                {
+                    "date": 1635340891009,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,9 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n-        $stringcounter = \"00\"$myinvoicetodaycount;\r\n+        $stringcounter = \"00\"+$myinvoicetodaycount;\r\n         if($countinvoice == 10)\r\n         {\r\n \r\n         }\r\n"
+                },
+                {
+                    "date": 1635340900385,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,11 +129,11 @@\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n         $stringcounter = \"00\"+$myinvoicetodaycount;\r\n-        if($countinvoice == 10)\r\n+        if($myinvoicetodaycount == 10)\r\n         {\r\n-\r\n+            $stringcounter = \"00\"+$myinvoicetodaycount;\r\n         }\r\n         else\r\n         {\r\n             \r\n"
+                },
+                {
+                    "date": 1635340907205,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -131,13 +131,13 @@\n         $countinvoice = Invoice::whereDate();\r\n         $stringcounter = \"00\"+$myinvoicetodaycount;\r\n         if($myinvoicetodaycount == 10)\r\n         {\r\n-            $stringcounter = \"00\"+$myinvoicetodaycount;\r\n+            $stringcounter = \"0\"+$myinvoicetodaycount;\r\n         }\r\n         else\r\n         {\r\n-            \r\n+            $stringcounter = $myinvoicetodaycount;\r\n         }\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n"
+                },
+                {
+                    "date": 1635340917096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n         $stringcounter = \"00\"+$myinvoicetodaycount;\r\n-        if($myinvoicetodaycount == 10)\r\n+        if($myinvoicetodaycount <= 10)\r\n         {\r\n             $stringcounter = \"0\"+$myinvoicetodaycount;\r\n         }\r\n         else\r\n"
+                },
+                {
+                    "date": 1635340922472,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $countinvoice = Invoice::whereDate();\r\n         $stringcounter = \"00\"+$myinvoicetodaycount;\r\n-        if($myinvoicetodaycount <= 10)\r\n+        if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\"+$myinvoicetodaycount;\r\n         }\r\n         else\r\n"
+                },
+                {
+                    "date": 1635340954925,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n         if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\"+$myinvoicetodaycount;\r\n         }\r\n-        else\r\n+        else if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = $myinvoicetodaycount;\r\n         }\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n"
+                },
+                {
+                    "date": 1635340960524,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n         if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\"+$myinvoicetodaycount;\r\n         }\r\n-        else if($myinvoicetodaycount >= 10)\r\n+        else if($myinvoicetodaycount >= 100)\r\n         {\r\n             $stringcounter = $myinvoicetodaycount;\r\n         }\r\n         $formatinvoice = date('Y-m-d')+\"\"+;\r\n"
+                },
+                {
+                    "date": 1635340968192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,9 +137,9 @@\n         else if($myinvoicetodaycount >= 100)\r\n         {\r\n             $stringcounter = $myinvoicetodaycount;\r\n         }\r\n-        $formatinvoice = date('Y-m-d')+\"\"+;\r\n+        $formatinvoice = date('Y-m-d')+$stringcounter;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340975280,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,9 +137,9 @@\n         else if($myinvoicetodaycount >= 100)\r\n         {\r\n             $stringcounter = $myinvoicetodaycount;\r\n         }\r\n-        $formatinvoice = date('Y-m-d')+$stringcounter;\r\n+        $formatinvoice = date('Y-m-d').$stringcounter;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340982710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,9 +137,9 @@\n         else if($myinvoicetodaycount >= 100)\r\n         {\r\n             $stringcounter = $myinvoicetodaycount;\r\n         }\r\n-        $formatinvoice = date('Y-m-d').$stringcounter;\r\n+        $formatinvoice = date('Ymd').$stringcounter;\r\n         return response()->json([\r\n      'invoicecount' => $countinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635340987915,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -139,9 +139,9 @@\n             $stringcounter = $myinvoicetodaycount;\r\n         }\r\n         $formatinvoice = date('Ymd').$stringcounter;\r\n         return response()->json([\r\n-     'invoicecount' => $countinvoice,\r\n+     'invoicecount' => $formatinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n      'myproductgrantotal' => $mydata[0]->grandtotal\r\n    ]);\r\n"
+                },
+                {
+                    "date": 1635341082207,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -139,9 +139,9 @@\n             $stringcounter = $myinvoicetodaycount;\r\n         }\r\n         $formatinvoice = date('Ymd').$stringcounter;\r\n         return response()->json([\r\n-     'invoicecount' => $formatinvoice,\r\n+     'invoice' => $formatinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n      'myproductgrantotal' => $mydata[0]->grandtotal\r\n    ]);\r\n"
+                },
+                {
+                    "date": 1635341146979,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -127,9 +127,8 @@\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n-        $countinvoice = Invoice::whereDate();\r\n         $stringcounter = \"00\"+$myinvoicetodaycount;\r\n         if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\"+$myinvoicetodaycount;\r\n"
+                },
+                {
+                    "date": 1635341199226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -136,9 +136,9 @@\n         else if($myinvoicetodaycount >= 100)\r\n         {\r\n             $stringcounter = $myinvoicetodaycount;\r\n         }\r\n-        $formatinvoice = date('Ymd').$stringcounter;\r\n+        $formatinvoice = date('dmY').$stringcounter;\r\n         return response()->json([\r\n      'invoice' => $formatinvoice,\r\n      'myproducttype' => $mydata[0]->producttype,\r\n      'myproductqty' => $mydata[0]->productqty,\r\n"
+                },
+                {
+                    "date": 1635341205584,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -127,12 +127,12 @@\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n-        $stringcounter = \"00\"+$myinvoicetodaycount;\r\n+        $stringcounter = \"00\".$myinvoicetodaycount;\r\n         if($myinvoicetodaycount >= 10)\r\n         {\r\n-            $stringcounter = \"0\"+$myinvoicetodaycount;\r\n+            $stringcounter = \"0\".$myinvoicetodaycount;\r\n         }\r\n         else if($myinvoicetodaycount >= 100)\r\n         {\r\n             $stringcounter = $myinvoicetodaycount;\r\n"
+                },
+                {
+                    "date": 1635341227008,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,8 +129,9 @@\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $stringcounter = \"00\".$myinvoicetodaycount;\r\n         if($myinvoicetodaycount >= 10)\r\n+        else if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\".$myinvoicetodaycount;\r\n         }\r\n         else if($myinvoicetodaycount >= 100)\r\n"
+                },
+                {
+                    "date": 1635341236008,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,11 @@\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $stringcounter = \"00\".$myinvoicetodaycount;\r\n-        if($myinvoicetodaycount >= 10)\r\n+        if($myinvoicetodaycount == 0){\r\n+            $stringcounter = \"00\".$myinvoicetodaycount;\r\n+        }\r\n         else if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\".$myinvoicetodaycount;\r\n         }\r\n"
+                },
+                {
+                    "date": 1635341249693,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n         $myinvoicetodaycount = $myinvoicetoday->count();\r\n         $stringcounter = \"00\".$myinvoicetodaycount;\r\n         if($myinvoicetodaycount == 0){\r\n-            $stringcounter = \"00\".$myinvoicetodaycount;\r\n+            $stringcounter = \"001\";\r\n         }\r\n         else if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\".$myinvoicetodaycount;\r\n"
+                },
+                {
+                    "date": 1635341353849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -189,8 +189,9 @@\n     }\r\n     public function createinvoice(Request $request){\r\n         date_default_timezone_set('Asia/Jakarta');\r\n        $mydate = date(\"Y-m-d\");\r\n+       $notransaksi = $request->mynotransaksi\r\n        $custname = $request->mycustomername;\r\n        $invoicenote = $request->myinvoicenote;\r\n        if($custname == \"none\")\r\n        {\r\n"
+                },
+                {
+                    "date": 1635341359560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -189,9 +189,9 @@\n     }\r\n     public function createinvoice(Request $request){\r\n         date_default_timezone_set('Asia/Jakarta');\r\n        $mydate = date(\"Y-m-d\");\r\n-       $notransaksi = $request->mynotransaksi\r\n+       $notransaksi = $request->mynotransaksi;\r\n        $custname = $request->mycustomername;\r\n        $invoicenote = $request->myinvoicenote;\r\n        if($custname == \"none\")\r\n        {\r\n@@ -209,9 +209,9 @@\n        $mygrandtotal = $request->mygrandtotals;\r\n        \r\n        //invoice\r\n        $invoice = new Invoice;\r\n-        $invoice->transaction_no = \"txx\";\r\n+        $invoice->transaction_no = notransaksi;\r\n         $invoice->transaction_date = $mydate;\r\n         $invoice->transaction_method = $paymentmethod;\r\n         $invoice->transaction_shipment_delivery = $checked;\r\n         $invoice->transaction_shipment_delivery_cost = $cost;\r\n"
+                },
+                {
+                    "date": 1635341365514,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -209,9 +209,9 @@\n        $mygrandtotal = $request->mygrandtotals;\r\n        \r\n        //invoice\r\n        $invoice = new Invoice;\r\n-        $invoice->transaction_no = notransaksi;\r\n+        $invoice->transaction_no = $notransaksi;\r\n         $invoice->transaction_date = $mydate;\r\n         $invoice->transaction_method = $paymentmethod;\r\n         $invoice->transaction_shipment_delivery = $checked;\r\n         $invoice->transaction_shipment_delivery_cost = $cost;\r\n"
+                },
+                {
+                    "date": 1635341443717,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -131,8 +131,12 @@\n         $stringcounter = \"00\".$myinvoicetodaycount;\r\n         if($myinvoicetodaycount == 0){\r\n             $stringcounter = \"001\";\r\n         }\r\n+        else if($myinvoicetodaycount>0)\r\n+        {\r\n+            \r\n+        }\r\n         else if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\".$myinvoicetodaycount;\r\n         }\r\n"
+                },
+                {
+                    "date": 1635341457582,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -131,11 +131,11 @@\n         $stringcounter = \"00\".$myinvoicetodaycount;\r\n         if($myinvoicetodaycount == 0){\r\n             $stringcounter = \"001\";\r\n         }\r\n-        else if($myinvoicetodaycount>0)\r\n+        else if($myinvoicetodaycount>0 && $myinvoicetodaycount)\r\n         {\r\n-            \r\n+\r\n         }\r\n         else if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\".$myinvoicetodaycount;\r\n"
+                },
+                {
+                    "date": 1635341462692,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n             $stringcounter = \"001\";\r\n         }\r\n         else if($myinvoicetodaycount>0 && $myinvoicetodaycount)\r\n         {\r\n-\r\n+            $stringcounter = \"00\";\r\n         }\r\n         else if($myinvoicetodaycount >= 10)\r\n         {\r\n             $stringcounter = \"0\".$myinvoicetodaycount;\r\n"
+                },
+                {
+                    "date": 1635341475593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -126,9 +126,9 @@\n     public function getsummary(){\r\n         $mydata = db::select(\"select count(id) as producttype, sum(qty) as  productqty, sum(subtotal) as grandtotal from cart\");\r\n         // $mydate = date(\"Y-m-d\");\r\n         $myinvoicetoday = Invoice::whereDate('created_at', '=', date('Y-m-d'))->get();\r\n-        $myinvoicetodaycount = $myinvoicetoday->count();\r\n+        $myinvoicetodaycount = $myinvoicetoday->count()+1;\r\n         $stringcounter = \"00\".$myinvoicetodaycount;\r\n         if($myinvoicetodaycount == 0){\r\n             $stringcounter = \"001\";\r\n         }\r\n"
                 }
             ],
             "date": 1630203664033,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 427,
+            "activePatchIndex": 437,
             "patches": [
                 {
                     "date": 1630204452337,
@@ -1716,6 +1716,46 @@
                 {
                     "date": 1635175509268,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -600,9 +600,9 @@\n                     // $(\"#tabelkeranjang\").html(\"\");\r\n                      Swal.fire({\r\n                             type: 'success',\r\n                             title: 'Remove Item Success Confirmation ',\r\n-                            text: 'Your item has been removed!!',\r\n+                            text: 'This item has been removed!!',\r\n                             confirmButtonColor: '#1fa00c',\r\n                             allowOutsideClick: false,\r\n                             }).then((result) => {\r\n                                 firstsummary();\r\n"
+                },
+                {
+                    "date": 1635341050195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                 <div class=\"card\">\r\n                     <div class=\"card-body\">\r\n                         <button type=\"button\" onclick = \"reset()\" class=\"btn waves-effect waves-light btn-outline-danger float-right\"><i class=\"fas fa-shopping-cart pr-2\"></i>Reset Keranjang</button>\r\n                         <h4 class=\"card-title\">Keranjang Nota</h4>\r\n-                        <h6 class=\"card-subtitle\">No 17082021001 </h6>\r\n+                        <h6 class=\"card-subtitle\">No <label id = \"notransaksi\">17082021001</label> </h6>\r\n \r\n                         <hr>\r\n                         <div class=\"table mt-40\" style=\"clear: both;\">\r\n                             <table id = \"mycart\" class=\"table table-hover\" >\r\n"
+                },
+                {
+                    "date": 1635341070900,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -806,8 +806,9 @@\n                 url: \"{{route('getsummary')}}\",\r\n                 method: 'GET',\r\n                 success: function (result) {\r\n                         // console.log(result);\r\n+                        $(\"#notransaksi\")\r\n                         $(\"#allitemtotal\").text(result.myproductgrantotal);\r\n                                 $(\"#qtyitemtotal\").text(result.myproductqty);\r\n                 }\r\n             });\r\n"
+                },
+                {
+                    "date": 1635341076751,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -806,9 +806,9 @@\n                 url: \"{{route('getsummary')}}\",\r\n                 method: 'GET',\r\n                 success: function (result) {\r\n                         // console.log(result);\r\n-                        $(\"#notransaksi\")\r\n+                        $(\"#notransaksi\").text(result.)\r\n                         $(\"#allitemtotal\").text(result.myproductgrantotal);\r\n                                 $(\"#qtyitemtotal\").text(result.myproductqty);\r\n                 }\r\n             });\r\n"
+                },
+                {
+                    "date": 1635341087009,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -806,9 +806,9 @@\n                 url: \"{{route('getsummary')}}\",\r\n                 method: 'GET',\r\n                 success: function (result) {\r\n                         // console.log(result);\r\n-                        $(\"#notransaksi\").text(result.)\r\n+                        $(\"#notransaksi\").text(result.invoice)\r\n                         $(\"#allitemtotal\").text(result.myproductgrantotal);\r\n                                 $(\"#qtyitemtotal\").text(result.myproductqty);\r\n                 }\r\n             });\r\n"
+                },
+                {
+                    "date": 1635341116910,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -805,10 +805,10 @@\n             $.ajax({\r\n                 url: \"{{route('getsummary')}}\",\r\n                 method: 'GET',\r\n                 success: function (result) {\r\n-                        // console.log(result);\r\n-                        $(\"#notransaksi\").text(result.invoice)\r\n+                        console.log(result);\r\n+                        $(\"#notransaksi\").text(result.invoice);\r\n                         $(\"#allitemtotal\").text(result.myproductgrantotal);\r\n                                 $(\"#qtyitemtotal\").text(result.myproductqty);\r\n                 }\r\n             });\r\n"
+                },
+                {
+                    "date": 1635341254099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -805,9 +805,9 @@\n             $.ajax({\r\n                 url: \"{{route('getsummary')}}\",\r\n                 method: 'GET',\r\n                 success: function (result) {\r\n-                        console.log(result);\r\n+                        // console.log(result);\r\n                         $(\"#notransaksi\").text(result.invoice);\r\n                         $(\"#allitemtotal\").text(result.myproductgrantotal);\r\n                                 $(\"#qtyitemtotal\").text(result.myproductqty);\r\n                 }\r\n"
+                },
+                {
+                    "date": 1635341278197,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                 <div class=\"card\">\r\n                     <div class=\"card-body\">\r\n                         <button type=\"button\" onclick = \"reset()\" class=\"btn waves-effect waves-light btn-outline-danger float-right\"><i class=\"fas fa-shopping-cart pr-2\"></i>Reset Keranjang</button>\r\n                         <h4 class=\"card-title\">Keranjang Nota</h4>\r\n-                        <h6 class=\"card-subtitle\">No <label id = \"notransaksi\">17082021001</label> </h6>\r\n+                        <h6 class=\"card-subtitle\">No <label id = \"notransaksi\"></label> </h6>\r\n \r\n                         <hr>\r\n                         <div class=\"table mt-40\" style=\"clear: both;\">\r\n                             <table id = \"mycart\" class=\"table table-hover\" >\r\n"
+                },
+                {
+                    "date": 1635341321256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -286,8 +286,9 @@\n     });\r\n    \r\n   \r\n     function createinvoice(){\r\n+        var notransaksi = $(\"#notransaksi\").text();\r\n         var paymentmethod = $(\"#inlineFormCustomSelect\").val();\r\n         var mygrandtotal = $(\"#allitemtotal\").text();\r\n         if(paymentmethod == \"0\")\r\n         {\r\n"
+                },
+                {
+                    "date": 1635341327665,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -338,8 +338,9 @@\n                 $.ajax({\r\n                     url: \"{{route('createinvoice')}}\",\r\n                     method: 'POST',\r\n                     data: {\r\n+                        notransaksi\r\n                         mycustomername : customername,\r\n                         myinvoicenote : invoicenote,\r\n                         mychecked : checkedshipment,\r\n                         mymethod : paymentmethod,\r\n"
+                },
+                {
+                    "date": 1635341333132,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -338,9 +338,9 @@\n                 $.ajax({\r\n                     url: \"{{route('createinvoice')}}\",\r\n                     method: 'POST',\r\n                     data: {\r\n-                        notransaksi\r\n+                        mynotransaksi: notransaksi,\r\n                         mycustomername : customername,\r\n                         myinvoicenote : invoicenote,\r\n                         mychecked : checkedshipment,\r\n                         mymethod : paymentmethod,\r\n"
                 }
             ],
             "date": 1630204452337,

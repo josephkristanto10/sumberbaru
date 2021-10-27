@@ -55,9 +55,9 @@ class SupplierController extends Controller
                ->make(true);
     }
     public function getdatatableproductpersupplier($id){
-
+    
         $supplierproduct = SupplierProduct::join('product','product.id','=',"supplier_product.idproduct")
-                                            ->where("idsupplier",'=',$id)->select("product.id as idproduct", "product.name", "product.kode")->get();
+                                            ->where("idsupplier",'=',$id)->select("product.id as idproduct", "product.name", "product.kode", 'supplier_product.idsupplier')->get();
         return DataTables::of($supplierproduct)
         ->editColumn('code', function($query) {
             return '<label id = "name'.$query->idproduct.'"> '.$query->kode.'</label>';
@@ -67,12 +67,23 @@ class SupplierController extends Controller
         })
         ->addColumn('action', 
                function ($query) {
+              
                 return '
-                <button type="button" class="btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2" alt="alert" class="img-fluid model_img" id="sa-confirm"><i class="fas fa-trash"></i></button>
+                <button type="button" class="btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2" onclick="deleteproductonsupplier(\''.$query->idproduct.'\',\''.$query->idsupplier.'\')" class="img-fluid model_img" ><i class="fas fa-trash"></i></button>
  ';})
               
                ->rawColumns(['action', 'name', 'code','status'])
                ->make(true);
+    }
+    public function deleteitemonsupplier(Request $request){
+
+            $myidproduct = $request->myproduct;
+            $myidsupplier = $request->mysupplier;
+            $delete = SupplierProduct::where("idsupplier",'=',$myidsupplier)->where("idproduct",'=',$myidproduct)->get();
+            $supplierproductdeleteid = $delete[0]->id;
+            $deletelog = SupplierProductLog::where("idsupplierproduct",'=',$supplierproductdeleteid)->delete();
+            $deleteitem = SupplierProduct::where("idsupplier",'=',$myidsupplier)->where("idproduct",'=',$myidproduct)->delete();
+
     }
     public function indexproductsupplier($id){
         

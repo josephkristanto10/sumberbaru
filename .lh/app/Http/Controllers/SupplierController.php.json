@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 178,
+            "activePatchIndex": 211,
             "patches": [
                 {
                     "date": 1630203634136,
@@ -720,6 +720,138 @@
                 {
                     "date": 1635169780467,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n         })\r\n         ->addColumn('action', \r\n                function ($query) {\r\n                 return '<button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-primary pr-2\" data-toggle=\"modal\" data-target=\"#modaledit\" id = \"'.$query->id.'\" onclick = \"filldatachange(this)\"><i class=\"fas fa-edit pr-2\"></i>Ubah</button>\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\r\n+              \r\n  ';})\r\n               \r\n                ->rawColumns(['action', 'name', 'phone', 'address', 'status', 'list'])\r\n                ->make(true);\r\n"
+                },
+                {
+                    "date": 1635342967662,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,9 +67,9 @@\n         })\r\n         ->addColumn('action', \r\n                function ($query) {\r\n                 return '\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" alt=\"alert\" class=\"img-fluid model_img\" id=\"sa-confirm\"><i class=\"fas fa-trash\"></i></button>\r\n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n  ';})\r\n               \r\n                ->rawColumns(['action', 'name', 'code','status'])\r\n                ->make(true);\r\n"
+                },
+                {
+                    "date": 1635343028620,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,9 +67,9 @@\n         })\r\n         ->addColumn('action', \r\n                function ($query) {\r\n                 return '\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$mystring.'\\',\\''.$query->id.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n  ';})\r\n               \r\n                ->rawColumns(['action', 'name', 'code','status'])\r\n                ->make(true);\r\n"
+                },
+                {
+                    "date": 1635343036072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,9 +67,9 @@\n         })\r\n         ->addColumn('action', \r\n                function ($query) {\r\n                 return '\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$mystring.'\\',\\''.$query->id.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$$query->idproduct.'\\',\\''.$query->id.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n  ';})\r\n               \r\n                ->rawColumns(['action', 'name', 'code','status'])\r\n                ->make(true);\r\n"
+                },
+                {
+                    "date": 1635343043053,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,9 +67,9 @@\n         })\r\n         ->addColumn('action', \r\n                function ($query) {\r\n                 return '\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$$query->idproduct.'\\',\\''.$query->id.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$query->idproduct.'\\',\\''.$id'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n  ';})\r\n               \r\n                ->rawColumns(['action', 'name', 'code','status'])\r\n                ->make(true);\r\n"
+                },
+                {
+                    "date": 1635343077277,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,9 +67,9 @@\n         })\r\n         ->addColumn('action', \r\n                function ($query) {\r\n                 return '\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$query->idproduct.'\\',\\''.$id'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\"  class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n  ';})\r\n               \r\n                ->rawColumns(['action', 'name', 'code','status'])\r\n                ->make(true);\r\n"
+                },
+                {
+                    "date": 1635343102963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,9 +67,9 @@\n         })\r\n         ->addColumn('action', \r\n                function ($query) {\r\n                 return '\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\"  class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$query->idproduct.'\\',\\''.$id.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n  ';})\r\n               \r\n                ->rawColumns(['action', 'name', 'code','status'])\r\n                ->make(true);\r\n"
+                },
+                {
+                    "date": 1635343298224,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -73,8 +73,11 @@\n               \r\n                ->rawColumns(['action', 'name', 'code','status'])\r\n                ->make(true);\r\n     }\r\n+    public function deleteitemonsupplier(Request $request){\r\n+\r\n+    }\r\n     public function indexproductsupplier($id){\r\n         \r\n         $mysup = Supplier::where('id','=',$id)->get();\r\n         $product = Product::all();\r\n"
+                },
+                {
+                    "date": 1635343319043,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -75,8 +75,9 @@\n                ->make(true);\r\n     }\r\n     public function deleteitemonsupplier(Request $request){\r\n \r\n+            $myidproduct = $request->\r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n         $mysup = Supplier::where('id','=',$id)->get();\r\n"
+                },
+                {
+                    "date": 1635343329847,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -75,9 +75,9 @@\n                ->make(true);\r\n     }\r\n     public function deleteitemonsupplier(Request $request){\r\n \r\n-            $myidproduct = $request->\r\n+            $myidproduct = $request->myproduct\r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n         $mysup = Supplier::where('id','=',$id)->get();\r\n"
+                },
+                {
+                    "date": 1635343337777,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -75,9 +75,10 @@\n                ->make(true);\r\n     }\r\n     public function deleteitemonsupplier(Request $request){\r\n \r\n-            $myidproduct = $request->myproduct\r\n+            $myidproduct = $request->myproduct;\r\n+            $midsupplier = $request->mysupplier\r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n         $mysup = Supplier::where('id','=',$id)->get();\r\n"
+                },
+                {
+                    "date": 1635343365753,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,9 +76,11 @@\n     }\r\n     public function deleteitemonsupplier(Request $request){\r\n \r\n             $myidproduct = $request->myproduct;\r\n-            $midsupplier = $request->mysupplier\r\n+            $midsupplier = $request->mysupplier;\r\n+            $delete = \r\n+\r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n         $mysup = Supplier::where('id','=',$id)->get();\r\n"
+                },
+                {
+                    "date": 1635343374080,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,9 +77,9 @@\n     public function deleteitemonsupplier(Request $request){\r\n \r\n             $myidproduct = $request->myproduct;\r\n             $midsupplier = $request->mysupplier;\r\n-            $delete = \r\n+            $delete = SupplierProductLog::where(\"id\")\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343392849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,9 +77,9 @@\n     public function deleteitemonsupplier(Request $request){\r\n \r\n             $myidproduct = $request->myproduct;\r\n             $midsupplier = $request->mysupplier;\r\n-            $delete = SupplierProductLog::where(\"id\")\r\n+            $delete = SupplierProduct::where(\"id\")\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343402242,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,9 +77,9 @@\n     public function deleteitemonsupplier(Request $request){\r\n \r\n             $myidproduct = $request->myproduct;\r\n             $midsupplier = $request->mysupplier;\r\n-            $delete = SupplierProduct::where(\"id\")\r\n+            $delete = SupplierProduct::where(\"id\");\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343417865,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,10 +76,10 @@\n     }\r\n     public function deleteitemonsupplier(Request $request){\r\n \r\n             $myidproduct = $request->myproduct;\r\n-            $midsupplier = $request->mysupplier;\r\n-            $delete = SupplierProduct::where(\"id\");\r\n+            $myidsupplier = $request->mysupplier;\r\n+            $delete = SupplierProduct::where(\"idsupplier\",'=',$myid);\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343429427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,9 +77,9 @@\n     public function deleteitemonsupplier(Request $request){\r\n \r\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n-            $delete = SupplierProduct::where(\"idsupplier\",'=',$myid);\r\n+            $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where((\"idsupplier\",'=',$myidsupplier));\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343435783,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,9 +77,9 @@\n     public function deleteitemonsupplier(Request $request){\r\n \r\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n-            $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where((\"idsupplier\",'=',$myidsupplier));\r\n+            $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidsupplier);\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343441081,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -77,9 +77,9 @@\n     public function deleteitemonsupplier(Request $request){\r\n \r\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n-            $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidsupplier);\r\n+            $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343469568,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,8 +78,9 @@\n \r\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n+            $supplierproductdeleteid = \r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343479678,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n \r\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n-            $supplierproductdeleteid = \r\n+            $supplierproductdeleteid = $delete\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343484871,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n \r\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n-            $supplierproductdeleteid = $delete\r\n+            $supplierproductdeleteid = $delete[0]->id;\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343504865,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,8 +79,9 @@\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n             $supplierproductdeleteid = $delete[0]->id;\r\n+            $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343512133,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n             $supplierproductdeleteid = $delete[0]->id;\r\n-            $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n+            $deletelog = SupplierProductLog::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343527912,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n             $supplierproductdeleteid = $delete[0]->id;\r\n-            $deletelog = SupplierProductLog::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n+            $deletelog = SupplierProductLog::where(\"idsupplierproduct\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343533075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n             $supplierproductdeleteid = $delete[0]->id;\r\n-            $deletelog = SupplierProductLog::where(\"idsupplierproduct\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n+            $deletelog = SupplierProductLog::where(\"idsupplierproduct\",'=',$supplierproductdeleteid)->where(\"idproduct\",'=',$myidproduct)->get();\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343539125,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -79,9 +79,9 @@\n             $myidproduct = $request->myproduct;\r\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n             $supplierproductdeleteid = $delete[0]->id;\r\n-            $deletelog = SupplierProductLog::where(\"idsupplierproduct\",'=',$supplierproductdeleteid)->where(\"idproduct\",'=',$myidproduct)->get();\r\n+            $deletelog = SupplierProductLog::where(\"idsupplierproduct\",'=',$supplierproductdeleteid)->delete();\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343551249,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,8 +80,9 @@\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n             $supplierproductdeleteid = $delete[0]->id;\r\n             $deletelog = SupplierProductLog::where(\"idsupplierproduct\",'=',$supplierproductdeleteid)->delete();\r\n+            $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343561260,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n             $supplierproductdeleteid = $delete[0]->id;\r\n             $deletelog = SupplierProductLog::where(\"idsupplierproduct\",'=',$supplierproductdeleteid)->delete();\r\n-            $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)\r\n+            $deleteitem = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct);\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343567476,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,9 +80,9 @@\n             $myidsupplier = $request->mysupplier;\r\n             $delete = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->get();\r\n             $supplierproductdeleteid = $delete[0]->id;\r\n             $deletelog = SupplierProductLog::where(\"idsupplierproduct\",'=',$supplierproductdeleteid)->delete();\r\n-            $deleteitem = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct);\r\n+            $deleteitem = SupplierProduct::where(\"idsupplier\",'=',$myidsupplier)->where(\"idproduct\",'=',$myidproduct)->delete();\r\n \r\n     }\r\n     public function indexproductsupplier($id){\r\n         \r\n"
+                },
+                {
+                    "date": 1635343611453,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n                ->rawColumns(['action', 'name', 'phone', 'address', 'status', 'list'])\r\n                ->make(true);\r\n     }\r\n     public function getdatatableproductpersupplier($id){\r\n-\r\n+        $myid = $id;\r\n         $supplierproduct = SupplierProduct::join('product','product.id','=',\"supplier_product.idproduct\")\r\n                                             ->where(\"idsupplier\",'=',$id)->select(\"product.id as idproduct\", \"product.name\", \"product.kode\")->get();\r\n         return DataTables::of($supplierproduct)\r\n         ->editColumn('code', function($query) {\r\n"
+                },
+                {
+                    "date": 1635343627547,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n                ->rawColumns(['action', 'name', 'phone', 'address', 'status', 'list'])\r\n                ->make(true);\r\n     }\r\n     public function getdatatableproductpersupplier($id){\r\n-        $myid = $id;\r\n+    \r\n         $supplierproduct = SupplierProduct::join('product','product.id','=',\"supplier_product.idproduct\")\r\n                                             ->where(\"idsupplier\",'=',$id)->select(\"product.id as idproduct\", \"product.name\", \"product.kode\")->get();\r\n         return DataTables::of($supplierproduct)\r\n         ->editColumn('code', function($query) {\r\n@@ -66,10 +66,11 @@\n             return '<label id = \"name'.$query->idproduct.'\"> '.$query->name.'</label>';\r\n         })\r\n         ->addColumn('action', \r\n                function ($query) {\r\n+                $myid = $id;\r\n                 return '\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$query->idproduct.'\\',\\''.$id.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$query->idproduct.'\\',\\''.$myid.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n  ';})\r\n               \r\n                ->rawColumns(['action', 'name', 'code','status'])\r\n                ->make(true);\r\n"
+                },
+                {
+                    "date": 1635343669653,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,9 +56,9 @@\n     }\r\n     public function getdatatableproductpersupplier($id){\r\n     \r\n         $supplierproduct = SupplierProduct::join('product','product.id','=',\"supplier_product.idproduct\")\r\n-                                            ->where(\"idsupplier\",'=',$id)->select(\"product.id as idproduct\", \"product.name\", \"product.kode\")->get();\r\n+                                            ->where(\"idsupplier\",'=',$id)->select(\"product.id as idproduct\", \"product.name\", \"product.kode\", 'supplier_product.idsupplier')->get();\r\n         return DataTables::of($supplierproduct)\r\n         ->editColumn('code', function($query) {\r\n             return '<label id = \"name'.$query->idproduct.'\"> '.$query->kode.'</label>';\r\n         })\r\n@@ -66,9 +66,9 @@\n             return '<label id = \"name'.$query->idproduct.'\"> '.$query->name.'</label>';\r\n         })\r\n         ->addColumn('action', \r\n                function ($query) {\r\n-                $myid = $id;\r\n+              \r\n                 return '\r\n                 <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$query->idproduct.'\\',\\''.$myid.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n  ';})\r\n               \r\n"
+                },
+                {
+                    "date": 1635343678367,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -68,9 +68,9 @@\n         ->addColumn('action', \r\n                function ($query) {\r\n               \r\n                 return '\r\n-                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$query->idproduct.'\\',\\''.$myid.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n+                <button type=\"button\" class=\"btn waves-effect waves-light btn-sm btn-danger pl-2 pr-2\" onclick=\"deleteproductonsupplier(\\''.$query->idproduct.'\\',\\''.$query->idsupplier.'\\')\" class=\"img-fluid model_img\" ><i class=\"fas fa-trash\"></i></button>\r\n  ';})\r\n               \r\n                ->rawColumns(['action', 'name', 'code','status'])\r\n                ->make(true);\r\n"
                 }
             ],
             "date": 1630203634136,
